@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedRock.Calendar.Host", "RedRock.Calendar\RedRock.Calendar.Host.csproj", "{862D1259-4190-47EC-BC9C-307E1E51725E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0E2E24B2-6E59-4704-93A2-C7C0B15B5404} = {0E2E24B2-6E59-4704-93A2-C7C0B15B5404}
+		{24B2FCC7-32B5-40F6-B7D1-0B1A58723C11} = {24B2FCC7-32B5-40F6-B7D1-0B1A58723C11}
+		{06451FD1-06AC-4FAD-BA5E-993A9C6E7499} = {06451FD1-06AC-4FAD-BA5E-993A9C6E7499}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedRock.Calendar.Modules.Users.Api", "RedRock.Calendar.Modules.Users.Api\RedRock.Calendar.Modules.Users.Api.csproj", "{21578A23-7128-440F-A59C-112BDE1C72EE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedRock.Calendar.Modules.Users.Buseness", "RedRock.Calendar.Modules.Users.Buseness\RedRock.Calendar.Modules.Users.Buseness.csproj", "{24B2FCC7-32B5-40F6-B7D1-0B1A58723C11}"
+	ProjectSection(ProjectDependencies) = postProject
+		{06451FD1-06AC-4FAD-BA5E-993A9C6E7499} = {06451FD1-06AC-4FAD-BA5E-993A9C6E7499}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedRock.Calendar.Modules.Users.Contract", "RedRock.Calendar.Modules.Users.Contract\RedRock.Calendar.Modules.Users.Contract.csproj", "{06451FD1-06AC-4FAD-BA5E-993A9C6E7499}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedRock.Calendar.Modules.Users.Service", "RedRock.Calendar.Modules.Users.Service\RedRock.Calendar.Modules.Users.Service.csproj", "{0E2E24B2-6E59-4704-93A2-C7C0B15B5404}"
+	ProjectSection(ProjectDependencies) = postProject
+		{06451FD1-06AC-4FAD-BA5E-993A9C6E7499} = {06451FD1-06AC-4FAD-BA5E-993A9C6E7499}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{F197C329-46CC-4055-8C38-6C9163D56E2D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{862D1259-4190-47EC-BC9C-307E1E51725E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{862D1259-4190-47EC-BC9C-307E1E51725E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{862D1259-4190-47EC-BC9C-307E1E51725E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{862D1259-4190-47EC-BC9C-307E1E51725E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21578A23-7128-440F-A59C-112BDE1C72EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21578A23-7128-440F-A59C-112BDE1C72EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21578A23-7128-440F-A59C-112BDE1C72EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21578A23-7128-440F-A59C-112BDE1C72EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24B2FCC7-32B5-40F6-B7D1-0B1A58723C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24B2FCC7-32B5-40F6-B7D1-0B1A58723C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24B2FCC7-32B5-40F6-B7D1-0B1A58723C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24B2FCC7-32B5-40F6-B7D1-0B1A58723C11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06451FD1-06AC-4FAD-BA5E-993A9C6E7499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06451FD1-06AC-4FAD-BA5E-993A9C6E7499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06451FD1-06AC-4FAD-BA5E-993A9C6E7499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06451FD1-06AC-4FAD-BA5E-993A9C6E7499}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E2E24B2-6E59-4704-93A2-C7C0B15B5404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E2E24B2-6E59-4704-93A2-C7C0B15B5404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E2E24B2-6E59-4704-93A2-C7C0B15B5404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E2E24B2-6E59-4704-93A2-C7C0B15B5404}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{21578A23-7128-440F-A59C-112BDE1C72EE} = {F197C329-46CC-4055-8C38-6C9163D56E2D}
+		{24B2FCC7-32B5-40F6-B7D1-0B1A58723C11} = {F197C329-46CC-4055-8C38-6C9163D56E2D}
+		{06451FD1-06AC-4FAD-BA5E-993A9C6E7499} = {F197C329-46CC-4055-8C38-6C9163D56E2D}
+		{0E2E24B2-6E59-4704-93A2-C7C0B15B5404} = {F197C329-46CC-4055-8C38-6C9163D56E2D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {83FBE658-8763-437D-9528-26B35498FE2E}
+	EndGlobalSection
+EndGlobal
