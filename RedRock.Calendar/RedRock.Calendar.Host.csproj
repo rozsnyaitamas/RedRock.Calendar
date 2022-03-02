@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Content Remove="Controllers\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <None Remove="Controllers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="NSwag.AspNetCore" Version="13.15.9" />
@@ -19,10 +26,6 @@
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Buseness\RedRock.Calendar.Modules.Users.Buseness.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Contract\RedRock.Calendar.Modules.Users.Contract.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Service\RedRock.Calendar.Modules.Users.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <!--<Target Name="NSwag" AfterTargets="Build">

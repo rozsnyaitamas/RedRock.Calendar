@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using RedRock.Calendar.Modules.Users.Service;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RedRock.Calendar.Modules.Users.Api
 {
@@ -12,16 +9,19 @@ namespace RedRock.Calendar.Modules.Users.Api
     public class UsersController : ControllerBase
     {
         private readonly IUserService userService;
+
         public UsersController(IUserService userService)
         {
             this.userService = userService;
         }
+
         [HttpGet]
         public IActionResult Get()
         {
             
             return Ok(userService.GetUsers());
         }
+
         [HttpGet("{id}")]
         public IActionResult GetById(string id)
         {

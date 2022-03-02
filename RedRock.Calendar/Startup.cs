@@ -34,6 +34,16 @@ namespace RedRock.Calendar
             var assembly = typeof(UsersController).Assembly;
             services.AddControllers().PartManager.ApplicationParts.Add(new AssemblyPart(assembly));
 
+            services.AddCors(options => {
+                options.AddPolicy(name: "*",
+                    builder => {
+                        builder.WithOrigins("*")
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials();
+                    });
+            });
+
             services.AddBusinesServiceModule(); //rename
             services.AddServiceModule();
 
