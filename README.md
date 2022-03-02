@@ -2,7 +2,7 @@
 
 ## Client Generation
 
-In the root folder run the following comands: 
+In the root folder open a CMD and run the following comands: 
 1. npm run build
 2. npm run generate-client:server-app
 
