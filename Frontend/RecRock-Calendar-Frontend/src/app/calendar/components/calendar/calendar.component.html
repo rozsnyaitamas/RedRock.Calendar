@@ -1,1 +1,20 @@
-<p>calendar works!</p>
+<mat-card>
+  <mat-card-title>{{ viewDate | date:'MMMM-yyyy' }}</mat-card-title>
+  <mat-card-content class="container">
+    <!-- =========================================================================== -->
+    <div [ngSwitch]="view" class="calendar">
+      <mwl-calendar-month-view
+        *ngSwitchCase="CalendarView.Month"
+        [viewDate]="viewDate"
+        [events]="events"
+        [refresh]="refresh"
+        [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)"
+        (eventClicked)="handleEvent('Clicked', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)"
+      >
+      </mwl-calendar-month-view>
+    </div>
+    <!-- =========================================================================== -->
+  </mat-card-content>
+</mat-card>
