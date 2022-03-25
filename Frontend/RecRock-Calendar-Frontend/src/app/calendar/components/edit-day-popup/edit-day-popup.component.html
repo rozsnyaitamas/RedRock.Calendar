@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Reserve date</h2>
+<mat-dialog-content>
+  <p>{{ data.date | date:'dd-MMMM-yyyy'}}</p>
+  <button mat-button (click)="data.func(data.date)">Click to Reserve</button>
+  <!-- <div class="24hr-example">
+    <input placeholder="24hr format" aria-label="24hr format"
+    [ngxTimepicker]="fullTime" [format]="24"  readonly>
+    <ngx-material-timepicker #fullTime></ngx-material-timepicker>
+</div> -->
+<!-- <input [ngxTimepicker]="picker">
+<ngx-material-timepicker #picker></ngx-material-timepicker> -->
+</mat-dialog-content>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>
