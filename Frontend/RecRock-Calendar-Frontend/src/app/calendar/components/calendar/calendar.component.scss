@@ -1,0 +1,22 @@
+@import "../../../theming/theming";
+
+.container{
+  padding-top: $displayUnit;
+}
+
+h3 {
+  margin: 0 0 $displayUnit * 2;
+}
+
+pre {
+  background-color: $white;
+  padding: $displayUnit * 3;
+}
+
+.calendar {
+  color: $red;
+}
+
+.title {
+  text-align: center;
+}
