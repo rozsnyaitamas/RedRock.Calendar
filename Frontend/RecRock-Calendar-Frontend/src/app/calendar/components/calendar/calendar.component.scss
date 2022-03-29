@@ -1,18 +1,20 @@
+@import "../../../theming/theming";
+
 .container{
-  padding-top: 5px;
+  padding-top: $displayUnit;
 }
 
 h3 {
-  margin: 0 0 10px;
+  margin: 0 0 $displayUnit * 2;
 }
 
 pre {
-  background-color: #f5f5f5;
-  padding: 15px;
+  background-color: $white;
+  padding: $displayUnit * 3;
 }
 
 .calendar {
-  color: red;
+  color: $red;
 }
 
 .title {

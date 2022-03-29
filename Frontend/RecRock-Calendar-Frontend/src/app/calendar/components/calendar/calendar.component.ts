@@ -1,69 +1,66 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { endOfDay, isSameMonth, startOfDay} from 'date-fns';
+import { endOfDay, isSameMonth, startOfDay } from 'date-fns';
+
+import { Component } from '@angular/core';
+import { DateFormat } from '@shared/constants';
+import { EditDayPopupComponent } from '@redrock/calendar/components/edit-day-popup/edit-day-popup.component';
 import { MatDialog } from '@angular/material/dialog';
-import { EditDayPopupComponent } from '../edit-day-popup/edit-day-popup.component';
-import { User } from 'src/app/models/user';
-import { Colors } from 'src/app/shared/colors';
+import { RedColor } from '@shared/colors';
+import { User } from '@redrock/models/user';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
-  @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any>;
+export class CalendarComponent {
+  public readonly DateFormat = DateFormat;
+  public readonly WeekStartsOnMondayConfiguration = 1;
+  public readonly  CalendarView = CalendarView;
 
+  public viewDate: Date = new Date();
+  public events: CalendarEvent[] = [];
 
-  CalendarView = CalendarView;
+  private readonly User: User = {
+    id: 0,
+    name: "Tamas",
+    color: RedColor
+  };
 
-  user: User = new User();
-
-  viewDate: Date = new Date();
-
-  events: CalendarEvent[] = [
-  ];
-
-  constructor(private modal: NgbModal, public dialog: MatDialog) {}
-  ngOnInit(): void {
-    this.user.id = 0;
-    this.user.name = "Tamas";
-    this.user.color = Colors.blue;
-  }
-  openDialog(_date: Date) {
-    const dialogRef = this.dialog.open(EditDayPopupComponent, {
-      data: {name: this.user.name, func: this.addEvent, date: _date}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result.name}`);
-    });
-  }
-
-
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+  constructor(public dialog: MatDialog) {}
+  
+  public dayClicked({ date }: { date: Date }): void {
     if (isSameMonth(date, this.viewDate)) {
-        this.openDialog(date);
+      this.openDialog(date);
       this.viewDate = date;
     }
   }
 
-
-  addEvent = (date: Date) => {
+  public addEvent(date: Date): void {
     this.events = [
       ...this.events,
       {
-        title: this.user.name,
+        title: this.User.name,
         start: startOfDay(date),
         end: endOfDay(date),
-        color: this.user.color,
+        color: this.User.color,
       },
     ];
   }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
+  public deleteEvent(eventToDelete: CalendarEvent): void {
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
 
+  private openDialog(date: Date): void {
+    const dialogRef = this.dialog.open(EditDayPopupComponent, {
+      data: { name: this.User.name, date: date }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.addEvent(result.date);
+      }
+    });
+  }
 }
