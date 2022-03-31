@@ -1,0 +1,18 @@
+@import "../../../theming/theming";
+
+.hour-picker{
+  display: inline-grid;
+}
+
+.warning-icon{
+  font-size:$displayUnit *2.8;
+  color:$yellow;
+}
+
+.warning{
+  display: inline;
+}
+
+.no-warning{
+  display: none;
+}
