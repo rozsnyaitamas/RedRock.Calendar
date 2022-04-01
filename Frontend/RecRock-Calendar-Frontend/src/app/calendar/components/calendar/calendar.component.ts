@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RedColor } from '@shared/colors';
 import { User } from '@redrock/models/user';
 import { Event } from '@redrock/models/event';
+import { PopupDTO } from '../edit-day-popup/popup-dto';
 
 @Component({
   selector: 'app-calendar',
@@ -49,50 +50,28 @@ export class CalendarComponent {
   }
 
   private openDialog(date: Date): void {
-    let userEvent: Event | undefined = this.events.find((event) =>
+    const userEvent: Event | undefined = this.events.find((event) =>
       event.isEventEqual(this.User.name, date)
     );
 
-    //---------------------------------------------------------------------------------------
-    //TODO: Refactor this part
-    let startTime: Date;
-    let endTime: Date;
-    let eventExists: boolean;
-    if (userEvent !== undefined) {
-      this.events = this.events.filter((event) => event !== userEvent);
-      startTime = userEvent.start;
-      endTime = userEvent.end;
-      eventExists = true;
-    } else {
-      startTime = new Date();
-      endTime = new Date();
-      eventExists = false;
-    }
-    //---------------------------------------------------------------------------------------
-
-    let popupObject = new PopupDataObject(this.User.name, this.formatTime(startTime), this.formatTime(endTime), date, eventExists, false)
-
     const dialogRef = this.dialog.open(EditDayPopupComponent, {
-      data: popupObject
+      data: this.initialisePopupDTO(userEvent, date),
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      //---------------------------------------------------------------------------------------
-      //TODO: Refactor this part
-      if (result) {
-        if (result.deleteEvent && userEvent !== undefined) {
+      if (userEvent !== undefined) {
+        if (result.deleteEvent) {
           this.deleteEvent(userEvent);
-        } else {
-          let startDate: Date = this.addTimeToDate(result.startTime, date);
-          let endDate: Date = this.addTimeToDate(result.endTime, date);
-          this.addEvent(startDate, endDate);
         }
-      } else {
-        if (userEvent !== undefined) {
+        if (result.noModification) {
           this.events = [...this.events, userEvent];
         }
       }
-      //---------------------------------------------------------------------------------------
+      if (result.saveEvent) {
+        let startDate: Date = this.addTimeToDate(result.startTime, date);
+        let endDate: Date = this.addTimeToDate(result.endTime, date);
+        this.addEvent(startDate, endDate);
+      }
     });
   }
 
@@ -105,18 +84,33 @@ export class CalendarComponent {
     return newDate;
   }
 
-  private formatTime(time: Date): string {
-    return time.getHours() + ':' + time.getMinutes();
+  private initialisePopupDTO(
+    userEvent: Event | undefined,
+    date: Date
+  ): PopupDTO {
+    if (userEvent !== undefined) {
+      this.events = this.events.filter((event) => event !== userEvent);
+      return new PopupDTO(
+        this.User.name,
+        PopupDTO.formatTime(userEvent.start),
+        PopupDTO.formatTime(userEvent.end),
+        date,
+        true,
+        false,
+        false,
+        false
+      );
+    } else {
+      return new PopupDTO(
+        this.User.name,
+        PopupDTO.formatTime(new Date()),
+        PopupDTO.formatTime(new Date()),
+        date,
+        false,
+        false,
+        false,
+        false
+      );
+    }
   }
-}
-
-export class PopupDataObject {
-  constructor(
-    public name: string,
-    public startTime: string,
-    public endTime: string,
-    public date: Date,
-    public eventExists: boolean,
-    public deleteEvent: boolean
-  ) {}
 }

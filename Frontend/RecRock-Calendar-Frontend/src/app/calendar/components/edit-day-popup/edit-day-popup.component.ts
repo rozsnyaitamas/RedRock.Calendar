@@ -1,4 +1,3 @@
-import { Time } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
@@ -6,7 +5,7 @@ import {
   TimePickerDarkTheme,
   TimeFormat,
 } from '@shared/constants';
-import { PopupDataObject } from '../calendar/calendar.component';
+import { PopupDTO } from './popup-dto';
 
 @Component({
   selector: 'app-edit-day-popup',
@@ -25,15 +24,18 @@ export class EditDayPopupComponent {
 
   public warningIconClass = this.NoWarningClass;
 
-
   constructor(
     public dialogRef: MatDialogRef<EditDayPopupComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: PopupDataObject
+    public data: PopupDTO
   ) {}
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onCancelClick(): void {
+    this.data.noModification = true;
+  }
+
+  onReserveClick(): void {
+    this.data.saveEvent = true;
   }
 
   setDeleteFlag(): void {

@@ -37,8 +37,8 @@
   </div>
 </mat-dialog-content>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+  <button mat-button [mat-dialog-close]="data" (click)="onCancelClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" (click)="onReserveClick()" cdkFocusInitial>
     Reserve
     <mat-icon
       class="warning-icon"
