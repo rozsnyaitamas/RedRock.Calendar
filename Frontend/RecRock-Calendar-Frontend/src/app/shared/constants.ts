@@ -1,18 +1,21 @@
 import { NgxMaterialTimepickerTheme } from "ngx-material-timepicker";
-export const DateFormat_month_year = 'MMMM-yyyy';
-export const DateFormat_day_month_year = 'dd MMMM yyyy';
+import { Colors } from '../theming/colors';
 
-export const Time_picker_dark_theme: NgxMaterialTimepickerTheme = {
+export const DateFormatMonthYear = 'MMMM-yyyy';
+export const DateFormatDayMonthYear = 'dd MMMM yyyy';
+export const TimeFormat = 24;
+
+export const TimePickerDarkTheme: NgxMaterialTimepickerTheme = {
   container: {
-      bodyBackgroundColor: '#424242',
-      buttonColor: '#f5f5f5'
+      bodyBackgroundColor: Colors.gray_dark_2,
+      buttonColor: Colors.white
   },
   dial: {
-      dialBackgroundColor: '#ff0000',
+      dialBackgroundColor: Colors.red,
   },
   clockFace: {
-      clockFaceBackgroundColor: '#555',
-      clockHandColor: '#ff0000',
-      clockFaceTimeInactiveColor: '#f5f5f5'
+      clockFaceBackgroundColor: Colors.gray_dark_1,
+      clockHandColor: Colors.red,
+      clockFaceTimeInactiveColor: Colors.white
   }
 };

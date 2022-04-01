@@ -12,17 +12,17 @@ export class Event implements CalendarEvent{
   public draggable?: boolean | undefined;
   public meta?: any;
 
-  constructor(public title: string, _start: Date, _end: Date, public color?: EventColor){
-    if (_start < _end) {
-      this.start = _start;
-      this.end = _end;
+  constructor(public title: string, start: Date, end: Date, public color?: EventColor){
+    if (start < end) {
+      this.start = start;
+      this.end = end;
     } else {
-      this.start = _end;
-      this.end = _start;
+      this.start = end;
+      this.end = start;
     }
   }
 
-  public isThisEvent(title: string, date: Date): boolean {
+  public isEventEqual(title: string, date: Date): boolean {
     date.setHours(0,0,0,0);
     let eventDate = new Date(this.start);
     eventDate.setHours(0,0,0,0);

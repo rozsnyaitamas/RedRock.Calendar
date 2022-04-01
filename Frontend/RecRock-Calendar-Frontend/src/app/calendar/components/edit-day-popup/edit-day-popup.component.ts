@@ -1,7 +1,12 @@
 import { Time } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DateFormat_day_month_year, Time_picker_dark_theme } from '@shared/constants';
+import {
+  DateFormatDayMonthYear,
+  TimePickerDarkTheme,
+  TimeFormat,
+} from '@shared/constants';
+import { PopupDataObject } from '../calendar/calendar.component';
 
 @Component({
   selector: 'app-edit-day-popup',
@@ -9,26 +14,22 @@ import { DateFormat_day_month_year, Time_picker_dark_theme } from '@shared/const
   styleUrls: ['./edit-day-popup.component.scss'],
 })
 export class EditDayPopupComponent {
-  public readonly DateFormat = DateFormat_day_month_year;
-  public readonly timeWarning: string = "'Start' time should come before the 'End' time...";
-  public readonly darkTheme = Time_picker_dark_theme;
+  public readonly DateFormat = DateFormatDayMonthYear;
+  public readonly TimeWarning: string =
+    "'Start' time should come before the 'End' time...";
+  public readonly DarkTheme = TimePickerDarkTheme;
+  public readonly TimeFormat = TimeFormat;
 
-  private readonly warningClass = "warning";
-  private readonly noWarningClass = "no-warning";
+  private readonly WarningClass = 'warning';
+  private readonly NoWarningClass = 'no-warning';
 
-  public warningIconClass = this.noWarningClass;
+  public warningIconClass = this.NoWarningClass;
+
 
   constructor(
     public dialogRef: MatDialogRef<EditDayPopupComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: {
-      name: string;
-      startTime: Time;
-      endTime: Time;
-      date: Date;
-      eventExists: boolean;
-      deleteEvent: boolean;
-    }
+    public data: PopupDataObject
   ) {}
 
   onNoClick(): void {
@@ -40,11 +41,13 @@ export class EditDayPopupComponent {
   }
 
   isTimeSwitched(): boolean {
-    return this.data.startTime>this.data.endTime;
+    return this.data.startTime > this.data.endTime;
   }
 
-  changed():void{
-    this.warningIconClass = this.data.startTime>this.data.endTime ? this.warningClass : this.noWarningClass;
+  timeChanged(): void {
+    this.warningIconClass =
+      this.data.startTime > this.data.endTime
+        ? this.WarningClass
+        : this.NoWarningClass;
   }
-
 }

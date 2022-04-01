@@ -8,14 +8,14 @@
       placeholder="start"
       aria-label="start"
       [ngxTimepicker]="startTime"
-      [format]="24"
+      [format]="TimeFormat"
       [(ngModel)]="data.startTime"
-      (ngModelChange)="changed()"
+      (ngModelChange)="timeChanged()"
       readonly
     />
     <ngx-material-timepicker
       #startTime
-      [theme]="darkTheme"
+      [theme]="DarkTheme"
     ></ngx-material-timepicker>
   </div>
   <div class="hour-picker">
@@ -25,14 +25,14 @@
       placeholder="end"
       aria-label="end"
       [ngxTimepicker]="endTime"
-      [format]="24"
+      [format]="TimeFormat"
       [(ngModel)]="data.endTime"
-      (ngModelChange)="changed()"
+      (ngModelChange)="timeChanged()"
       readonly
     />
     <ngx-material-timepicker
       #endTime
-      [theme]="darkTheme"
+      [theme]="DarkTheme"
     ></ngx-material-timepicker>
   </div>
 </mat-dialog-content>
@@ -43,7 +43,7 @@
     <mat-icon
       class="warning-icon"
       [ngClass]="warningIconClass"
-      matTooltip="{{ timeWarning }}"
+      matTooltip="{{ TimeWarning }}"
       >warning</mat-icon
     >
   </button>
