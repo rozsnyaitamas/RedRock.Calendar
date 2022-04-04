@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CalendarAppComponent } from './calendar-app.component';
+import { CalendarAppComponent } from '@redrock/calendar/calendar-app.component';
 
 describe('CalendarAppComponent', () => {
   let component: CalendarAppComponent;

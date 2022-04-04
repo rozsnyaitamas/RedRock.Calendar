@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToolbarComponent } from './toolbar.component';
+import { ToolbarComponent } from '@redrock/calendar/components/toolbar/toolbar.component';
 
 describe('ToolbarComponent', () => {
   let component: ToolbarComponent;

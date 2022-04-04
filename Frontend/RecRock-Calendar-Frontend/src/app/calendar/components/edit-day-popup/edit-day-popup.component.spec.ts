@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditDayPopupComponent } from './edit-day-popup.component';
+import { EditDayPopupComponent } from '@redrock/calendar/components/edit-day-popup/edit-day-popup.component';
 
 describe('EditDayPopupComponent', () => {
   let component: EditDayPopupComponent;
