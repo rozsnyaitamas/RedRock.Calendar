@@ -5,7 +5,8 @@ import {
   TimePickerDarkTheme,
   TimeFormat,
 } from '@shared/constants';
-import { PopupDTO } from './popup-dto';
+import { PopupModel } from '@redrock/models/popupModel';
+import { DateTimeHelper } from '@redrock/shared/helpers/date-time.helper';
 
 @Component({
   selector: 'app-edit-day-popup',
@@ -27,7 +28,7 @@ export class EditDayPopupComponent {
   constructor(
     public dialogRef: MatDialogRef<EditDayPopupComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: PopupDTO
+    public data: PopupModel
   ) {}
 
   onCancelClick(): void {
@@ -42,13 +43,9 @@ export class EditDayPopupComponent {
     this.data.deleteEvent = true;
   }
 
-  isTimeSwitched(): boolean {
-    return this.data.startTime > this.data.endTime;
-  }
-
   timeChanged(): void {
     this.warningIconClass =
-      this.data.startTime > this.data.endTime
+      DateTimeHelper.isTimeSwitched(this.data.startTime, this.data.endTime)
         ? this.WarningClass
         : this.NoWarningClass;
   }

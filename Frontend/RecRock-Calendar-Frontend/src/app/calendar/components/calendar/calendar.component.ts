@@ -8,7 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { RedColor } from '@shared/colors';
 import { User } from '@redrock/models/user';
 import { Event } from '@redrock/models/event';
-import { PopupDTO } from '../edit-day-popup/popup-dto';
+import { PopupModel } from '@redrock/models/popupModel';
+import { DateTimeHelper } from '@shared/helpers/date-time.helper';
 
 @Component({
   selector: 'app-calendar',
@@ -55,45 +56,41 @@ export class CalendarComponent {
     );
 
     const dialogRef = this.dialog.open(EditDayPopupComponent, {
-      data: this.initialisePopupDTO(userEvent, date),
+      data: this.initialiseEditDayPopupModel(userEvent, date),
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+
       if (userEvent !== undefined) {
         if (result.deleteEvent) {
           this.deleteEvent(userEvent);
         }
+
         if (result.noModification) {
           this.events = [...this.events, userEvent];
         }
       }
+
       if (result.saveEvent) {
-        let startDate: Date = this.addTimeToDate(result.startTime, date);
-        let endDate: Date = this.addTimeToDate(result.endTime, date);
+        let startDate: Date = DateTimeHelper.addTimeToDate(result.startTime, date);
+        let endDate: Date = DateTimeHelper.addTimeToDate(result.endTime, date);
         this.addEvent(startDate, endDate);
       }
     });
   }
 
-  private addTimeToDate(time: string, date: Date): Date {
-    let decomposed_time: string[] = time.split(':');
-    let hour: number = parseInt(decomposed_time[0]);
-    let minute: number = parseInt(decomposed_time[1]);
-    let newDate: Date = new Date(date);
-    newDate.setHours(hour, minute, 0, 0);
-    return newDate;
-  }
 
-  private initialisePopupDTO(
+
+  private initialiseEditDayPopupModel(
     userEvent: Event | undefined,
     date: Date
-  ): PopupDTO {
+  ): PopupModel {
     if (userEvent !== undefined) {
       this.events = this.events.filter((event) => event !== userEvent);
-      return new PopupDTO(
+      return new PopupModel(
         this.User.name,
-        PopupDTO.formatTime(userEvent.start),
-        PopupDTO.formatTime(userEvent.end),
+        DateTimeHelper.formatTime(userEvent.start),
+        DateTimeHelper.formatTime(userEvent.end),
         date,
         true,
         false,
@@ -101,10 +98,10 @@ export class CalendarComponent {
         false
       );
     } else {
-      return new PopupDTO(
+      return new PopupModel(
         this.User.name,
-        PopupDTO.formatTime(new Date()),
-        PopupDTO.formatTime(new Date()),
+        DateTimeHelper.formatTime(new Date()),
+        DateTimeHelper.formatTime(new Date()),
         date,
         false,
         false,

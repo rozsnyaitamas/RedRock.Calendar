@@ -1,4 +1,4 @@
-export class PopupDTO {
+export class PopupModel {
   constructor(
     public name: string,
     public startTime: string,
@@ -9,8 +9,4 @@ export class PopupDTO {
     public saveEvent: boolean,
     public deleteEvent: boolean
   ) {}
-
-  public static formatTime(time: Date): string {
-    return time.getHours() + ':' + time.getMinutes();
-  }
 }
