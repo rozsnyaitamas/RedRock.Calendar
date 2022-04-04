@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SidePanelComponent } from './side-panel.component';
+import { SidePanelComponent } from '@redrock/calendar/components/side-panel/side-panel.component';
 
 describe('SidePanelComponent', () => {
   let component: SidePanelComponent;

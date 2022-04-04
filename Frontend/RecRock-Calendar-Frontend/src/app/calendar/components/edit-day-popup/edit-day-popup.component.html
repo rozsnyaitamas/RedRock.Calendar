@@ -1,15 +1,58 @@
 <h2 mat-dialog-title>Reserve date</h2>
 <mat-dialog-content>
-  <p>{{ data.date | date: DateFormat}}</p>
-  <!-- <div class="24hr-example">
-    <input placeholder="24hr format" aria-label="24hr format"
-    [ngxTimepicker]="fullTime" [format]="24"  readonly>
-    <ngx-material-timepicker #fullTime></ngx-material-timepicker>
-</div> -->
-<!-- <input [ngxTimepicker]="picker">
-<ngx-material-timepicker #picker></ngx-material-timepicker> -->
+  <p>{{ data.date | date: DateFormat }}</p>
+
+  <div class="hour-picker">
+    Start
+    <input
+      placeholder="start"
+      aria-label="start"
+      [ngxTimepicker]="startTime"
+      [format]="TimeFormat"
+      [(ngModel)]="data.startTime"
+      (ngModelChange)="timeChanged()"
+      readonly
+    />
+    <ngx-material-timepicker
+      #startTime
+      [theme]="DarkTheme"
+    ></ngx-material-timepicker>
+  </div>
+  <div class="hour-picker">
+    <div>End</div>
+
+    <input
+      placeholder="end"
+      aria-label="end"
+      [ngxTimepicker]="endTime"
+      [format]="TimeFormat"
+      [(ngModel)]="data.endTime"
+      (ngModelChange)="timeChanged()"
+      readonly
+    />
+    <ngx-material-timepicker
+      #endTime
+      [theme]="DarkTheme"
+    ></ngx-material-timepicker>
+  </div>
 </mat-dialog-content>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Click to Reserve</button>
+  <button mat-button [mat-dialog-close]="data" (click)="onCancelClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" (click)="onReserveClick()" cdkFocusInitial>
+    Reserve
+    <mat-icon
+      class="warning-icon"
+      [ngClass]="warningIconClass"
+      matTooltip="{{ TimeWarning }}"
+      >warning</mat-icon
+    >
+  </button>
+  <button
+    mat-button
+    *ngIf="data.eventExists"
+    [mat-dialog-close]="data"
+    (click)="setDeleteFlag()"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
 </div>

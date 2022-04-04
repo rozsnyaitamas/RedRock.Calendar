@@ -6,3 +6,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+.timepicker-overlay {
+  z-index: 10000000 !important;
+}
+
+.timepicker-backdrop-overlay {
+  z-index: 10000000 !important;
+}
