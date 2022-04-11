@@ -61,13 +61,7 @@ namespace RedRock.Calendar
 
             services.AddSwaggerDocument(configure => configure.Title = "RedRock Calendar Api");
 
-            var connectionString = Configuration["PostgreSql:ConnectionString"];
-            var dbPassword = Configuration["PostgreSql:DbPassword"];
-            var builder = new NpgsqlConnectionStringBuilder(connectionString)
-            {
-                Password = dbPassword
-            };
-            services.AddDbContext<UserContext>(options => options.UseNpgsql(builder.ConnectionString));
+            services.AddDatabase(Configuration);
 
         }
 
