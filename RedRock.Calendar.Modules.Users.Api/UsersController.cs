@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RedRock.Calendar.Modules.Users.Service;
 using System;
+using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Users.Api
 {
@@ -16,16 +17,16 @@ namespace RedRock.Calendar.Modules.Users.Api
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            
-            return Ok(userService.GetUsers());
+            var result = await userService.GetUsers();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(string id)
+        public async Task<IActionResult> GetById(string id)
         {
-            var result = userService.GetUserById(new Guid(id));
+            var result = await userService.GetUserById(new Guid(id));
 
             if (result == null)
             {
