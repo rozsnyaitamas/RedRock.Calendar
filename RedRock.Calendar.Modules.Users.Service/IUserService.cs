@@ -1,8 +1,6 @@
-﻿using RedRock.Calendar.Modules.Users.Buseness;
-using RedRock.Calendar.Modules.Users.Contract;
+﻿using RedRock.Calendar.Modules.Users.Contract;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Users.Service

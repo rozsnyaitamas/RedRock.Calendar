@@ -1,22 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using RedRock.Calendar.Modules.Users.Api;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using RedRock.Calendar.Modules.Users.Buseness;
 using RedRock.Calendar.Modules.Users.Service;
-using AutoMapper;
-using Npgsql;
-using Microsoft.EntityFrameworkCore;
 
 namespace RedRock.Calendar
 {
