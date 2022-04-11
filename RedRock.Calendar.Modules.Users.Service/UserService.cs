@@ -3,35 +3,31 @@ using RedRock.Calendar.Modules.Users.Buseness;
 using RedRock.Calendar.Modules.Users.Contract;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Users.Service
 {
     public class UserService: IUserService
     {
-        private readonly IUserDatabase db;
+        private readonly IUserRepository userRepository;
         private readonly IMapper _mapper;
 
-        public UserService(IUserDatabase userDb, IMapper mapper)
+        public UserService(IMapper mapper, IUserRepository userRepository)
         {
-            //db = new InMemoryDatabase();
-            this.db = userDb;
+            this.userRepository = userRepository;
             _mapper = mapper;
         }
 
-        public List<UserDTO> GetUsers()
+        public async Task<IEnumerable<UserDTO>> GetUsers()
         {
-            var users = db.GetUsers();
-            var result = new List<UserDTO>();
-            foreach (User user in users)
-            {
-                result.Add(_mapper.Map<UserDTO>(user));
-            }
+            var users = await userRepository.GetUsersAsync();
+            var result = _mapper.Map<UserDTO[]>(users);
+
             return result;
         }
-        public UserDTO GetUserById(Guid id)
+        public async Task<UserDTO> GetUserById(Guid id)
         {
-            var result = db.GetUserById(id);
+            var result = await userRepository.GetUserByIdAsync(id);
             
             return result == null ? null : _mapper.Map<UserDTO>(result);
         }
