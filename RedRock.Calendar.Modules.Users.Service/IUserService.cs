@@ -8,7 +8,7 @@ namespace RedRock.Calendar.Modules.Users.Service
 {
     public interface IUserService
     {
-        public List<UserDTO> GetUsers();
+        public IEnumerable<UserDTO> GetUsers();
         public UserDTO GetUserById(Guid id);
     }
 }

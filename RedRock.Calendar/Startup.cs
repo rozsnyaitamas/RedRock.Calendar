@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using RedRock.Calendar.Modules.Users.Buseness;
 using RedRock.Calendar.Modules.Users.Service;
 using AutoMapper;
+using Npgsql;
+using Microsoft.EntityFrameworkCore;
 
 namespace RedRock.Calendar
 {
@@ -58,6 +60,14 @@ namespace RedRock.Calendar
             //});
 
             services.AddSwaggerDocument(configure => configure.Title = "RedRock Calendar Api");
+
+            var connectionString = Configuration["PostgreSql:ConnectionString"];
+            var dbPassword = Configuration["PostgreSql:DbPassword"];
+            var builder = new NpgsqlConnectionStringBuilder(connectionString)
+            {
+                Password = dbPassword
+            };
+            services.AddDbContext<UserContext>(options => options.UseNpgsql(builder.ConnectionString));
 
         }
 

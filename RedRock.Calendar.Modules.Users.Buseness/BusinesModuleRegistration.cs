@@ -10,6 +10,7 @@ namespace RedRock.Calendar.Modules.Users.Buseness
         public static void AddBusinesServiceModule(this IServiceCollection services)
         {
             services.AddSingleton<IUserDatabase, InMemoryDatabase>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }
