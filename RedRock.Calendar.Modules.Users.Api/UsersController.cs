@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RedRock.Calendar.Modules.Users.Contract;
 using RedRock.Calendar.Modules.Users.Service;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Users.Api
@@ -17,14 +19,14 @@ namespace RedRock.Calendar.Modules.Users.Api
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<IEnumerable<UserDTO>>> Get()
         {
             var result = await userService.GetUsers();
             return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(string id)
+        public async Task<ActionResult<UserDTO>> GetById(string id)
         {
             var result = await userService.GetUserById(new Guid(id));
 
@@ -32,7 +34,7 @@ namespace RedRock.Calendar.Modules.Users.Api
             {
                 return NotFound();
             }
-            return Ok(result);
+            return result;
         }
     }
 }
