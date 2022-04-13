@@ -12,6 +12,8 @@ namespace RedRock.Calendar
 {
     public class Startup
     {
+        private readonly string policyName = "RedRockPolicy";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,32 +28,28 @@ namespace RedRock.Calendar
             var assembly = typeof(UsersController).Assembly;
             services.AddControllers().PartManager.ApplicationParts.Add(new AssemblyPart(assembly));
 
-            services.AddCors(options => {
-                options.AddPolicy(name: "*",
-                    builder => {
-                        builder.WithOrigins("*")
-                            .AllowAnyMethod()
-                            .AllowAnyHeader()
-                            .AllowCredentials();
-                    });
+            //===================================Setting up CORS=======================================
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: this.policyName,
+                                  policy =>
+                                  {
+                                      policy.AllowAnyOrigin()
+                                            .AllowAnyMethod()
+                                            .AllowAnyHeader();
+                                  });
             });
+            //=========================================================================================
+
 
             services.AddBusinesServiceModule(); //rename
             services.AddServiceModule();
 
 
-            //services.AddOpenApiDocument(configure =>
-            //{
-            //    configure.Title = "RedRock Calendar Api";
-            //    configure.DefaultReferenceTypeNullHandling = NJsonSchema.Generation.ReferenceTypeNullHandling.NotNull;
-            //    configure.DefaultResponseReferenceTypeNullHandling = NJsonSchema.Generation.ReferenceTypeNullHandling.NotNull;
-            //    configure.RequireParametersWithoutDefault = true;
-            //    configure.SchemaType = NJsonSchema.SchemaType.Swagger2;
-            //});
-
             services.AddSwaggerDocument(configure => configure.Title = "RedRock Calendar Api");
 
             services.AddDatabase(Configuration);
+
 
         }
 
@@ -66,16 +64,18 @@ namespace RedRock.Calendar
             app.UseOpenApi();
             app.UseSwaggerUi3();
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
+            app.UseCors(this.policyName);   //Comes after UseRouting() and before UseHttpsRedirection(), UseAuthorization()
+
+            app.UseHttpsRedirection();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
