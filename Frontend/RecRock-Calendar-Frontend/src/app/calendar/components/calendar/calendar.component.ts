@@ -1,7 +1,7 @@
 import { CalendarView } from 'angular-calendar';
 import { isSameMonth } from 'date-fns';
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DateFormatMonthYear } from '@shared/constants';
 import { EditDayPopupComponent } from '@redrock/calendar/components/edit-day-popup/edit-day-popup.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,13 +10,14 @@ import { User } from '@redrock/models/user';
 import { Event } from '@redrock/models/event';
 import { PopupModel } from '@redrock/models/popupModel';
 import { DateTimeHelper } from '@shared/helpers/date-time.helper';
+import { UsersClient } from '@redrock/generated clients/clients';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit {
   public readonly DateFormat = DateFormatMonthYear;
   public readonly WeekStartsOnMondayConfiguration = 1;
   public readonly CalendarView = CalendarView;
@@ -24,13 +25,24 @@ export class CalendarComponent {
   public viewDate: Date = new Date();
   public events: Event[] = [];
 
-  private readonly User: User = {
-    id: 0,
-    name: 'Tamas',
-    color: RedColor,
-  };
+  private User!: User;
 
   constructor(public dialog: MatDialog) {}
+
+  ngOnInit(): void {
+    let usersClient = new UsersClient();
+    usersClient
+      .getById('3dd6efdb-89b6-4f86-bdfd-a3c6015dc1e7')
+      .then((value) => {
+        console.log(value);
+        this.User = {
+          id: value.id,
+          fullName: value.fullName,
+          userName: value.userName,
+          color: RedColor,
+        };
+      });
+  }
 
   public dayClicked({ date }: { date: Date }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -42,7 +54,7 @@ export class CalendarComponent {
   public addEvent(startDate: Date, endDate: Date): void {
     this.events = [
       ...this.events,
-      new Event(this.User.name, startDate, endDate, this.User.color),
+      new Event(this.User.fullName, startDate, endDate, this.User.color),
     ];
   }
 
@@ -52,7 +64,7 @@ export class CalendarComponent {
 
   private openDialog(date: Date): void {
     const userEvent: Event | undefined = this.events.find((event) =>
-      event.isEventEqual(this.User.name, date)
+      event.isEventEqual(this.User.fullName, date)
     );
 
     const dialogRef = this.dialog.open(EditDayPopupComponent, {
@@ -60,7 +72,6 @@ export class CalendarComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-
       if (userEvent !== undefined) {
         if (result.deleteEvent) {
           this.deleteEvent(userEvent);
@@ -72,14 +83,15 @@ export class CalendarComponent {
       }
 
       if (result.saveEvent) {
-        let startDate: Date = DateTimeHelper.addTimeToDate(result.startTime, date);
+        let startDate: Date = DateTimeHelper.addTimeToDate(
+          result.startTime,
+          date
+        );
         let endDate: Date = DateTimeHelper.addTimeToDate(result.endTime, date);
         this.addEvent(startDate, endDate);
       }
     });
   }
-
-
 
   private initialiseEditDayPopupModel(
     userEvent: Event | undefined,
@@ -88,7 +100,7 @@ export class CalendarComponent {
     if (userEvent !== undefined) {
       this.events = this.events.filter((event) => event !== userEvent);
       return new PopupModel(
-        this.User.name,
+        this.User.fullName,
         DateTimeHelper.formatTime(userEvent.start),
         DateTimeHelper.formatTime(userEvent.end),
         date,
@@ -99,7 +111,7 @@ export class CalendarComponent {
       );
     } else {
       return new PopupModel(
-        this.User.name,
+        this.User.fullName,
         DateTimeHelper.formatTime(new Date()),
         DateTimeHelper.formatTime(new Date()),
         date,
