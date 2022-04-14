@@ -61,8 +61,7 @@ namespace RedRock.Calendar
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseOpenApi();
-            app.UseSwaggerUi3();
+
 
             app.UseRouting();
 
@@ -70,6 +69,10 @@ namespace RedRock.Calendar
 
             app.UseHttpsRedirection();
             app.UseAuthorization();
+
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseEndpoints(endpoints =>
             {
