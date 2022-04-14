@@ -21,13 +21,12 @@ export class UserService {
   public async getById(id: string | null): Promise<User> {
 
     return await this.userClient.getById(id).then((userDTO) => {
-      let user: User = {
-          id: userDTO.id,
-          fullName: userDTO.fullName,
-          userName: userDTO.userName,
-          color: RedColor,
-      };
-      return user;
+      return {
+        id: userDTO.id,
+        fullName: userDTO.fullName,
+        userName: userDTO.userName,
+        color: RedColor,
+        }
     })
   }
 }
