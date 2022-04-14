@@ -4,22 +4,18 @@
 // </auto-generated>
 //----------------------
 
-import { Injectable } from "@angular/core";
 
 /* tslint:disable */
 /* eslint-disable */
 // ReSharper disable InconsistentNaming
-@Injectable({
-  providedIn: 'root',
-})
 export class UsersClient {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-    constructor() {
-      this.http = window as any;
-      this.baseUrl = "http://localhost:6600";
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+      this.http = http ? http : window as any;
+      this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "http://localhost:5000";
   }
 
     async get(): Promise<UserDTO[]> {

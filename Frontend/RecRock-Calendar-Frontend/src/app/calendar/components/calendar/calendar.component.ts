@@ -10,7 +10,7 @@ import { User } from '@redrock/models/user';
 import { Event } from '@redrock/models/event';
 import { PopupModel } from '@redrock/models/popupModel';
 import { DateTimeHelper } from '@shared/helpers/date-time.helper';
-import { UsersClient } from '@redrock/generated-clients/clients';
+import { UserService } from '@redrock/services/user.service';
 
 @Component({
   selector: 'app-calendar',
@@ -27,19 +27,13 @@ export class CalendarComponent implements OnInit {
 
   private user!: User;
 
-  constructor(public readonly dialog: MatDialog, private readonly usersClient: UsersClient) {}
+  constructor(public readonly dialog: MatDialog, private readonly userService: UserService) {}
 
   ngOnInit(): void {
-    this.usersClient
+    this.userService
       .getById('3dd6efdb-89b6-4f86-bdfd-a3c6015dc1e7')
       .then((value) => {
-        console.log(value);
-        this.user = {
-          id: value.id,
-          fullName: value.fullName,
-          userName: value.userName,
-          color: RedColor,
-        };
+        this.user = value
       });
   }
 
