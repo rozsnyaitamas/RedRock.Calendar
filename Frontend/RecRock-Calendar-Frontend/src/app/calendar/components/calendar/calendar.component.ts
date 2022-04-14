@@ -25,17 +25,16 @@ export class CalendarComponent implements OnInit {
   public viewDate: Date = new Date();
   public events: Event[] = [];
 
-  private User!: User;
+  private user!: User;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private usersClient: UsersClient) {}
 
   ngOnInit(): void {
-    let usersClient = new UsersClient();
-    usersClient
+    this.usersClient
       .getById('3dd6efdb-89b6-4f86-bdfd-a3c6015dc1e7')
       .then((value) => {
         console.log(value);
-        this.User = {
+        this.user = {
           id: value.id,
           fullName: value.fullName,
           userName: value.userName,
@@ -54,7 +53,7 @@ export class CalendarComponent implements OnInit {
   public addEvent(startDate: Date, endDate: Date): void {
     this.events = [
       ...this.events,
-      new Event(this.User.fullName, startDate, endDate, this.User.color),
+      new Event(this.user.fullName, startDate, endDate, this.user.color),
     ];
   }
 
@@ -64,7 +63,7 @@ export class CalendarComponent implements OnInit {
 
   private openDialog(date: Date): void {
     const userEvent: Event | undefined = this.events.find((event) =>
-      event.isEventEqual(this.User.fullName, date)
+      event.isEventEqual(this.user.fullName, date)
     );
 
     const dialogRef = this.dialog.open(EditDayPopupComponent, {
@@ -100,7 +99,7 @@ export class CalendarComponent implements OnInit {
     if (userEvent !== undefined) {
       this.events = this.events.filter((event) => event !== userEvent);
       return new PopupModel(
-        this.User.fullName,
+        this.user.fullName,
         DateTimeHelper.formatTime(userEvent.start),
         DateTimeHelper.formatTime(userEvent.end),
         date,
@@ -111,7 +110,7 @@ export class CalendarComponent implements OnInit {
       );
     } else {
       return new PopupModel(
-        this.User.fullName,
+        this.user.fullName,
         DateTimeHelper.formatTime(new Date()),
         DateTimeHelper.formatTime(new Date()),
         date,
