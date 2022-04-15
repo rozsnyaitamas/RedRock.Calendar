@@ -1,7 +1,8 @@
 import { Color } from "../shared/color";
 
 export interface User {
-  id: number;
-  name: string;
+  id: string;
+  fullName: string;
+  userName:string;
   color: Color;
 }
