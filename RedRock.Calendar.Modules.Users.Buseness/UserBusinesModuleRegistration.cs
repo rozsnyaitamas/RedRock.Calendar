@@ -5,15 +5,15 @@ using Npgsql;
 
 namespace RedRock.Calendar.Modules.Users.Buseness
 {
-    public static class BusinesModuleRegistration
+    public static class UserBusinesModuleRegistration
     {
-        public static void AddBusinesServiceModule(this IServiceCollection services)
+        public static void AddUserBusinesModule(this IServiceCollection services)
         {
             services.AddSingleton<IUserDatabase, InMemoryDatabase>();
             services.AddScoped<IUserRepository, UserRepository>();
         }
 
-        public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
+        public static void AddUserDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration["PostgreSql:ConnectionString"];
             var dbPassword = configuration["PostgreSql:DbPassword"];

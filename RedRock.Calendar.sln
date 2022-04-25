@@ -46,6 +46,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{7A90
 		Ef-scripts.txt = Ef-scripts.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Event", "Event", "{4BBC914D-AE76-472C-835E-01EA5A74756F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedRock.Calendar.Modules.Events.Api", "RedRock.Calendar.Modules.Events.Api\RedRock.Calendar.Modules.Events.Api.csproj", "{86778EC4-C3DF-4975-9845-2AAAC047BF99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedRock.Calendar.Modules.Events.Business", "RedRock.Calendar.Modules.Events.Business\RedRock.Calendar.Modules.Events.Business.csproj", "{FB6A8525-545B-44BB-B251-7776E39ADB3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedRock.Calendar.Modules.Events.Contract", "RedRock.Calendar.Modules.Events.Contract\RedRock.Calendar.Modules.Events.Contract.csproj", "{37A9CD4A-F95E-442D-98E3-43E8CC2A241E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedRock.Calendar.Modules.Events.Service", "RedRock.Calendar.Modules.Events.Service\RedRock.Calendar.Modules.Events.Service.csproj", "{D93C6567-5C2C-4AA5-A62A-8998D6DCDEC0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FB6A8525-545B-44BB-B251-7776E39ADB3E} = {FB6A8525-545B-44BB-B251-7776E39ADB3E}
+		{37A9CD4A-F95E-442D-98E3-43E8CC2A241E} = {37A9CD4A-F95E-442D-98E3-43E8CC2A241E}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +90,22 @@ Global
 		{8484E3FE-D012-4F30-8312-A25E68D94606}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8484E3FE-D012-4F30-8312-A25E68D94606}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8484E3FE-D012-4F30-8312-A25E68D94606}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86778EC4-C3DF-4975-9845-2AAAC047BF99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86778EC4-C3DF-4975-9845-2AAAC047BF99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86778EC4-C3DF-4975-9845-2AAAC047BF99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86778EC4-C3DF-4975-9845-2AAAC047BF99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB6A8525-545B-44BB-B251-7776E39ADB3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB6A8525-545B-44BB-B251-7776E39ADB3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB6A8525-545B-44BB-B251-7776E39ADB3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB6A8525-545B-44BB-B251-7776E39ADB3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37A9CD4A-F95E-442D-98E3-43E8CC2A241E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37A9CD4A-F95E-442D-98E3-43E8CC2A241E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37A9CD4A-F95E-442D-98E3-43E8CC2A241E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37A9CD4A-F95E-442D-98E3-43E8CC2A241E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D93C6567-5C2C-4AA5-A62A-8998D6DCDEC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D93C6567-5C2C-4AA5-A62A-8998D6DCDEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D93C6567-5C2C-4AA5-A62A-8998D6DCDEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D93C6567-5C2C-4AA5-A62A-8998D6DCDEC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +117,10 @@ Global
 		{0E2E24B2-6E59-4704-93A2-C7C0B15B5404} = {F197C329-46CC-4055-8C38-6C9163D56E2D}
 		{8484E3FE-D012-4F30-8312-A25E68D94606} = {5E6A1C6C-F5B6-45B2-AD50-8073F2267D1C}
 		{E2074DD4-5C6F-4D60-92A9-8E47F1EC0164} = {5E6A1C6C-F5B6-45B2-AD50-8073F2267D1C}
+		{86778EC4-C3DF-4975-9845-2AAAC047BF99} = {4BBC914D-AE76-472C-835E-01EA5A74756F}
+		{FB6A8525-545B-44BB-B251-7776E39ADB3E} = {4BBC914D-AE76-472C-835E-01EA5A74756F}
+		{37A9CD4A-F95E-442D-98E3-43E8CC2A241E} = {4BBC914D-AE76-472C-835E-01EA5A74756F}
+		{D93C6567-5C2C-4AA5-A62A-8998D6DCDEC0} = {4BBC914D-AE76-472C-835E-01EA5A74756F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83FBE658-8763-437D-9528-26B35498FE2E}

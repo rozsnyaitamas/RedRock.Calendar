@@ -1,2 +1,2 @@
-Add-Migration <name>
-Update-Database
+Add-Migration <name> -context <context-name>
+Update-Database -context <context-name>
