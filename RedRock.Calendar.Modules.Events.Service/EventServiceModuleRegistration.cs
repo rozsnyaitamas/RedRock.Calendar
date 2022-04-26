@@ -1,9 +1,5 @@
 ﻿
-using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RedRock.Calendar.Modules.Events.Service
 {
