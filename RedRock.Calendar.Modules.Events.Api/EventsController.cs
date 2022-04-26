@@ -18,7 +18,7 @@ namespace RedRock.Calendar.Modules.Events.Api
             this.eventService = eventService;
         }
 
-        [HttpGet]
+        [HttpGet("{userReference}")]
         public async Task<ActionResult<EventDTO>> Get(Guid userReference, DateTime date)
         {
             var result = await eventService.GetEvent(userReference, date);
@@ -32,7 +32,7 @@ namespace RedRock.Calendar.Modules.Events.Api
             return CreatedAtAction(nameof(Get), new { userReference = result.UserReference, date = result.StartDate }, result);
         }
 
-        [HttpGet("all")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<EventDTO>>> GetAll()
         {
             var result = await this.eventService.GetEvents();
