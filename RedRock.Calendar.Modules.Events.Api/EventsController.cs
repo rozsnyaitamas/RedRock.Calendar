@@ -21,23 +21,19 @@ namespace RedRock.Calendar.Modules.Events.Api
         [HttpGet]
         public async Task<ActionResult<EventDTO>> Get(Guid userReference, DateTime date)
         {
-            var result = await this.eventService.GetEvent(userReference, date);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return Ok(result);
+            var result = await eventService.GetEvent(userReference, date);
+            return (result == null) ? NotFound() : Ok(result);
         }
 
         [HttpPost]
         public async Task<ActionResult<EventDTO>> Post(EventDTO newEvent)
         {
             var result = await this.eventService.AddEvent(newEvent);
-            return Created("", result); // TODO: replace "" with generated URI
+            return CreatedAtAction(nameof(Get), new { userReference = result.UserReference, date = result.StartDate }, result);
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<IEnumerable<EventDTO>>> Get()
+        public async Task<ActionResult<IEnumerable<EventDTO>>> GetAll()
         {
             var result = await this.eventService.GetEvents();
             return Ok(result);

@@ -11,31 +11,30 @@ namespace RedRock.Calendar.Modules.Events.Service
     class EventService : IEventService
     {
         private readonly IEventRepository eventRepository;
-        private readonly IMapper _mapper;
+        private readonly IMapper mapper;
 
         public EventService(IMapper mapper, IEventRepository eventRepository)
         {
             this.eventRepository = eventRepository;
-            _mapper = mapper;
+            this.mapper = mapper;
         }
         public async Task<EventDTO> AddEvent(EventDTO newEventDTO)
-        {
-            newEventDTO.Id = new Guid();
-            var newEvent = _mapper.Map<Event>(newEventDTO);
-            return  _mapper.Map<EventDTO>(await eventRepository.PostEventAsync(newEvent));
+        {            
+            var newEvent = mapper.Map<Event>(newEventDTO);
+            return  mapper.Map<EventDTO>(await eventRepository.PostEventAsync(newEvent));
         }
 
         public async Task<EventDTO> GetEvent(Guid userReference, DateTime date)
         {
             var result = await eventRepository.GetEventAsync(userReference, date);
 
-            return result == null ? null : _mapper.Map<EventDTO>(result);
+            return result == null ? null : mapper.Map<EventDTO>(result);
         }
 
         public async Task<IEnumerable<EventDTO>> GetEvents()
         {
             var result = await eventRepository.GetEventsAsync();
-            return (IEnumerable<EventDTO>)(result == null ? null : _mapper.Map<EventDTO[]>(result));
+            return (IEnumerable<EventDTO>)(result == null ? null : mapper.Map<EventDTO[]>(result));
         }
     }
 }
