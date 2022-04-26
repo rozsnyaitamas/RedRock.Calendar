@@ -1,2 +1,9 @@
 Add-Migration <name> -context <context-name>
+ ex: 
+	Add-Migration <name> -context EventContext
+	Add-Migration <name> -context UserContext
+
 Update-Database -context <context-name>
+ ex: 
+	Update-Database -context EventContext
+	Update-Database -context UserContext
