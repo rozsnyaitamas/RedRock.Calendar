@@ -27,6 +27,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RedRock.Calendar.Modules.Events.Api\RedRock.Calendar.Modules.Events.Api.csproj" />
+    <ProjectReference Include="..\RedRock.Calendar.Modules.Events.Business\RedRock.Calendar.Modules.Events.Business.csproj" />
+    <ProjectReference Include="..\RedRock.Calendar.Modules.Events.Contract\RedRock.Calendar.Modules.Events.Contract.csproj" />
+    <ProjectReference Include="..\RedRock.Calendar.Modules.Events.Service\RedRock.Calendar.Modules.Events.Service.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Api\RedRock.Calendar.Modules.Users.Api.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Buseness\RedRock.Calendar.Modules.Users.Buseness.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Contract\RedRock.Calendar.Modules.Users.Contract.csproj" />

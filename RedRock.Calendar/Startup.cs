@@ -7,6 +7,8 @@ using RedRock.Calendar.Modules.Users.Api;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using RedRock.Calendar.Modules.Users.Buseness;
 using RedRock.Calendar.Modules.Users.Service;
+using RedRock.Calendar.Modules.Events.Business;
+using RedRock.Calendar.Modules.Events.Service;
 
 namespace RedRock.Calendar
 {
@@ -42,13 +44,17 @@ namespace RedRock.Calendar
             //=========================================================================================
 
 
-            services.AddBusinesServiceModule(); //rename
-            services.AddServiceModule();
+            services.AddUserBusinesModule();
+            services.AddEventBusinesModule();
+
+            services.AddUserServiceModule();
+            services.AddEventServiceModule();
 
 
             services.AddSwaggerDocument(configure => configure.Title = "RedRock Calendar Api");
 
-            services.AddDatabase(Configuration);
+            services.AddUserDatabase(Configuration);
+            services.AddEventDatabase(Configuration);
 
 
         }

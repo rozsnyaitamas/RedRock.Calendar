@@ -10,6 +10,7 @@ namespace RedRock.Calendar.Modules.Users.Service
         {
             CreateMap<User, UserDTO>();
             CreateMap<User, UserUpdateDTO>();
+            CreateMap<UserDTO, User>();
         }
     }
 }

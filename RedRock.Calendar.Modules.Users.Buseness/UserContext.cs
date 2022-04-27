@@ -4,7 +4,7 @@ namespace RedRock.Calendar.Modules.Users.Buseness
 {
     public class UserContext : DbContext
     {
-        public UserContext(DbContextOptions options)
+        public UserContext(DbContextOptions<UserContext> options)
                 : base(options)
         {
         }
