@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
+using RedRock.Calendar.Modules.Events.Business.Settings;
 
 namespace RedRock.Calendar.Modules.Events.Business
 {
@@ -14,13 +14,7 @@ namespace RedRock.Calendar.Modules.Events.Business
 
         public static void AddEventDatabase(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration["PostgreSql:ConnectionString"];
-            var dbPassword = configuration["PostgreSql:DbPassword"];
-            var builder = new NpgsqlConnectionStringBuilder(connectionString)
-            {
-                Password = dbPassword
-            };
-            services.AddDbContext<EventContext>(options => options.UseNpgsql(builder.ConnectionString));
+            services.AddDbContext<EventContext>(options => options.UseNpgsql(configuration.GetConnectionString(nameof(EventContextConnection))));
         }
     }
 }

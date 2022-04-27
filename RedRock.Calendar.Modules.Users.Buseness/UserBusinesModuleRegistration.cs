@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
+using RedRock.Calendar.Modules.Users.Buseness.Settings;
 
 namespace RedRock.Calendar.Modules.Users.Buseness
 {
@@ -15,13 +15,7 @@ namespace RedRock.Calendar.Modules.Users.Buseness
 
         public static void AddUserDatabase(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration["PostgreSql:ConnectionString"];
-            var dbPassword = configuration["PostgreSql:DbPassword"];
-            var builder = new NpgsqlConnectionStringBuilder(connectionString)
-            {
-                Password = dbPassword
-            };
-            services.AddDbContext<UserContext>(options => options.UseNpgsql(builder.ConnectionString));
+            services.AddDbContext<UserContext>(options => options.UseNpgsql(configuration.GetConnectionString(nameof(UserContextConnection))));
         }
     }
 }
