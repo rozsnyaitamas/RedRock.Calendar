@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Users.Service
 {
-    public class UserService: IUserService
+    public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
         private readonly IMapper _mapper;
@@ -28,8 +28,19 @@ namespace RedRock.Calendar.Modules.Users.Service
         public async Task<UserDTO> GetUserById(Guid id)
         {
             var result = await userRepository.GetUserByIdAsync(id);
-            
+
             return result == null ? null : _mapper.Map<UserDTO>(result);
+        }
+
+        public async Task<UserDTO> Login(string username, string password)
+        {
+            if (password.Length < 8) return null;
+            var result = await userRepository.GetUserByUsernameAsync(username);
+            if (result == null || !PasswordHasher.Check(result.Password,password))
+            {
+                return null;
+            }
+            return _mapper.Map<UserDTO>(result);
         }
     }
 }

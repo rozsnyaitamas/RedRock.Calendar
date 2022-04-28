@@ -34,7 +34,18 @@ namespace RedRock.Calendar.Modules.Users.Api
             {
                 return NotFound();
             }
-            return result;
+            return Ok(result);
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<UserDTO>> Login([FromBody] UserLoginDTO userParam)
+        {
+            var result = await userService.Login(userParam.UserName, userParam.Password);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
     }
 }
