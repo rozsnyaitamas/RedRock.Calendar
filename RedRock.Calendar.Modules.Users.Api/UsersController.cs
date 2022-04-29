@@ -43,7 +43,7 @@ namespace RedRock.Calendar.Modules.Users.Api
             var result = await userService.Login(userParam.UserName, userParam.Password);
             if (result == null)
             {
-                return BadRequest();
+                return Unauthorized();
             }
             return Ok(result);
         }
