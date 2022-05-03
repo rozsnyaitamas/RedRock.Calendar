@@ -11,5 +11,9 @@ namespace RedRock.Calendar.Modules.Users.Contract
         public string FullName { get; set; }
         [Required()]
         public string UserName { get; set; }
+        [Required()]
+        public string PrimaryColor { get; set; }
+        [Required()]
+        public string SecondaryColor { get; set; }
     }
 }

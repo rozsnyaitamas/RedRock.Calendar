@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserDTO, UsersClient } from '@redrock/generated-clients/clients';
 import { User } from '@redrock/models/user';
-import { RedColor } from '@redrock/shared/colors';
 import { environment } from 'environments/environment';
 
 @Injectable({
@@ -19,14 +18,24 @@ export class UserService {
   }
 
   public async getById(id: string | null): Promise<User> {
-
     return await this.userClient.getById(id).then((userDTO) => {
       return {
         id: userDTO.id,
         fullName: userDTO.fullName,
         userName: userDTO.userName,
-        color: RedColor,
-        }
-    })
+        color: {
+          primary: userDTO.primaryColor,
+          secondary: userDTO.secondaryColor,
+        },
+      };
+    });
+  }
+
+  public async login(username: string, password: string): Promise<UserDTO> {
+    return await this.userClient
+      .login({ userName: username, password: password })
+      .then((user) => {
+        return user;
+      });
   }
 }

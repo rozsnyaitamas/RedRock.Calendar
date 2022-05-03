@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RedRock.Calendar.Modules.Users.Buseness;
@@ -9,9 +10,10 @@ using RedRock.Calendar.Modules.Users.Buseness;
 namespace RedRock.Calendar.Modules.Users.Buseness.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220502085716_color-decomposed")]
+    partial class colordecomposed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

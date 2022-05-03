@@ -257,6 +257,8 @@ export interface UserDTO {
     id: string;
     fullName: string;
     userName: string;
+    primaryColor: string;
+    secondaryColor: string;
 }
 
 export interface UserLoginDTO {
