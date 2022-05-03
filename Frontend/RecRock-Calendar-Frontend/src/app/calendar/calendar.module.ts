@@ -8,16 +8,26 @@ import { ToolbarComponent } from '@redrock/calendar/components/toolbar/toolbar.c
 import { SidePanelComponent } from '@redrock/calendar/components/side-panel/side-panel.component';
 import { CalendarComponent } from '@redrock/calendar/components/calendar/calendar.component';
 
-import { CalendarModule as CalendarModule_original, DateAdapter } from 'angular-calendar';
+import {
+  CalendarModule as CalendarModule_original,
+  DateAdapter,
+} from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditDayPopupComponent } from '@redrock/calendar/components/edit-day-popup/edit-day-popup.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-
-
+import { LoginComponent } from '@redrock/calendar/components/login/login.component';
+import { LoginGuardGuard } from '@redrock/login-guard.guard';
 
 @NgModule({
-  declarations: [CalendarAppComponent, ToolbarComponent, SidePanelComponent, CalendarComponent, EditDayPopupComponent],
+  declarations: [
+    CalendarAppComponent,
+    ToolbarComponent,
+    SidePanelComponent,
+    CalendarComponent,
+    EditDayPopupComponent,
+    LoginComponent,
+  ],
   imports: [
     CommonModule,
     MaterialModule,
@@ -28,9 +38,14 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     NgbModule,
     FormsModule,
     RouterModule.forChild([
-      { path: '', component: CalendarAppComponent}
+      {
+        path: '',
+        canActivate: [LoginGuardGuard],
+        component: CalendarAppComponent,
+      },
+      { path: 'login', component: LoginComponent },
     ]),
-    NgxMaterialTimepickerModule
-  ]
+    NgxMaterialTimepickerModule,
+  ],
 })
-export class CalendarModule { }
+export class CalendarModule {}

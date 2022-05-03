@@ -11,6 +11,7 @@ import { Event } from '@redrock/models/event';
 import { PopupModel } from '@redrock/models/popupModel';
 import { DateTimeHelper } from '@shared/helpers/date-time.helper';
 import { UserService } from '@redrock/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
@@ -27,11 +28,11 @@ export class CalendarComponent implements OnInit {
 
   private user!: User;
 
-  constructor(public readonly dialog: MatDialog, private readonly userService: UserService) {}
+  constructor(public readonly dialog: MatDialog, private readonly userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
-    this.userService
-      .getById('3dd6efdb-89b6-4f86-bdfd-a3c6015dc1e7')
+      this.userService
+      .getById(sessionStorage.getItem('userId'))
       .then((value) => {
         this.user = value
       });
