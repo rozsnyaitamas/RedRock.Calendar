@@ -1,3 +1,11 @@
 <mat-toolbar>
-  <h1>RedRock - Calendar</h1>
+  <button mat-button (click)="navigateHomepage()">
+    <h1>RedRock - Calendar</h1>
+  </button>
+  <button mat-button [ngClass]="loginClass" (click)="navigateLoginpage()">
+    <mat-icon>person</mat-icon> Login
+  </button>
+  <button mat-button [ngClass]="logoutClass" (click)="logOut()">
+    <mat-icon>person</mat-icon> LogOut
+  </button>
 </mat-toolbar>
