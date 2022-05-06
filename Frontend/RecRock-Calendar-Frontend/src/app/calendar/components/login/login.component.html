@@ -5,19 +5,63 @@
       <mat-card-title>Login</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-form-field class="input-field" appearance="fill">
-        <mat-label>Username</mat-label>
-        <input matInput [(ngModel)]="username">
-      </mat-form-field>
-      <mat-form-field class="input-field" appearance="fill">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" [(ngModel)]="password">
-      </mat-form-field>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <mat-form-field class="input-field" appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="usernameFormControl" />
+          <mat-error
+            *ngIf="loginForm.get('usernameFormControl')?.invalid &&
+              (loginForm.get('usernameFormControl')?.dirty ||
+                loginForm.get('usernameFormControl')?.touched) &&
+              loginForm.get('usernameFormControl')?.errors?.['required']
+            "
+          >
+            Username is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
 
-      <mat-checkbox class="remember-me" [(ngModel)]="rememberMe">Remember me!</mat-checkbox>
+        <mat-form-field class="input-field" appearance="fill">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="passwordFormControl"
+          />
+          <mat-error
+            *ngIf="loginForm.get('passwordFormControl')?.errors?.['minlength']"
+          >
+            Password needs to be at least 8 character long.
+          </mat-error>
+          <mat-error
+            *ngIf="loginForm.get('passwordFormControl')?.invalid &&
+              (loginForm.get('passwordFormControl')?.dirty ||
+                loginForm.get('passwordFormControl')?.touched) &&
+              loginForm.get('passwordFormControl')?.errors?.['required']
+            "
+          >
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-checkbox
+          class="remember-me"
+          [(ngModel)]="rememberMe"
+          [ngModelOptions]="{ standalone: true }"
+          >Remember me!</mat-checkbox
+        >
+
+        <mat-card-actions class="buttons" align="end">
+          <button
+            mat-button
+            [disabled]="!loginForm.valid"
+            mat-raised-button
+            type="submit"
+          >
+            Go
+          </button>
+        </mat-card-actions>
+      </form>
+
     </mat-card-content>
-    <mat-card-actions class="buttons" align="end">
-      <button mat-button (click)="login()">Go</button>
-    </mat-card-actions>
   </mat-card>
 </div>

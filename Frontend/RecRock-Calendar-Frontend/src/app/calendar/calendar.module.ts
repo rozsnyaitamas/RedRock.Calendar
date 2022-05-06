@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@shared/material.module';
 import { RouterModule } from '@angular/router';
 import { CalendarAppComponent } from '@redrock/calendar/calendar-app.component';
@@ -46,6 +46,7 @@ import { LoginGuardGuard } from '@redrock/login-guard.guard';
       { path: 'login', component: LoginComponent },
     ]),
     NgxMaterialTimepickerModule,
+    ReactiveFormsModule,
   ],
 })
 export class CalendarModule {}

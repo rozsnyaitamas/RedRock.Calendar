@@ -31,11 +31,16 @@ export class UserService {
     });
   }
 
-  public async login(username: string, password: string): Promise<UserDTO> {
+  public async login(username: string, password: string): Promise<UserDTO | null> {
     return await this.userClient
       .login({ userName: username, password: password })
       .then((user) => {
         return user;
-      });
+      })
+      .catch((error) => {
+        console.log(error);
+        return null;
+      }
+      );
   }
 }
