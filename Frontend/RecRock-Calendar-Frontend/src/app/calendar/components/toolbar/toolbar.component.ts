@@ -37,6 +37,10 @@ export class ToolbarComponent implements OnInit {
   }
 
   logOut(): void {
-    console.log('under construction');
+    sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('userFullName');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userFullName');
+    this.router.navigate(['/calendar/login']);
   }
 }
