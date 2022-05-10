@@ -5,6 +5,8 @@ import { AppRoutingModule } from '@redrock/app-routing.module';
 import { AppComponent } from '@redrock/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoggerInterceptor } from '@redrock/interceptors/logger.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +23,9 @@ import { RouterModule } from '@angular/router';
     ]),
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoggerInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
