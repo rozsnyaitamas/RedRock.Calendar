@@ -9,7 +9,7 @@ import { SidePanelComponent } from '@redrock/calendar/components/side-panel/side
 import { CalendarComponent } from '@redrock/calendar/components/calendar/calendar.component';
 
 import {
-  CalendarModule as CalendarModule_original,
+  CalendarModule as AngularCalendarModule,
   DateAdapter,
 } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -31,7 +31,7 @@ import { LoginGuardGuard } from '@redrock/login-guard.guard';
   imports: [
     CommonModule,
     MaterialModule,
-    CalendarModule_original.forRoot({
+    AngularCalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),

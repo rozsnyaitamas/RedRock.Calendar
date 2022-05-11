@@ -41,14 +41,28 @@
           >
             Password is <strong>required</strong>
           </mat-error>
+          <mat-error
+            *ngIf="loginForm.get('passwordFormControl')?.invalid &&
+              (loginForm.get('passwordFormControl')?.dirty ||
+                loginForm.get('passwordFormControl')?.touched) &&
+              loginForm.get('passwordFormControl')?.errors?.['containsCharacters']
+            "
+          >
+            Password must contain at least one of each of the following:
+            <strong
+              >lowercase and uppercase letter, number, special character</strong
+            >!
+          </mat-error>
         </mat-form-field>
 
-        <mat-checkbox
-          class="remember-me"
-          [(ngModel)]="rememberMe"
-          [ngModelOptions]="{ standalone: true }"
-          >Remember me!</mat-checkbox
-        >
+        <div>
+          <mat-checkbox
+            class="remember-me"
+            [(ngModel)]="rememberMe"
+            [ngModelOptions]="{ standalone: true }"
+            >Remember me!</mat-checkbox
+          >
+        </div>
 
         <mat-card-actions class="buttons" align="end">
           <button
@@ -61,7 +75,6 @@
           </button>
         </mat-card-actions>
       </form>
-
     </mat-card-content>
   </mat-card>
 </div>
