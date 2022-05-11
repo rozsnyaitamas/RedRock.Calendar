@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using RedRock.Calendar.Common.HassingHelpers;
 using RedRock.Calendar.Modules.Users.Buseness;
 using RedRock.Calendar.Modules.Users.Contract;
 using System;
@@ -34,9 +35,8 @@ namespace RedRock.Calendar.Modules.Users.Service
 
         public async Task<UserDTO> Login(string username, string password)
         {
-            if (password.Length < 8) return null;
             var result = await userRepository.GetUserByUsernameAsync(username);
-            if (result == null || !PasswordHasher.Check(result.Password,password))
+            if (result == null || !SHA256.Check(result.Password,password))
             {
                 return null;
             }

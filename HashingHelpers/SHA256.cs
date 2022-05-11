@@ -1,26 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
 
-namespace RedRock.Calendar.Modules.Users.Service
+namespace RedRock.Calendar.Common.HassingHelpers
 {
-    public static class PasswordHasher
+    public static class SHA256
     {
         private const int SaltSize = 16;
         private const int KeySize = 32;
         private const int Iterations = 1000;
 
-        
-        public static bool Check(string hashedPassword, string password)
+
+        public static bool Check(string hashedValue, string value)
         {
-            var parts = hashedPassword.Split('.', 2);
+            var parts = hashedValue.Split('.', 2);
             var salt = Convert.FromBase64String(parts[0]);
             var key = Convert.FromBase64String(parts[1]);
 
             using (var algorithm = new Rfc2898DeriveBytes(
-              password,
+              value,
               salt,
               Iterations,
               HashAlgorithmName.SHA256))
@@ -31,10 +29,10 @@ namespace RedRock.Calendar.Modules.Users.Service
             }
         }
 
-        public static string Hash(string password)
+        public static string Hash(string value)
         {
             using (var algorithm = new Rfc2898DeriveBytes(
-              password,
+              value,
               SaltSize,
               Iterations,
               HashAlgorithmName.SHA256))
