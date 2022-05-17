@@ -30,8 +30,12 @@ export class CalendarComponent implements OnInit {
   constructor(public readonly dialog: MatDialog, private readonly userService: UserService) {}
 
   ngOnInit(): void {
+      let userId= sessionStorage.getItem('userId');
+      if (userId === null) {
+        userId = "user";
+      }
       this.userService
-      .getById(sessionStorage.getItem('userId'))
+      .getById(userId)
       .then((value) => {
         this.user = value
       });
