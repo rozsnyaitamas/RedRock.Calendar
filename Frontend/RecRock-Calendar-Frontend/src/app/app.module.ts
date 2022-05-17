@@ -6,7 +6,7 @@ import { AppComponent } from '@redrock/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoggerInterceptor } from '@redrock/interceptors/logger.interceptor';
+import { LoadingInterceptor } from '@redrock/interceptors/loading.interceptor';
 import { UsersAPIClientModule } from './generated-html-client/services/users';
 import { environment } from 'environments/environment';
 
@@ -36,7 +36,7 @@ import { environment } from 'environments/environment';
     AppRoutingModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: LoggerInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

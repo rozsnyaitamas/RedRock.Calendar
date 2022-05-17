@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LoggerInterceptor } from './logger.interceptor';
+import { LoadingInterceptor } from './loading.interceptor';
 
 describe('LoggerInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      LoggerInterceptor
+      LoadingInterceptor
       ]
   }));
 
   it('should be created', () => {
-    const interceptor: LoggerInterceptor = TestBed.inject(LoggerInterceptor);
+    const interceptor: LoadingInterceptor = TestBed.inject(LoadingInterceptor);
     expect(interceptor).toBeTruthy();
   });
 });

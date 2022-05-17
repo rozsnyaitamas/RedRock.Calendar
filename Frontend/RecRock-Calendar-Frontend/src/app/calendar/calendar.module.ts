@@ -18,6 +18,7 @@ import { EditDayPopupComponent } from '@redrock/calendar/components/edit-day-pop
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { LoginComponent } from '@redrock/calendar/components/login/login.component';
 import { LoginGuardGuard } from '@redrock/login-guard.guard';
+import { LoadingSpinnerComponent } from '@redrock/shared/helpers/loading/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { LoginGuardGuard } from '@redrock/login-guard.guard';
     CalendarComponent,
     EditDayPopupComponent,
     LoginComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     CommonModule,
