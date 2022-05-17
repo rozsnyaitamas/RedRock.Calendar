@@ -1,2 +1,15 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
 @import "variables";
 @import "constants";
+
+//Custom theme:
+$calendar-app-primary-palette: mat.define-palette(mat.$deep-orange-palette);
+$calendar-app-accent-palette: mat.define-palette(mat.$grey-palette);
+$calendar-app-warn-palette: mat.define-palette(mat.$red-palette);
+
+$calendar-app-theme: mat.define-dark-theme(
+      $calendar-app-primary-palette, $calendar-app-accent-palette, $calendar-app-warn-palette);
+
+@include mat.all-component-themes($calendar-app-theme);
