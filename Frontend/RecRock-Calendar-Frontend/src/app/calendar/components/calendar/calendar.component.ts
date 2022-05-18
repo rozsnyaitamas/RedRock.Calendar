@@ -31,14 +31,13 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
       let userId= sessionStorage.getItem('userId');
-      if (userId === null) {
-        userId = "user";
+      if (userId !== null) {
+        this.userService
+        .getById(userId)
+        .then((value) => {
+          this.user = value
+        });
       }
-      this.userService
-      .getById(userId)
-      .then((value) => {
-        this.user = value
-      });
   }
 
   public dayClicked({ date }: { date: Date }): void {

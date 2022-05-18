@@ -18,7 +18,7 @@ import { environment } from 'environments/environment';
       httpOptions: {
         headers: {
           'Content-Type': 'application/json',
-          Accept: 'application/json',
+          'Accept': 'application/json',
         },
       },
     }),
