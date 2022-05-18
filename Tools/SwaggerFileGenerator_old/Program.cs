@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net;
 
-namespace SwaggerFileGenerator_old
+namespace SwaggerFileGenerator
 {
     internal class Program
     {

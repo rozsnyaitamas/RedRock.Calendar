@@ -24,7 +24,7 @@ export class UsersAPIClient implements UsersAPIClientInterface {
 
   readonly options: APIHttpOptions;
 
-  readonly domain: string = `https://localhost:44374`;
+  readonly domain: string = `http://localhost:5000`;
 
   constructor(private readonly http: HttpClient,
               @Optional() @Inject(USE_DOMAIN) domain?: string,

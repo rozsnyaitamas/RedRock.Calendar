@@ -1,13 +1,13 @@
 {
-  "x-generator": "NSwag v13.15.9.0 (NJsonSchema v10.6.8.0 (Newtonsoft.Json v9.0.0.0))",
+  "x-generator": "NSwag v13.15.9.0 (NJsonSchema v10.6.8.0 (Newtonsoft.Json v12.0.0.0))",
   "swagger": "2.0",
   "info": {
     "title": "RedRock Calendar Api",
     "version": "1.0.0"
   },
-  "host": "localhost:44374",
+  "host": "localhost:5000",
   "schemes": [
-    "https"
+    "http"
   ],
   "produces": [
     "text/plain",

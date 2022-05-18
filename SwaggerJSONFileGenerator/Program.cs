@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net;
 
-namespace SwaggerFileGenerator_old
+namespace SwaggerJSONFileGenerator
 {
     internal class Program
     {
@@ -22,6 +22,7 @@ namespace SwaggerFileGenerator_old
             using WebClient client = new();
             var json = client.DownloadString(url);
             File.WriteAllText(path, json);
+            Console.WriteLine("File generated!");
         }
     }
 }
