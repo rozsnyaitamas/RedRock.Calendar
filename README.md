@@ -10,6 +10,7 @@ In the root folder open a CMD and run the following comands:
 2. npm run generate-swagger-file
 
 Then, in the Frontend\RecRock-Calendar-Frontend folder run:
+
 3. npm run generate-api-client
 
 
