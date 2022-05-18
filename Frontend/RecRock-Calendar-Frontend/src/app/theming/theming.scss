@@ -19,8 +19,8 @@ $primary: map-get($calendar-app-theme, primary);
 $accent: map-get($calendar-app-theme, accent);
 
 :root {
-  --color-primary: #{mat-color(map-get($calendar-app-primary-palette,500))};
-  --color-accent: #{mat-color(map-get($calendar-app-accent-palette,500))};
-  --color-warn: #{mat-color(map-get($calendar-app-warn-palette,500))};
-  --color-success: #{mat-color(map-get($calendar-app-success-palette,500))};
+  --color-primary: #{map-get($calendar-app-primary-palette,500)};
+  --color-accent: #{map-get($calendar-app-accent-palette,500)};
+  --color-warn: #{map-get($calendar-app-warn-palette,500)};
+  --color-success: #{map-get($calendar-app-success-palette,500)};
 }
