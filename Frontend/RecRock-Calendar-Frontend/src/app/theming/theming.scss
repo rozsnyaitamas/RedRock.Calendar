@@ -8,8 +8,19 @@
 $calendar-app-primary-palette: mat.define-palette(mat.$deep-orange-palette);
 $calendar-app-accent-palette: mat.define-palette(mat.$grey-palette);
 $calendar-app-warn-palette: mat.define-palette(mat.$red-palette);
+$calendar-app-success-palette: mat.define-palette(mat.$light-green-palette);
 
 $calendar-app-theme: mat.define-dark-theme(
       $calendar-app-primary-palette, $calendar-app-accent-palette, $calendar-app-warn-palette);
 
 @include mat.all-component-themes($calendar-app-theme);
+
+$primary: map-get($calendar-app-theme, primary);
+$accent: map-get($calendar-app-theme, accent);
+
+:root {
+  --color-primary: #{mat-color(map-get($calendar-app-primary-palette,500))};
+  --color-accent: #{mat-color(map-get($calendar-app-accent-palette,500))};
+  --color-warn: #{mat-color(map-get($calendar-app-warn-palette,500))};
+  --color-success: #{mat-color(map-get($calendar-app-success-palette,500))};
+}
