@@ -1,88 +1,27 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
+using System.Net;
 
-using NJsonSchema.CodeGeneration.TypeScript;
-
-using NSwag;
-using NSwag.CodeGeneration.CSharp;
-using NSwag.CodeGeneration.TypeScript;
-
-namespace APIClientGenerator
+namespace SwaggerFileGenerator_old
 {
     internal class Program
     {
-        internal static async Task Main(string[] args)
+        internal static void Main(string[] args)
         {
-            if (args.Length != 3)
-                throw new ArgumentException("Expecting 3 arguments: URL, generatePath, language");
+            if (args.Length != 2)
+                throw new ArgumentException("Expecting 2 arguments: URL, generatePath");
 
             var url = args[0];
             var generatePath = Path.Combine(Directory.GetCurrentDirectory(), args[1]);
-            var language = args[2];
 
-            if (language != "TypeScript" && language != "CSharp")
-                throw new ArgumentException("Invalid language parameter; valid values are TypeScript and CSharp");
-
-            if (language == "TypeScript")
-                await GenerateTypeScriptClient(url, generatePath);
-            else
-                await GenerateCSharpClient(url, generatePath);
+            GenerateSwaggerFile(url, generatePath);
         }
 
-        private async static Task GenerateTypeScriptClient(string url, string generatePath) =>
-            await GenerateClient(
-                document: await OpenApiDocument.FromUrlAsync(url),
-                generatePath: generatePath,
-                generateCode: (OpenApiDocument document) =>
-                {
-                    var settings = new TypeScriptClientGeneratorSettings();
-
-                    settings.TypeScriptGeneratorSettings.TypeStyle = TypeScriptTypeStyle.Interface;
-                    settings.TypeScriptGeneratorSettings.TypeScriptVersion = 3.5M;
-                    settings.TypeScriptGeneratorSettings.DateTimeType = TypeScriptDateTimeType.String;
-
-                    var generator = new TypeScriptClientGenerator(document, settings);
-                    var code = generator.GenerateFile();
-
-                    return code;
-                }
-            );
-
-        private async static Task GenerateCSharpClient(string url, string generatePath) =>
-            await GenerateClient(
-                document: await OpenApiDocument.FromUrlAsync(url),
-                generatePath: generatePath,
-                generateCode: (OpenApiDocument document) =>
-                {
-                    var settings = new CSharpClientGeneratorSettings
-                    {
-                        UseBaseUrl = false
-                    };
-
-                    var generator = new CSharpClientGenerator(document, settings);
-                    var code = generator.GenerateFile();
-                    return code;
-                }
-            );
-
-        private async static Task GenerateClient(OpenApiDocument document, string generatePath, Func<OpenApiDocument, string> generateCode)
+        private static void GenerateSwaggerFile(string url, string path)
         {
-            Console.WriteLine($"Generating {generatePath}...");
-
-            try
-            {
-                var code = generateCode(document);
-
-                await File.WriteAllTextAsync(generatePath, code);
-
-                Console.WriteLine($"File {generatePath} generated SUCCESSFULLY!");
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine($"File {generatePath} generation ERROR!");
-                Console.WriteLine(exception.Message);
-            }
+            using WebClient client = new();
+            var json = client.DownloadString(url);
+            File.WriteAllText(path, json);
         }
     }
 }

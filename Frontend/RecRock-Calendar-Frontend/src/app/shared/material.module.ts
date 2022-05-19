@@ -37,7 +37,6 @@ import { MatTreeModule } from '@angular/material/tree';
 import { NgModule } from '@angular/core';
 
 @NgModule({
-  declarations: [],
   exports: [
     MatAutocompleteModule,
     MatCheckboxModule,
@@ -75,6 +74,6 @@ import { NgModule } from '@angular/core';
     MatPaginatorModule,
     MatSortModule,
     MatTableModule
-  ]
+  ],
 })
 export class MaterialModule { }

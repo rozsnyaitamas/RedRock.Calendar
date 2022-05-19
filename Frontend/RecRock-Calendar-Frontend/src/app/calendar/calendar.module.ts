@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@shared/material.module';
 import { RouterModule } from '@angular/router';
 import { CalendarAppComponent } from '@redrock/calendar/calendar-app.component';
@@ -8,29 +8,47 @@ import { ToolbarComponent } from '@redrock/calendar/components/toolbar/toolbar.c
 import { SidePanelComponent } from '@redrock/calendar/components/side-panel/side-panel.component';
 import { CalendarComponent } from '@redrock/calendar/components/calendar/calendar.component';
 
-import { CalendarModule as CalendarModule_original, DateAdapter } from 'angular-calendar';
+import {
+  CalendarModule as AngularCalendarModule,
+  DateAdapter,
+} from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditDayPopupComponent } from '@redrock/calendar/components/edit-day-popup/edit-day-popup.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-
-
+import { LoginComponent } from '@redrock/calendar/components/login/login.component';
+import { LoginGuardGuard } from '@redrock/login-guard.guard';
+import { LoadingSpinnerComponent } from '@redrock/shared/helpers/loading/loading-spinner/loading-spinner.component';
 
 @NgModule({
-  declarations: [CalendarAppComponent, ToolbarComponent, SidePanelComponent, CalendarComponent, EditDayPopupComponent],
+  declarations: [
+    CalendarAppComponent,
+    ToolbarComponent,
+    SidePanelComponent,
+    CalendarComponent,
+    EditDayPopupComponent,
+    LoginComponent,
+    LoadingSpinnerComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,
-    CalendarModule_original.forRoot({
+    AngularCalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
     NgbModule,
     FormsModule,
     RouterModule.forChild([
-      { path: '', component: CalendarAppComponent}
+      {
+        path: '',
+        canActivate: [LoginGuardGuard],
+        component: CalendarAppComponent,
+      },
+      { path: 'login', component: LoginComponent },
     ]),
-    NgxMaterialTimepickerModule
-  ]
+    NgxMaterialTimepickerModule,
+    ReactiveFormsModule,
+  ],
 })
-export class CalendarModule { }
+export class CalendarModule {}

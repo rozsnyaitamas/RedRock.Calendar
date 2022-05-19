@@ -7,19 +7,25 @@ namespace RedRock.Calendar.Modules.Users.Buseness
 {
     class UserRepository : IUserRepository
     {
-        private readonly DbSet<User> users;
+        private readonly UserContext context;
 
         public UserRepository(UserContext context) =>
-            users = context.Users;
+            this.context = context;
 
         public async Task<User> GetUserByIdAsync(Guid id)
         {
-            return await users.FindAsync(id);
+            return await context.Users.FindAsync(id);
+        }
+
+        public async Task<User> GetUserByUsernameAsync(string username)
+        {
+            return await context.Users.FirstOrDefaultAsync<User>(u => u.UserName.ToLower().Equals(username.ToLower()));
         }
 
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
-            return await users.ToListAsync();
+            return await context.Users.ToListAsync();
         }
+
     }
 }

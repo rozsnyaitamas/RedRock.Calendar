@@ -30,11 +30,14 @@ export class CalendarComponent implements OnInit {
   constructor(public readonly dialog: MatDialog, private readonly userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService
-      .getById('3dd6efdb-89b6-4f86-bdfd-a3c6015dc1e7')
-      .then((value) => {
-        this.user = value
-      });
+      let userId= sessionStorage.getItem('userId');
+      if (userId !== null) {
+        this.userService
+        .getById(userId)
+        .then((value) => {
+          this.user = value
+        });
+      }
   }
 
   public dayClicked({ date }: { date: Date }): void {

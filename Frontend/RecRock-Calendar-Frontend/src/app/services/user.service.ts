@@ -1,32 +1,37 @@
 import { Injectable } from '@angular/core';
-import { UserDTO, UsersClient } from '@redrock/generated-clients/clients';
+import { UsersAPIClient } from '@redrock/generated-html-client/services/users/users-api-client.service';
 import { User } from '@redrock/models/user';
-import { RedColor } from '@redrock/shared/colors';
-import { environment } from 'environments/environment';
+import { UserDTO } from '@redrock/generated-html-client/models';
+import { firstValueFrom, Observable, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private readonly userClient!: UsersClient;
+  constructor(private readonly api: UsersAPIClient) {}
 
-  constructor() {
-    this.userClient = new UsersClient(environment.serverUrl);
-  }
-
-  public async get(): Promise<UserDTO[]> {
-    return this.userClient.get();
-  }
-
-  public async getById(id: string | null): Promise<User> {
-
-    return await this.userClient.getById(id).then((userDTO) => {
+  public async getById(id: string): Promise<User> {
+    return firstValueFrom(this.api.getById({ id: id })).then((userDTO) => {
       return {
         id: userDTO.id,
         fullName: userDTO.fullName,
         userName: userDTO.userName,
-        color: RedColor,
-        }
-    })
+        color: {
+          primary: userDTO.primaryColor,
+          secondary: userDTO.secondaryColor,
+        },
+      };
+    });
   }
+
+  public async login(username: string, password: string): Promise<UserDTO> {
+    return firstValueFrom(
+      this.api.login({ userParam: { userName: username, password: password } })
+    ).then((data: any) => {
+      return data;
+    });
+  }
+}
+function user(user: any) {
+  throw new Error('Function not implemented.');
 }

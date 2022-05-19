@@ -1,4 +1,4 @@
-//Make sure the colors here are the same as in colors.scss
+//Make sure the colors here are the same as in theming.scss
 export const Colors = {
   red: '#ff0000',
   white: '#f5f5f5',
