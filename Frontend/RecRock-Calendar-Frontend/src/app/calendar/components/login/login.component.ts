@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl, FormGroup,  Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '@redrock/services/user.service';
+// import { ValidatorHelper } from '@redrock/shared/helpers/validator.helper';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
     passwordFormControl: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
-      // this.containsCharactersValidator(this.loginPasswordRegex)
+      // ValidatorHelper.containsCharactersValidator(this.loginPasswordRegex)
     ]),
   });
 
@@ -49,10 +50,5 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  containsCharactersValidator(characterRe: RegExp): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const contains = characterRe.test(control.value);
-      return contains ? null : {containsCharacters: {value: control.value}};
-    };
-  }
+
 }
