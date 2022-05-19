@@ -20,11 +20,10 @@ export class LoadingInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.loading.setLoading(true, request.url);
     return next.handle(request).pipe(catchError((err) => {
-      console.error("error intercepted");
       this.loading.setLoading(false, request.url);
       return err;
     }))
-    .pipe(map<unknown, any>((evt: unknown) => { ///fishi
+    .pipe(map<unknown, any>((evt: unknown) => {
       if (evt instanceof HttpResponse) {
         this.loading.setLoading(false, request.url);
       }

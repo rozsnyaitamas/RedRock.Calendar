@@ -8,13 +8,8 @@ h3 {
   margin: 0 0 $displayUnit * 2;
 }
 
-pre {
-  background-color: $white;
-  padding: $displayUnit * 3;
-}
-
 .calendar {
-  color: var(--color-primary); //TODO: somehow make it that it uses the apps themes color-palette
+  color: var(--color-primary);
 }
 
 .title {
