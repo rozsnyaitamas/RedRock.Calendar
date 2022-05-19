@@ -25,13 +25,16 @@ namespace RedRock.Calendar.Modules.Users.Buseness.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Color")
-                        .HasColumnType("text");
-
                     b.Property<string>("FullName")
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PrimaryColor")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SecondaryColor")
                         .HasColumnType("text");
 
                     b.Property<string>("UserName")

@@ -1,0 +1,262 @@
+{
+  "x-generator": "NSwag v13.15.9.0 (NJsonSchema v10.6.8.0 (Newtonsoft.Json v12.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "RedRock Calendar Api",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "schemes": [
+    "http"
+  ],
+  "produces": [
+    "text/plain",
+    "application/json",
+    "text/json"
+  ],
+  "paths": {
+    "/api/Events/{userReference}": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "operationId": "Events_Get",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "userReference",
+            "in": "path",
+            "required": true,
+            "format": "guid",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "date",
+            "in": "query",
+            "format": "date-time",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EventDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Events": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "operationId": "Events_Post",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "name": "newEvent",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EventDTO"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EventDTO"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "operationId": "Events_GetAll",
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EventDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Users_Get",
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Users_GetById",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Users/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Users_Login",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "name": "userParam",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserLoginDTO"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserDTO"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "EventDTO": {
+      "type": "object",
+      "required": [
+        "id",
+        "startDate",
+        "endDate",
+        "userReference"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "userReference": {
+          "type": "string",
+          "format": "guid"
+        }
+      }
+    },
+    "UserDTO": {
+      "type": "object",
+      "required": [
+        "id",
+        "fullName",
+        "userName",
+        "primaryColor",
+        "secondaryColor"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "guid",
+          "minLength": 1
+        },
+        "fullName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "userName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "primaryColor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "secondaryColor": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "UserLoginDTO": {
+      "type": "object",
+      "required": [
+        "userName",
+        "password"
+      ],
+      "properties": {
+        "userName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "password": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

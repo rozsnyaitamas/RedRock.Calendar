@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HashingHelpers\HashingHelpers.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Buseness\RedRock.Calendar.Modules.Users.Buseness.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Contract\RedRock.Calendar.Modules.Users.Contract.csproj" />
   </ItemGroup>

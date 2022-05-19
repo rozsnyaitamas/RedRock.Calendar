@@ -8,13 +8,8 @@ h3 {
   margin: 0 0 $displayUnit * 2;
 }
 
-pre {
-  background-color: $white;
-  padding: $displayUnit * 3;
-}
-
 .calendar {
-  color: $red;
+  color: var(--color-primary);
 }
 
 .title {

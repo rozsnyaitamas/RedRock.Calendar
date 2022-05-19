@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
 using RedRock.Calendar.Modules.Users.Contract;
 using RedRock.Calendar.Modules.Users.Service;
 using System;
@@ -34,7 +35,39 @@ namespace RedRock.Calendar.Modules.Users.Api
             {
                 return NotFound();
             }
-            return result;
+            return Ok(result);
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<UserDTO>> Login([FromBody] UserLoginDTO userParam)
+        {
+            UserLoginDTOValidator validator = new UserLoginDTOValidator();
+
+            ValidationResult validationResult = validator.Validate(userParam);
+
+            if (validationResult.IsValid)
+
+            {
+                var result = await userService.Login(userParam.UserName, userParam.Password);
+                if (result == null)
+                {
+                    return Unauthorized();
+                }
+                return Ok(result);
+            }
+
+            else
+
+            {
+                var errors = new List<string>();
+                foreach (ValidationFailure failer in validationResult.Errors)
+                {
+                    errors.Add(failer.ErrorMessage);
+                }
+                return Unauthorized(errors);
+
+            }
+           
         }
     }
 }
