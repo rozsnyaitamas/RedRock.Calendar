@@ -38,5 +38,12 @@ namespace RedRock.Calendar.Modules.Events.Api
             var result = await this.eventService.GetEvents();
             return Ok(result);
         }
+
+        [HttpGet("interval")]
+        public async Task<ActionResult<IEnumerable<EventDTO>>> GetInterval(DateTime startDate, DateTime endDate)
+        {
+            var result = await this.eventService.GetIntervalAsync(startDate, endDate);
+            return Ok(result);
+        }
     }
 }

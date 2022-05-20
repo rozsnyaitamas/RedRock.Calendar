@@ -33,7 +33,13 @@ namespace RedRock.Calendar.Modules.Events.Service
         public async Task<IEnumerable<EventDTO>> GetEvents()
         {
             var result = await eventRepository.GetEventsAsync();
-            return (IEnumerable<EventDTO>)(result == null ? null : mapper.Map<EventDTO[]>(result));
+            return result == null ? null : mapper.Map<EventDTO[]>(result);
+        }
+
+        public async Task<IEnumerable<EventDTO>> GetIntervalAsync(DateTime start, DateTime end)
+        {
+            var result = await eventRepository.GetIntervalAsync(start, end);
+            return result == null ? null : mapper.Map<EventDTO[]>(result);
         }
     }
 }
