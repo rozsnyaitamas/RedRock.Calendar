@@ -34,4 +34,15 @@ export interface EventsAPIClientInterface {
     requestHttpOptions?: HttpOptions
   ): Observable<models.EventDTO[]>;
 
+  /**
+   * Response generated for [ 200 ] HTTP response code.
+   */
+  getInterval(
+    args: {
+      startDate?: string,
+      endDate?: string,
+    },
+    requestHttpOptions?: HttpOptions
+  ): Observable<models.EventDTO[]>;
+
 }
