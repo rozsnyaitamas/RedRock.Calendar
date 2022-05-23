@@ -69,7 +69,7 @@ export class EventsAPIClient implements EventsAPIClientInterface {
    */
   post(
     args: {
-      newEvent: models.EventDTO,
+      newEvent: models.EventPostDTO,
     },
     requestHttpOptions?: HttpOptions
   ): Observable<models.EventDTO> {

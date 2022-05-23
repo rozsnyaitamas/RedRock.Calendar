@@ -71,7 +71,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/EventDTO"
+              "$ref": "#/definitions/EventPostDTO"
             },
             "x-nullable": false
           }
@@ -287,6 +287,28 @@
           "type": "string",
           "format": "guid"
         },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "userReference": {
+          "type": "string",
+          "format": "guid"
+        }
+      }
+    },
+    "EventPostDTO": {
+      "type": "object",
+      "required": [
+        "startDate",
+        "endDate",
+        "userReference"
+      ],
+      "properties": {
         "startDate": {
           "type": "string",
           "format": "date-time"

@@ -8,7 +8,7 @@ namespace RedRock.Calendar.Modules.Events.Service
     public interface IEventService
     {
         public Task<EventDTO> GetEvent(Guid userReference, DateTime date);
-        public Task<EventDTO> AddEvent(EventDTO newEvent);
+        public Task<EventDTO> AddEvent(EventPostDTO newEvent);
         public Task<IEnumerable<EventDTO>> GetEvents();
         public Task<IEnumerable<EventDTO>> GetIntervalAsync(DateTime start, DateTime end);
         public void DeleteEvent(Guid eventId);

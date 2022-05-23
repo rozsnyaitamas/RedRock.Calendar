@@ -22,7 +22,7 @@ export interface EventsAPIClientInterface {
    */
   post(
     args: {
-      newEvent: models.EventDTO,
+      newEvent: models.EventPostDTO,
     },
     requestHttpOptions?: HttpOptions
   ): Observable<models.EventDTO>;

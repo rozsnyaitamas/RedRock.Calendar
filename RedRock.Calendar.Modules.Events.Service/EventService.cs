@@ -17,7 +17,7 @@ namespace RedRock.Calendar.Modules.Events.Service
             this.eventRepository = eventRepository;
             this.mapper = mapper;
         }
-        public async Task<EventDTO> AddEvent(EventDTO newEventDTO)
+        public async Task<EventDTO> AddEvent(EventPostDTO newEventDTO)
         {            
             var newEvent = mapper.Map<Event>(newEventDTO);
             return  mapper.Map<EventDTO>(await eventRepository.PostEventAsync(newEvent));

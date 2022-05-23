@@ -31,6 +31,21 @@ export function isEventDTO(arg: any): arg is models.EventDTO {
   );
   }
 
+export function isEventPostDTO(arg: any): arg is models.EventPostDTO {
+  return (
+  arg != null &&
+  typeof arg === 'object' &&
+    // endDate: string
+    ( typeof arg.endDate === 'string' ) &&
+    // startDate: string
+    ( typeof arg.startDate === 'string' ) &&
+    // userReference: string
+    ( typeof arg.userReference === 'string' ) &&
+
+  true
+  );
+  }
+
 export function isUserDTO(arg: any): arg is models.UserDTO {
   return (
   arg != null &&

@@ -22,7 +22,7 @@ export class GuardedEventsAPIClient extends EventsAPIClient {
     super(httpClient, domain, options);
   }
 
-  override get(
+ override get(
     args: {
       userReference: string,
       date?: string,
@@ -33,9 +33,9 @@ export class GuardedEventsAPIClient extends EventsAPIClient {
       .pipe(tap((res: any) => guards.isEventDTO(res) || console.error(`TypeGuard for response 'EventDTO' caught inconsistency.`, res)));
   }
 
-  override post(
+ override post(
     args: {
-      newEvent: models.EventDTO,
+      newEvent: models.EventPostDTO,
     },
     requestHttpOptions?: HttpOptions
   ): Observable<models.EventDTO> {
@@ -43,14 +43,14 @@ export class GuardedEventsAPIClient extends EventsAPIClient {
       .pipe(tap((res: any) => guards.isEventDTO(res) || console.error(`TypeGuard for response 'EventDTO' caught inconsistency.`, res)));
   }
 
-  override getAll(
+ override getAll(
     requestHttpOptions?: HttpOptions
   ): Observable<models.EventDTO[]> {
     return super.getAll(requestHttpOptions)
       .pipe(tap((res: any) => guards.isEventDTO(res) || console.error(`TypeGuard for response 'EventDTO' caught inconsistency.`, res)));
   }
 
-  override getInterval(
+ override getInterval(
     args: {
       startDate?: string,
       endDate?: string,
@@ -61,7 +61,7 @@ export class GuardedEventsAPIClient extends EventsAPIClient {
       .pipe(tap((res: any) => guards.isEventDTO(res) || console.error(`TypeGuard for response 'EventDTO' caught inconsistency.`, res)));
   }
 
-  override delete(
+ override delete(
     args: {
       eventId: string,
     },
