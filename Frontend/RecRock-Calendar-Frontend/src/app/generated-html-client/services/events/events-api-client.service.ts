@@ -122,6 +122,25 @@ export class EventsAPIClient implements EventsAPIClientInterface {
     return this.sendRequest<models.EventDTO[]>('GET', path, options);
   }
 
+  /**
+   * Response generated for [ 200 ] HTTP response code.
+   */
+  delete(
+    args: {
+      eventId: string,
+    },
+    requestHttpOptions?: HttpOptions
+  ): Observable<File> {
+    const path = `/api/Events/${args.eventId}`;
+    const options: APIHttpOptions = {
+      ...this.options,
+      ...requestHttpOptions,
+      responseType: 'blob',
+    };
+
+    return this.sendRequest<File>('DELETE', path, options);
+  }
+
   private sendRequest<T>(method: string, path: string, options: HttpOptions, body?: any): Observable<T> {
     switch (method) {
       case 'DELETE':

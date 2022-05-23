@@ -61,4 +61,14 @@ export class GuardedEventsAPIClient extends EventsAPIClient {
       .pipe(tap((res: any) => guards.isEventDTO(res) || console.error(`TypeGuard for response 'EventDTO' caught inconsistency.`, res)));
   }
 
+  override delete(
+    args: {
+      eventId: string,
+    },
+    requestHttpOptions?: HttpOptions
+  ): Observable<File> {
+    return super.delete(args, requestHttpOptions)
+      .pipe(tap((res: any) => guards.isFile(res) || console.error(`TypeGuard for response 'File' caught inconsistency.`, res)));
+  }
+
 }

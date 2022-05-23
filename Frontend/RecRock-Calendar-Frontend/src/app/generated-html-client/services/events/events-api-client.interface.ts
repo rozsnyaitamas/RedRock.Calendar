@@ -45,4 +45,14 @@ export interface EventsAPIClientInterface {
     requestHttpOptions?: HttpOptions
   ): Observable<models.EventDTO[]>;
 
+  /**
+   * Response generated for [ 200 ] HTTP response code.
+   */
+  delete(
+    args: {
+      eventId: string,
+    },
+    requestHttpOptions?: HttpOptions
+  ): Observable<File>;
+
 }
