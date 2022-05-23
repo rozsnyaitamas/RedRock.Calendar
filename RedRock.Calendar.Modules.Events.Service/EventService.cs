@@ -41,5 +41,16 @@ namespace RedRock.Calendar.Modules.Events.Service
             var result = await eventRepository.GetIntervalAsync(start, end);
             return result == null ? null : mapper.Map<EventDTO[]>(result);
         }
+
+        public void DeleteEvent(Guid eventId)
+        {
+            try
+            {
+            eventRepository.DeleteEvent(eventId);
+            } catch (KeyNotFoundException e)
+            {
+                throw e;
+            }
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace RedRock.Calendar.Modules.Events.Service
         public Task<EventDTO> AddEvent(EventDTO newEvent);
         public Task<IEnumerable<EventDTO>> GetEvents();
         public Task<IEnumerable<EventDTO>> GetIntervalAsync(DateTime start, DateTime end);
+        public void DeleteEvent(Guid eventId);
     }
 }

@@ -36,5 +36,18 @@ namespace RedRock.Calendar.Modules.Events.Business
         {
             return await context.Events.Where(e => (e.StartDate.CompareTo(start) >= 0) && (e.StartDate.CompareTo(end) <= 0)).ToListAsync<Event>();
         }
+
+        public void DeleteEvent(Guid eventId)
+        {
+            var result = context.Events.FirstOrDefault<Event>(e => e.Id.Equals(eventId));
+            if (result != null)
+            {
+                context.Events.Remove(result);
+                context.SaveChanges();
+            } else
+            {
+                throw new KeyNotFoundException();
+            }
+        }
     }
 }

@@ -45,5 +45,18 @@ namespace RedRock.Calendar.Modules.Events.Api
             var result = await this.eventService.GetIntervalAsync(startDate, endDate);
             return Ok(result);
         }
+
+        [HttpDelete("{eventId}")]
+        public ActionResult Delete(Guid eventId)
+        {
+            try
+            {
+                this.eventService.DeleteEvent(eventId);
+                return NoContent();
+            }catch(KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
     }
 }
