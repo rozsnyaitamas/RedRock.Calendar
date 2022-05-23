@@ -9,11 +9,21 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from '@redrock/interceptors/loading.interceptor';
 import { UsersAPIClientModule } from './generated-html-client/services/users';
 import { environment } from 'environments/environment';
+import { EventsAPIClientModule } from './generated-html-client/services/events';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     UsersAPIClientModule.forRoot({
+      domain: environment.serverUrl,
+      httpOptions: {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      },
+    }),
+    EventsAPIClientModule.forRoot({
       domain: environment.serverUrl,
       httpOptions: {
         headers: {

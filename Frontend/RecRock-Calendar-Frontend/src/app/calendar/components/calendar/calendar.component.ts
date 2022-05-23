@@ -1,16 +1,17 @@
 import { CalendarView } from 'angular-calendar';
-import { isSameMonth } from 'date-fns';
+import { isSameMonth, lastDayOfMonth } from 'date-fns';
 
 import { Component, OnInit } from '@angular/core';
 import { DateFormatMonthYear } from '@shared/constants';
 import { EditDayPopupComponent } from '@redrock/calendar/components/edit-day-popup/edit-day-popup.component';
 import { MatDialog } from '@angular/material/dialog';
-import { RedColor } from '@shared/colors';
 import { User } from '@redrock/models/user';
 import { Event } from '@redrock/models/event';
 import { PopupModel } from '@redrock/models/popupModel';
 import { DateTimeHelper } from '@shared/helpers/date-time.helper';
 import { UserService } from '@redrock/services/user.service';
+import { EventService } from '@redrock/services/event.service';
+import { EventDTO } from '@redrock/generated-html-client/models';
 
 @Component({
   selector: 'app-calendar',
@@ -24,20 +25,51 @@ export class CalendarComponent implements OnInit {
 
   public viewDate: Date = new Date();
   public events: Event[] = [];
+  public usersInfo: {[key: string]: User} = {};
 
   private user!: User;
 
-  constructor(public readonly dialog: MatDialog, private readonly userService: UserService) {}
+  constructor(
+    public readonly dialog: MatDialog,
+    private readonly userService: UserService,
+    private readonly eventService: EventService
+  ) {}
 
   ngOnInit(): void {
-      let userId= sessionStorage.getItem('userId');
-      if (userId !== null) {
-        this.userService
-        .getById(userId)
-        .then((value) => {
-          this.user = value
-        });
+    let userId = sessionStorage.getItem('userId');
+    if (userId !== null) {
+      this.userService.getById(userId).then((user) => {
+        this.user = user;
+        this.usersInfo[user.id] = user;
+      });
+    }
+    this.eventService
+      .getByInterval(
+        DateTimeHelper.firstDayOfThisMonth(this.viewDate),
+        lastDayOfMonth(this.viewDate)
+      )
+      .then((eventDTOs) => this.populateEventsList(eventDTOs));
+  }
+
+  private populateEventsList(eventDTOs: EventDTO[]): void {
+    eventDTOs.forEach(eventDTO => {
+      let userRef: string = eventDTO.userReference;
+      if (this.usersInfo[userRef] === undefined) {
+        this.userService.getById(userRef).then((user) => {
+          this.usersInfo[userRef] = user;
+          this.addEventWithUser(eventDTO, user);
+        })
+      } else {
+        this.addEventWithUser(eventDTO, this.usersInfo[userRef]);
       }
+    });
+  }
+
+  private addEventWithUser(eventDTO: EventDTO, user: User){
+    this.events = [
+      ...this.events,
+      new Event(user.fullName, new Date(eventDTO.startDate), new Date(eventDTO.endDate), user.color)
+    ]
   }
 
   public dayClicked({ date }: { date: Date }): void {
