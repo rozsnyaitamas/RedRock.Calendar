@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EventDTO} from '@redrock/generated-clients/clients';
+import { EventDTO, EventPostDTO} from '@redrock/generated-html-client/models'
 import { EventsAPIClient } from '@redrock/generated-html-client/services/events';
 import {firstValueFrom} from 'rxjs';
 
@@ -13,6 +13,18 @@ export class EventService {
     return firstValueFrom(this.api.getInterval({
       startDate: start.toISOString(),
       endDate: end.toISOString(),
+    }));
+  }
+
+  public delete(eventId: string): void {
+    console.log("1");   /// TODO <-delete
+    this.api.delete({eventId: eventId});
+    console.log("2");   /// TODO <-delete
+  }
+
+  public async postNewEvent(event: EventPostDTO): Promise<EventDTO> {
+    return firstValueFrom(this.api.post({
+      newEvent: event
     }));
   }
 }

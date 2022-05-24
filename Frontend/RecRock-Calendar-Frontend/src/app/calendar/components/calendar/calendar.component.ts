@@ -11,7 +11,7 @@ import { PopupModel } from '@redrock/models/popupModel';
 import { DateTimeHelper } from '@shared/helpers/date-time.helper';
 import { UserService } from '@redrock/services/user.service';
 import { EventService } from '@redrock/services/event.service';
-import { EventDTO } from '@redrock/generated-html-client/models';
+import { EventDTO, EventPostDTO } from '@redrock/generated-html-client/models';
 
 @Component({
   selector: 'app-calendar',
@@ -25,7 +25,7 @@ export class CalendarComponent implements OnInit {
 
   public viewDate: Date = new Date();
   public events: Event[] = [];
-  public usersInfo: {[key: string]: User} = {};
+  public usersInfo: { [key: string]: User } = {};
 
   private user!: User;
 
@@ -52,24 +52,30 @@ export class CalendarComponent implements OnInit {
   }
 
   private populateEventsList(eventDTOs: EventDTO[]): void {
-    eventDTOs.forEach(eventDTO => {
+    eventDTOs.forEach((eventDTO) => {
       let userRef: string = eventDTO.userReference;
       if (this.usersInfo[userRef] === undefined) {
         this.userService.getById(userRef).then((user) => {
           this.usersInfo[userRef] = user;
           this.addEventWithUser(eventDTO, user);
-        })
+        });
       } else {
         this.addEventWithUser(eventDTO, this.usersInfo[userRef]);
       }
     });
   }
 
-  private addEventWithUser(eventDTO: EventDTO, user: User){
+  private addEventWithUser(eventDTO: EventDTO, user: User) {
     this.events = [
       ...this.events,
-      new Event(user.fullName, new Date(eventDTO.startDate), new Date(eventDTO.endDate), user.color)
-    ]
+      new Event(
+        eventDTO.id,
+        user.fullName,
+        new Date(eventDTO.startDate),
+        new Date(eventDTO.endDate),
+        user.color
+      ),
+    ];
   }
 
   public dayClicked({ date }: { date: Date }): void {
@@ -80,14 +86,30 @@ export class CalendarComponent implements OnInit {
   }
 
   public addEvent(startDate: Date, endDate: Date): void {
-    this.events = [
-      ...this.events,
-      new Event(this.user.fullName, startDate, endDate, this.user.color),
-    ];
+    let newEventDTO: EventPostDTO = {
+      userReference: this.user.id,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString()
+    };
+
+    this.eventService.postNewEvent(newEventDTO).then((eventDTO) => {
+      this.events = [
+        ...this.events,
+        new Event(
+          eventDTO.id,
+          this.user.fullName,
+          new Date(eventDTO.startDate),
+          new Date(eventDTO.endDate),
+          this.user.color
+        ),
+      ];
+    });
   }
 
   public deleteEvent(eventToDelete: Event): void {
     this.events = this.events.filter((event) => event !== eventToDelete);
+    console.log(eventToDelete); /// TODO <-delete
+    this.eventService.delete(eventToDelete.id);
   }
 
   private openDialog(date: Date): void {

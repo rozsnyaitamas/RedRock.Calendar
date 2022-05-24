@@ -137,11 +137,13 @@ export class EventsAPIClient implements EventsAPIClientInterface {
       ...requestHttpOptions,
       responseType: 'blob',
     };
-
     return this.sendRequest<File>('DELETE', path, options);
   }
 
   private sendRequest<T>(method: string, path: string, options: HttpOptions, body?: any): Observable<T> {
+    console.log(method);  /// TODO <-delete
+    console.log(path);    /// TODO <-delete
+
     switch (method) {
       case 'DELETE':
         return this.http.delete<T>(`${this.domain}${path}`, options);
