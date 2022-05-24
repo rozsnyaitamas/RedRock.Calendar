@@ -17,9 +17,7 @@ export class EventService {
   }
 
   public delete(eventId: string): void {
-    console.log("1");   /// TODO <-delete
-    this.api.delete({eventId: eventId});
-    console.log("2");   /// TODO <-delete
+    this.api.delete({eventId: eventId}).subscribe();
   }
 
   public async postNewEvent(event: EventPostDTO): Promise<EventDTO> {

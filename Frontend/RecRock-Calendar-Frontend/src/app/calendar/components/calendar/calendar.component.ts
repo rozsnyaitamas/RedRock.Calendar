@@ -108,7 +108,6 @@ export class CalendarComponent implements OnInit {
 
   public deleteEvent(eventToDelete: Event): void {
     this.events = this.events.filter((event) => event !== eventToDelete);
-    console.log(eventToDelete); /// TODO <-delete
     this.eventService.delete(eventToDelete.id);
   }
 

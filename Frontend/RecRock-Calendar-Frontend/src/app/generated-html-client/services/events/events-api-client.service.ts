@@ -141,9 +141,6 @@ export class EventsAPIClient implements EventsAPIClientInterface {
   }
 
   private sendRequest<T>(method: string, path: string, options: HttpOptions, body?: any): Observable<T> {
-    console.log(method);  /// TODO <-delete
-    console.log(path);    /// TODO <-delete
-
     switch (method) {
       case 'DELETE':
         return this.http.delete<T>(`${this.domain}${path}`, options);
