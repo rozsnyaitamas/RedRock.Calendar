@@ -28,7 +28,7 @@ export class CalendarComponent implements OnInit {
   public events: Event[] = [];
   public usersInfo: { [key: string]: User } = {};
 
-  private user!: User;
+  private userId!: string;
 
   constructor(
     public readonly dialog: MatDialog,
@@ -40,8 +40,8 @@ export class CalendarComponent implements OnInit {
     let userId = sessionStorage.getItem(StorageConstants.userId);
     if (userId !== null) {
       this.userService.getById(userId).then((user) => {
-        this.user = user;
         this.usersInfo[user.id] = user;
+        this.userId = user.id;
       });
     }
     this.eventService
@@ -87,10 +87,11 @@ export class CalendarComponent implements OnInit {
   }
 
   public addEvent(startDate: Date, endDate: Date): void {
+    let user = this.usersInfo[this.userId];
     let newEventDTO: EventPostDTO = {
-      userReference: this.user.id,
+      userReference: user.id,
       startDate: startDate.toISOString(),
-      endDate: endDate.toISOString()
+      endDate: endDate.toISOString(),
     };
 
     this.eventService.postNewEvent(newEventDTO).then((eventDTO) => {
@@ -98,10 +99,10 @@ export class CalendarComponent implements OnInit {
         ...this.events,
         new Event(
           eventDTO.id,
-          this.user.fullName,
+          user.fullName,
           new Date(eventDTO.startDate),
           new Date(eventDTO.endDate),
-          this.user.color
+          user.color
         ),
       ];
     });
@@ -113,8 +114,9 @@ export class CalendarComponent implements OnInit {
   }
 
   private openDialog(date: Date): void {
+    let user = this.usersInfo[this.userId];
     const userEvent: Event | undefined = this.events.find((event) =>
-      event.isEventEqual(this.user.fullName, date)
+      event.isEventEqual(user.fullName, date)
     );
 
     const dialogRef = this.dialog.open(EditDayPopupComponent, {
@@ -147,10 +149,11 @@ export class CalendarComponent implements OnInit {
     userEvent: Event | undefined,
     date: Date
   ): PopupModel {
+    let user = this.usersInfo[this.userId];
     if (userEvent !== undefined) {
       this.events = this.events.filter((event) => event !== userEvent);
       return new PopupModel(
-        this.user.fullName,
+        user.fullName,
         DateTimeHelper.formatTime(userEvent.start),
         DateTimeHelper.formatTime(userEvent.end),
         date,
@@ -161,7 +164,7 @@ export class CalendarComponent implements OnInit {
       );
     } else {
       return new PopupModel(
-        this.user.fullName,
+        user.fullName,
         DateTimeHelper.formatTime(new Date()),
         DateTimeHelper.formatTime(new Date()),
         date,
