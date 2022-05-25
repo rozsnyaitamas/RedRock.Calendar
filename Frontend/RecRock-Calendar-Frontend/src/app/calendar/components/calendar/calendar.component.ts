@@ -28,7 +28,7 @@ export class CalendarComponent implements OnInit {
   public events: Event[] = [];
   public usersInfo: { [key: string]: User } = {};
 
-  private userId!: string;
+  private currentUserId!: string;
 
   constructor(
     public readonly dialog: MatDialog,
@@ -41,7 +41,7 @@ export class CalendarComponent implements OnInit {
     if (userId !== null) {
       this.userService.getById(userId).then((user) => {
         this.usersInfo[user.id] = user;
-        this.userId = user.id;
+        this.currentUserId = user.id;
       });
     }
     this.eventService
@@ -87,7 +87,7 @@ export class CalendarComponent implements OnInit {
   }
 
   public addEvent(startDate: Date, endDate: Date): void {
-    let user = this.usersInfo[this.userId];
+    let user = this.usersInfo[this.currentUserId];
     let newEventDTO: EventPostDTO = {
       userReference: user.id,
       startDate: startDate.toISOString(),
@@ -114,7 +114,7 @@ export class CalendarComponent implements OnInit {
   }
 
   private openDialog(date: Date): void {
-    let user = this.usersInfo[this.userId];
+    let user = this.usersInfo[this.currentUserId];
     const userEvent: Event | undefined = this.events.find((event) =>
       event.isEventEqual(user.fullName, date)
     );
@@ -149,7 +149,7 @@ export class CalendarComponent implements OnInit {
     userEvent: Event | undefined,
     date: Date
   ): PopupModel {
-    let user = this.usersInfo[this.userId];
+    let user = this.usersInfo[this.currentUserId];
     if (userEvent !== undefined) {
       this.events = this.events.filter((event) => event !== userEvent);
       return new PopupModel(
