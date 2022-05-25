@@ -1,5 +1,5 @@
 {
-  "x-generator": "NSwag v13.15.9.0 (NJsonSchema v10.6.8.0 (Newtonsoft.Json v12.0.0.0))",
+  "x-generator": "NSwag v13.15.9.0 (NJsonSchema v10.6.8.0 (Newtonsoft.Json v9.0.0.0))",
   "swagger": "2.0",
   "info": {
     "title": "RedRock Calendar Api",
@@ -9,11 +9,6 @@
   "schemes": [
     "http"
   ],
-  "produces": [
-    "text/plain",
-    "application/json",
-    "text/json"
-  ],
   "paths": {
     "/api/Events/{userReference}": {
       "get": {
@@ -21,6 +16,11 @@
           "Events"
         ],
         "operationId": "Events_Get",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
         "parameters": [
           {
             "type": "string",
@@ -60,13 +60,18 @@
           "text/json",
           "application/*+json"
         ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
         "parameters": [
           {
             "name": "newEvent",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/EventDTO"
+              "$ref": "#/definitions/EventPostDTO"
             },
             "x-nullable": false
           }
@@ -86,6 +91,11 @@
           "Events"
         ],
         "operationId": "Events_GetAll",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
         "responses": {
           "200": {
             "x-nullable": false,
@@ -100,12 +110,85 @@
         }
       }
     },
+    "/api/Events/interval": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "operationId": "Events_GetInterval",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "startDate",
+            "in": "query",
+            "format": "date-time",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "endDate",
+            "in": "query",
+            "format": "date-time",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EventDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Events/{eventId}": {
+      "delete": {
+        "tags": [
+          "Events"
+        ],
+        "operationId": "Events_Delete",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "format": "guid",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
     "/api/Users": {
       "get": {
         "tags": [
           "Users"
         ],
         "operationId": "Users_Get",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
         "responses": {
           "200": {
             "x-nullable": false,
@@ -126,6 +209,11 @@
           "Users"
         ],
         "operationId": "Users_GetById",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
         "parameters": [
           {
             "type": "string",
@@ -156,6 +244,11 @@
           "application/json",
           "text/json",
           "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -194,6 +287,28 @@
           "type": "string",
           "format": "guid"
         },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "userReference": {
+          "type": "string",
+          "format": "guid"
+        }
+      }
+    },
+    "EventPostDTO": {
+      "type": "object",
+      "required": [
+        "startDate",
+        "endDate",
+        "userReference"
+      ],
+      "properties": {
         "startDate": {
           "type": "string",
           "format": "date-time"

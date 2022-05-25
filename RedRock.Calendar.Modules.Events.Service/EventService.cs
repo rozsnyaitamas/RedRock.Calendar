@@ -17,10 +17,10 @@ namespace RedRock.Calendar.Modules.Events.Service
             this.eventRepository = eventRepository;
             this.mapper = mapper;
         }
-        public async Task<EventDTO> AddEvent(EventDTO newEventDTO)
-        {            
+        public async Task<EventDTO> AddEvent(EventPostDTO newEventDTO)
+        {
             var newEvent = mapper.Map<Event>(newEventDTO);
-            return  mapper.Map<EventDTO>(await eventRepository.PostEventAsync(newEvent));
+            return mapper.Map<EventDTO>(await eventRepository.PostEventAsync(newEvent));
         }
 
         public async Task<EventDTO> GetEvent(Guid userReference, DateTime date)
@@ -33,7 +33,25 @@ namespace RedRock.Calendar.Modules.Events.Service
         public async Task<IEnumerable<EventDTO>> GetEvents()
         {
             var result = await eventRepository.GetEventsAsync();
-            return (IEnumerable<EventDTO>)(result == null ? null : mapper.Map<EventDTO[]>(result));
+            return result == null ? null : mapper.Map<EventDTO[]>(result);
+        }
+
+        public async Task<IEnumerable<EventDTO>> GetIntervalAsync(DateTime start, DateTime end)
+        {
+            var result = await eventRepository.GetIntervalAsync(start, end);
+            return result == null ? null : mapper.Map<EventDTO[]>(result);
+        }
+
+        public void DeleteEvent(Guid eventId)
+        {
+            try
+            {
+                eventRepository.DeleteEvent(eventId);
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw e;
+            }
         }
     }
 }

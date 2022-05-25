@@ -2,7 +2,6 @@ import { CalendarEvent } from "angular-calendar";
 import { EventColor, EventAction } from "calendar-utils";
 
 export class Event implements CalendarEvent{
-  public id?: string | number | undefined;
   public start: Date;
   public end: Date;
   public actions?: EventAction[] | undefined;
@@ -12,7 +11,7 @@ export class Event implements CalendarEvent{
   public draggable?: boolean | undefined;
   public meta?: any;
 
-  constructor(public title: string, start: Date, end: Date, public color?: EventColor){
+  constructor(public id: string, public title: string, start: Date, end: Date, public color?: EventColor){
     if (start < end) {
       this.start = start;
       this.end = end;

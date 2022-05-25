@@ -1,5 +1,4 @@
 export class DateTimeHelper {
-
   public static formatTime(time: Date): string {
     return time.getHours() + ':' + time.getMinutes();
   }
@@ -15,5 +14,9 @@ export class DateTimeHelper {
 
   public static isTimeSwitched(startTime: string, endTime: string): boolean {
     return startTime > endTime;
+  }
+
+  public static firstDayOfThisMonth(date: Date): Date {
+    return new Date(date.getFullYear(), date.getMonth(), 1);
   }
 }

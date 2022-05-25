@@ -69,7 +69,7 @@ export class EventsAPIClient implements EventsAPIClientInterface {
    */
   post(
     args: {
-      newEvent: models.EventDTO,
+      newEvent: models.EventPostDTO,
     },
     requestHttpOptions?: HttpOptions
   ): Observable<models.EventDTO> {
@@ -95,6 +95,49 @@ export class EventsAPIClient implements EventsAPIClientInterface {
     };
 
     return this.sendRequest<models.EventDTO[]>('GET', path, options);
+  }
+
+  /**
+   * Response generated for [ 200 ] HTTP response code.
+   */
+  getInterval(
+    args: {
+      startDate?: string,
+      endDate?: string,
+    },
+    requestHttpOptions?: HttpOptions
+  ): Observable<models.EventDTO[]> {
+    const path = `/api/Events/interval`;
+    const options: APIHttpOptions = {
+      ...this.options,
+      ...requestHttpOptions,
+    };
+
+    if ('startDate' in args) {
+      options.params = options.params.set('startDate', String(args.startDate));
+    }
+    if ('endDate' in args) {
+      options.params = options.params.set('endDate', String(args.endDate));
+    }
+    return this.sendRequest<models.EventDTO[]>('GET', path, options);
+  }
+
+  /**
+   * Response generated for [ 200 ] HTTP response code.
+   */
+  delete(
+    args: {
+      eventId: string,
+    },
+    requestHttpOptions?: HttpOptions
+  ): Observable<File> {
+    const path = `/api/Events/${args.eventId}`;
+    const options: APIHttpOptions = {
+      ...this.options,
+      ...requestHttpOptions,
+      responseType: 'blob',
+    };
+    return this.sendRequest<File>('DELETE', path, options);
   }
 
   private sendRequest<T>(method: string, path: string, options: HttpOptions, body?: any): Observable<T> {

@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageConstants } from '@redrock/storage.constans';
 
 @Component({
   selector: 'app-toolbar',
@@ -19,7 +20,7 @@ export class ToolbarComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if(sessionStorage.getItem('userId')){
+    if(sessionStorage.getItem(StorageConstants.userId)){
       this.loginClass = this.HIDE_LOGIN;
       this.logoutClass = this.SHOW_LOGOUT;
     } else {
@@ -37,10 +38,10 @@ export class ToolbarComponent implements OnInit {
   }
 
   logOut(): void {
-    sessionStorage.removeItem('userId');
-    sessionStorage.removeItem('userFullName');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userFullName');
+    sessionStorage.removeItem(StorageConstants.userId);
+    sessionStorage.removeItem(StorageConstants.userFullName);
+    localStorage.removeItem(StorageConstants.userId);
+    localStorage.removeItem(StorageConstants.userFullName);
     this.router.navigate(['/calendar/login']);
   }
 }
