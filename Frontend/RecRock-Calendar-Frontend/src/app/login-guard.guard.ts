@@ -7,6 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { StorageConstants } from '@redrock/storage.constans';
 
 @Injectable({
   providedIn: 'root',
@@ -22,13 +23,13 @@ export class LoginGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!sessionStorage.getItem('userId')) {
-      let userId = localStorage.getItem('userId');
+    if (!sessionStorage.getItem(StorageConstants.userId)) {
+      let userId = localStorage.getItem(StorageConstants.userId);
       if (userId) {
-        let fullName = localStorage.getItem('userFullName');
-        sessionStorage.setItem('userId', userId);
+        let fullName = localStorage.getItem(StorageConstants.userFullName);
+        sessionStorage.setItem(StorageConstants.userId, userId);
         if (fullName) {
-          sessionStorage.setItem('userFullName', fullName);
+          sessionStorage.setItem(StorageConstants.userFullName, fullName);
         }
         return true;
       }

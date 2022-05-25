@@ -12,6 +12,7 @@ import { DateTimeHelper } from '@shared/helpers/date-time.helper';
 import { UserService } from '@redrock/services/user.service';
 import { EventService } from '@redrock/services/event.service';
 import { EventDTO, EventPostDTO } from '@redrock/generated-html-client/models';
+import { StorageConstants } from '@redrock/storage.constans';
 
 @Component({
   selector: 'app-calendar',
@@ -36,7 +37,7 @@ export class CalendarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let userId = sessionStorage.getItem('userId');
+    let userId = sessionStorage.getItem(StorageConstants.userId);
     if (userId !== null) {
       this.userService.getById(userId).then((user) => {
         this.user = user;
