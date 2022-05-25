@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Events.Business
@@ -29,6 +30,24 @@ namespace RedRock.Calendar.Modules.Events.Business
         public async Task<IEnumerable<Event>> GetEventsAsync()
         {
             return await context.Events.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Event>> GetIntervalAsync(DateTime start, DateTime end)
+        {
+            return await context.Events.Where(e => (e.StartDate.CompareTo(start) >= 0) && (e.StartDate.CompareTo(end) <= 0)).ToListAsync<Event>();
+        }
+
+        public void DeleteEvent(Guid eventId)
+        {
+            var result = context.Events.FirstOrDefault<Event>(e => e.Id.Equals(eventId));
+            if (result != null)
+            {
+                context.Events.Remove(result);
+                context.SaveChanges();
+            } else
+            {
+                throw new KeyNotFoundException();
+            }
         }
     }
 }

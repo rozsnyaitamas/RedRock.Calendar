@@ -11,6 +11,7 @@ namespace RedRock.Calendar.Modules.Events.Service
         {
             CreateMap<Event, EventDTO>();
             CreateMap<EventDTO, Event>();
+            CreateMap<EventPostDTO, Event>();
         }
     }
 }

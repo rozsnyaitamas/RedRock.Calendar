@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core';
-import { EventDTO, EventsClient } from '@redrock/generated-clients/clients';
-import { environment } from 'environments/environment';
+import { EventDTO, EventPostDTO} from '@redrock/generated-html-client/models'
+import { EventsAPIClient } from '@redrock/generated-html-client/services/events';
+import {firstValueFrom} from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventService {
-  private readonly evetClient!: EventsClient;
+  constructor(private readonly api: EventsAPIClient) {}
 
-  constructor() {
-    this.evetClient = new EventsClient(environment.serverUrl);
-   }
+  public async getByInterval(start: Date, end: Date): Promise<EventDTO[]> {
+    return firstValueFrom(this.api.getInterval({
+      startDate: start.toISOString(),
+      endDate: end.toISOString(),
+    }));
+  }
 
-   public async get(): Promise<EventDTO[]>{
-     return this.evetClient.getAll();
-   }
+  public delete(eventId: string): void {
+    this.api.delete({eventId: eventId}).subscribe();
+  }
 
-   public async post(event: EventDTO): Promise<EventDTO>{
-     return this.evetClient.post(event);
-   }
+  public async postNewEvent(event: EventPostDTO): Promise<EventDTO> {
+    return firstValueFrom(this.api.post({
+      newEvent: event
+    }));
+  }
 }

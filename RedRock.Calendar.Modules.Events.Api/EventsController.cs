@@ -26,7 +26,7 @@ namespace RedRock.Calendar.Modules.Events.Api
         }
 
         [HttpPost]
-        public async Task<ActionResult<EventDTO>> Post(EventDTO newEvent)
+        public async Task<ActionResult<EventDTO>> Post(EventPostDTO newEvent)
         {
             var result = await this.eventService.AddEvent(newEvent);
             return CreatedAtAction(nameof(Get), new { userReference = result.UserReference, date = result.StartDate }, result);
@@ -37,6 +37,27 @@ namespace RedRock.Calendar.Modules.Events.Api
         {
             var result = await this.eventService.GetEvents();
             return Ok(result);
+        }
+
+        [HttpGet("interval")]
+        public async Task<ActionResult<IEnumerable<EventDTO>>> GetInterval(DateTime startDate, DateTime endDate)
+        {
+            var result = await this.eventService.GetIntervalAsync(startDate, endDate);
+            return (result == null) ? NotFound() : Ok(result);
+        }
+
+        [HttpDelete("{eventId}")]
+        public ActionResult Delete(Guid eventId)
+        {
+            try
+            {
+                this.eventService.DeleteEvent(eventId);
+                return NoContent();
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
         }
     }
 }

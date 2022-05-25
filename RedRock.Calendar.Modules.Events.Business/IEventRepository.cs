@@ -9,5 +9,7 @@ namespace RedRock.Calendar.Modules.Events.Business
         public Task<Event> GetEventAsync(Guid userReference, DateTime date);
         public Task<Event> PostEventAsync(Event newEvent);
         public Task<IEnumerable<Event>> GetEventsAsync();
+        public Task<IEnumerable<Event>> GetIntervalAsync(DateTime start, DateTime end);
+        public void DeleteEvent(Guid eventId);
     }
 }
