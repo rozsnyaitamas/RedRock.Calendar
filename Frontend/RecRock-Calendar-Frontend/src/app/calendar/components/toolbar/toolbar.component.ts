@@ -15,11 +15,14 @@ export class ToolbarComponent implements OnInit {
 
   public loginClass: string = this.SHOW_LOGIN;
   public logoutClass: string = this.HIDE_LOGOUT;
+
+  public username!: string|null;
   constructor(private router: Router) {}
 
 
   ngOnInit(): void {
-    if(sessionStorage.getItem('userId')){
+    this.username = sessionStorage.getItem('userFullName');
+    if(this.username){
       this.loginClass = this.HIDE_LOGIN;
       this.logoutClass = this.SHOW_LOGOUT;
     } else {
@@ -34,6 +37,10 @@ export class ToolbarComponent implements OnInit {
 
   navigateLoginpage(): void {
     this.router.navigate(['/calendar/login']);
+  }
+
+  openUserSettings():void {
+    this.router.navigate(['/calendar/usersettings']);
   }
 
   logOut(): void {

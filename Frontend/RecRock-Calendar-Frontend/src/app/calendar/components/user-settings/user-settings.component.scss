@@ -1,0 +1,32 @@
+.container{
+  padding-top: 5%;
+  max-width: 700px;
+}
+
+.user-settings-card{
+  background-color: gray;
+  display: grid;
+}
+
+.sidepanel{
+  grid-column-start: 1;
+  grid-column-end: 7;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+.mat-icon {
+  vertical-align: middle;
+}
+
+.sidepanel-card{
+  height: 700px;
+}
+
+.mainDiv{
+  margin-right: -15px;
+  background-color: rgb(65, 65, 65);
+  grid-column-start: 7;
+  grid-column-end: 25;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}

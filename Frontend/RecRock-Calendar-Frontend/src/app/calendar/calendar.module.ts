@@ -19,6 +19,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { LoginComponent } from '@redrock/calendar/components/login/login.component';
 import { LoginGuardGuard } from '@redrock/login-guard.guard';
 import { LoadingSpinnerComponent } from '@redrock/shared/helpers/loading/loading-spinner/loading-spinner.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { LoadingSpinnerComponent } from '@redrock/shared/helpers/loading/loading
     CalendarComponent,
     EditDayPopupComponent,
     LoginComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    UserSettingsComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +48,11 @@ import { LoadingSpinnerComponent } from '@redrock/shared/helpers/loading/loading
         component: CalendarAppComponent,
       },
       { path: 'login', component: LoginComponent },
+      {
+        path: 'usersettings',
+        canActivate: [LoginGuardGuard],
+        component: UserSettingsComponent,
+      },
     ]),
     NgxMaterialTimepickerModule,
     ReactiveFormsModule,

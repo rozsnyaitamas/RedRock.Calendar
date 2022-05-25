@@ -1,11 +1,19 @@
-<mat-toolbar>
-  <button mat-button (click)="navigateHomepage()">
-    <h1>RedRock - Calendar</h1>
-  </button>
-  <button mat-button [ngClass]="loginClass" (click)="navigateLoginpage()">
-    <mat-icon>person</mat-icon> Login
-  </button>
-  <button mat-button [ngClass]="logoutClass" (click)="logOut()">
-    <mat-icon>person</mat-icon> LogOut
-  </button>
+<mat-toolbar class="toolbar-container">
+  <div class="logo-container">
+    <button mat-button (click)="navigateHomepage()">
+      <h1>RedRock - Calendar</h1>
+    </button>
+  </div>
+  <div class="user-button-container">
+    <button mat-button [ngClass]="loginClass" (click)="navigateLoginpage()">
+      <mat-icon>person</mat-icon> Login
+    </button>
+    <button mat-button [ngClass]="logoutClass" [matMenuTriggerFor]="menu">
+      <mat-icon>person</mat-icon> {{ username }}
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="openUserSettings()">User settings</button>
+      <button mat-menu-item (click)="logOut()">Log out</button>
+    </mat-menu>
+  </div>
 </mat-toolbar>
