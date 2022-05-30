@@ -1,12 +1,109 @@
 <app-toolbar></app-toolbar>
 <div class="container">
-  <mat-card class="user-settings-card">
+  <div class="user-settings-card">
     <div class="sidepanel">
-      <div class="sidepanel-card"> <p> <mat-icon>person</mat-icon> User settings</p></div>
+      <div class="sidepanel-top">
+        <div class="sidepanel-title">
+          <p><mat-icon>person</mat-icon> User settings</p>
+          <hr class="hr-line" />
+        </div>
+      </div>
+      <div class="sidepanel-bot">
+        <div>
+          <button mat-button class="sidepanel-buttons" (click)="editUserForm()">
+            Edit user info
+          </button>
+        </div>
+        <div>
+          <button
+            mat-button
+            class="sidepanel-buttons"
+            (click)="changePassword()"
+          >
+            Change Password
+          </button>
+        </div>
+      </div>
     </div>
     <div class="mainDiv">
-      <h2>Edit user profile</h2>
-      <hr>
+      <h2 class="main-title">{{userSettingsTitle}}</h2>
+      <hr class="hr-line" />
+      <div class="main-form">
+        <div [ngClass]="infoFormClass">
+          <form [formGroup]="infoForm" (ngSubmit)="submitUpdatedUser()">
+            <label>Full name:</label><br />
+            <input
+              matInput
+              formControlName="userFullNameFormControl"
+              class="main-input"
+              type="text"
+            /><br />
+            <label>Primary color:</label><br />
+            <input
+              matInput
+              formControlName="primaryColor"
+              class="main-input"
+              type="color"
+            /><br />
+            <label>Secondary color:</label><br />
+            <input
+              matInput
+              formControlName="secondaryColor"
+              class="main-input"
+              type="color"
+            /><br />
+
+            <div class="main-form-button">
+              <button mat-button type="submit">Update</button>
+            </div>
+          </form>
+        </div>
+
+        <div [ngClass]="passwordFormClass">
+          <form [formGroup]="passwordForm" (ngSubmit)="submitChangedPassword()">
+            <label>Old Password</label> <label class="required">*</label
+            ><label>:</label><br />
+            <input
+              matInput
+              formControlName="oldPassword"
+              class="main-input"
+              type="password"
+            /><br /><br />
+            <label>New Password</label> <label class="required">*</label
+            ><label>:</label><br />
+            <input
+              matInput
+              formControlName="newPassword"
+              class="main-input"
+              type="password"
+            /><br />
+            <label>Repeat new Password</label> <label class="required">*</label
+            ><label>:</label><br />
+            <input
+              matInput
+              formControlName="newPasswordCheck"
+              class="main-input"
+              type="password"
+            /><br />
+            <mat-error
+              *ngIf="passwordForm.get('newPasswordCheck')?.errors?.['notEqual']"
+            >
+              Missmatched passwords
+            </mat-error>
+            <div class="main-form-button">
+              <button mat-button type="submit">Change Password</button>
+            </div>
+            <mat-error
+              *ngIf="(passwordForm.get('oldPassword')?.errors?.['required'] ||
+              passwordForm.get('newPassword')?.errors?.['required'] ||
+              passwordForm.get('newPasswordCheck')?.errors?.['required']) && buttonClicked"
+            >
+              Bro. <br />
+              Fill out the required(<label class="required">*</label>) fields ;)
+            </mat-error>
+          </form>
+        </div>
+      </div>
     </div>
-  </mat-card>
+  </div>
 </div>

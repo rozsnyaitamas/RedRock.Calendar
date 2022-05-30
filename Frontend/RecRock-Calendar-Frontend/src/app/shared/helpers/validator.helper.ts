@@ -7,4 +7,11 @@ export class ValidatorHelper {
       return contains ? null : { containsCharacters: { value: control.value } };
     };
   }
+
+  public static isTheSame(sfieldControl: AbstractControl): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isEqual = control.value === sfieldControl.value;
+      return isEqual ? null : { notEqual: true };
+    };
+  }
 }
