@@ -28,8 +28,12 @@ export class LoginGuardGuard implements CanActivate {
       if (userId) {
         let fullName = localStorage.getItem(StorageConstants.userFullName);
         sessionStorage.setItem(StorageConstants.userId, userId);
-        if (fullName) {
+        let userName = localStorage.getItem(StorageConstants.userName);
+        let userPassword = localStorage.getItem(StorageConstants.userPassword);
+        if (fullName && userName && userPassword) {
           sessionStorage.setItem(StorageConstants.userFullName, fullName);
+          sessionStorage.setItem(StorageConstants.userName, userName);
+          sessionStorage.setItem(StorageConstants.userPassword, userPassword);
         }
         return true;
       }

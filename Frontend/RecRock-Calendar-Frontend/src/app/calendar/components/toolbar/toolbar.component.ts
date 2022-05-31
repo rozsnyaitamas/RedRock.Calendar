@@ -47,8 +47,12 @@ export class ToolbarComponent implements OnInit {
   logOut(): void {
     sessionStorage.removeItem(StorageConstants.userId);
     sessionStorage.removeItem(StorageConstants.userFullName);
+    sessionStorage.removeItem(StorageConstants.userName);
+    sessionStorage.removeItem(StorageConstants.userPassword);
     localStorage.removeItem(StorageConstants.userId);
     localStorage.removeItem(StorageConstants.userFullName);
+    localStorage.removeItem(StorageConstants.userName);
+    localStorage.removeItem(StorageConstants.userPassword);
     this.router.navigate(['/calendar/login']);
   }
 }
