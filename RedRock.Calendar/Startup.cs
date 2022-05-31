@@ -9,6 +9,7 @@ using RedRock.Calendar.Modules.Users.Buseness;
 using RedRock.Calendar.Modules.Users.Service;
 using RedRock.Calendar.Modules.Events.Business;
 using RedRock.Calendar.Modules.Events.Service;
+using Microsoft.AspNetCore.Authentication;
 
 namespace RedRock.Calendar
 {
@@ -43,6 +44,10 @@ namespace RedRock.Calendar
             });
             //=========================================================================================
 
+            //----------Configure basic authentication----------
+            services.AddAuthentication("BasicAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+            //--------------------------------------------------
 
             services.AddUserBusinesModule();
             services.AddEventBusinesModule();
@@ -74,6 +79,7 @@ namespace RedRock.Calendar
             app.UseCors(this.policyName);   //Comes after UseRouting() and before UseHttpsRedirection(), UseAuthorization()
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

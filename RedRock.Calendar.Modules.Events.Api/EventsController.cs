@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RedRock.Calendar.Modules.Events.Contract;
 using RedRock.Calendar.Modules.Events.Service;
 using System;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Events.Api
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class EventsController : ControllerBase

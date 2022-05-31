@@ -62,7 +62,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1628FC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HashingHelpers", "HashingHelpers\HashingHelpers.csproj", "{CD77B4F4-A40A-4BE3-ACEF-969690A0D6A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwaggerJSONFileGenerator", "SwaggerJSONFileGenerator\SwaggerJSONFileGenerator.csproj", "{FF86FFE1-430A-4989-83AF-97DD47048A57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwaggerJSONFileGenerator", "SwaggerJSONFileGenerator\SwaggerJSONFileGenerator.csproj", "{FF86FFE1-430A-4989-83AF-97DD47048A57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

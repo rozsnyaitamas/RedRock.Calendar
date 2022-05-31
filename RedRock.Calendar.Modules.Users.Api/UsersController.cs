@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RedRock.Calendar.Modules.Users.Contract;
 using RedRock.Calendar.Modules.Users.Service;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Users.Api
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -38,6 +40,7 @@ namespace RedRock.Calendar.Modules.Users.Api
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login([FromBody] UserLoginDTO userParam)
         {
