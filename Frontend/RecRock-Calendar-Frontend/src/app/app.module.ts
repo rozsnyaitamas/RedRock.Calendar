@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from '@redrock/interceptors/loading.interceptor';
+import { BasicAuthInterceptor } from '@redrock/interceptors/basic-auth.interceptor';
 import { UsersAPIClientModule } from './generated-html-client/services/users';
 import { environment } from 'environments/environment';
 import { EventsAPIClientModule } from './generated-html-client/services/events';
@@ -47,6 +48,7 @@ import { EventsAPIClientModule } from './generated-html-client/services/events';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
