@@ -7,10 +7,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+@import './app/theming/theming.scss';
+
 .timepicker-overlay {
   z-index: 10000000 !important;
 }
 
 .timepicker-backdrop-overlay {
   z-index: 10000000 !important;
+}
+
+
+.snack-success{
+  background-color: green;
+  color: white;
+}
+
+.snack-fail{
+  background-color: red;
+  color: white;
 }

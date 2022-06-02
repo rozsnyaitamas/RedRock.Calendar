@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { UsersAPIClient } from '@redrock/generated-html-client/services/users/users-api-client.service';
 import { User } from '@redrock/models/user';
-import { UserDTO } from '@redrock/generated-html-client/models';
+import {
+  UserChangePasswordDTO,
+  UserDTO,
+  UserUpdateDTO,
+} from '@redrock/generated-html-client/models';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -31,5 +35,20 @@ export class UserService {
       return data;
     });
   }
-}
 
+  public async updateUser(id: string, user: UserUpdateDTO): Promise<UserDTO> {
+    return firstValueFrom(this.api.update({ id: id, userDTO: user })).then(
+      (data: any) => {
+        return data;
+      }
+    );
+  }
+
+  public async changePassword(id: string, passwords: UserChangePasswordDTO) {
+    return firstValueFrom(
+      this.api.changePassword({ id: id, passwords: passwords })
+    ).then((data: any) => {
+      return data;
+    });
+  }
+}

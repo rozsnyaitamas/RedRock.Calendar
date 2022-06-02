@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from '@redrock/models/user';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { UserUpdateDTO } from '@redrock/generated-html-client/models';
 import { UserService } from '@redrock/services/user.service';
 import { ValidatorHelper } from '@redrock/shared/helpers/validator.helper';
 import { StorageConstants } from '@redrock/storage.constans';
@@ -23,34 +24,45 @@ export class UserSettingsComponent implements OnInit {
   public infoFormClass: string = this.SHOW_INFO_FORM;
   public passwordFormClass: string = this.HIDE_PASSWORD_FORM;
 
-  public userSettingsTitle: string  = this.TITLE_USER_INFO;
+  public userSettingsTitle: string = this.TITLE_USER_INFO;
 
-  public user!: User; //TODO: change to generated UserUpdateDTO
+  private readonly MSG_UPDATE_SUCCESS: string = 'User updated successfully';
+  private readonly MSG_UPDATE_FAIL: string = 'User update ERROR';
+  private readonly MSG_PASSWORD_CHANGE_SUCCESS: string =
+    'Password changed successfully';
+  private readonly MSG_PASSWORD_CHANGE_FAIL: string =
+    "Password change ERROR!\nMake sure the 'Old Password' is correct!";
+
+  public user!: UserUpdateDTO; //TODO: change to generated UserUpdateDTO
 
   infoForm: FormGroup = new FormGroup({
     userFullNameFormControl: new FormControl(''),
     primaryColor: new FormControl(),
     secondaryColor: new FormControl(),
-    password: new FormControl('',[Validators.required])
   });
 
   passwordForm: FormGroup = new FormGroup({
-    oldPassword: new FormControl('',[Validators.required]),
-    newPassword: new FormControl('',[Validators.required]),
-    newPasswordCheck: new FormControl('',[Validators.required]),
+    oldPassword: new FormControl('', [Validators.required]),
+    newPassword: new FormControl('', [Validators.required]),
+    newPasswordCheck: new FormControl('', [Validators.required]),
   });
 
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     let userId = sessionStorage.getItem(StorageConstants.userId);
-    if(userId != null){
-      this.userService.getById(userId).then(user => {
+    if (userId != null) {
+      this.userService.getById(userId).then((user) => {
         this.user = user;
-        this.infoForm.controls['userFullNameFormControl'].setValue(user.fullName);
+        this.infoForm.controls['userFullNameFormControl'].setValue(
+          user.fullName
+        );
         this.infoForm.controls['primaryColor'].setValue(user.color.primary);
         this.infoForm.controls['secondaryColor'].setValue(user.color.secondary);
-      })
+      });
     }
     this.passwordForm.controls['newPasswordCheck'].addValidators(
       ValidatorHelper.isTheSame(this.passwordForm.controls['newPassword'])
@@ -69,9 +81,56 @@ export class UserSettingsComponent implements OnInit {
     this.userSettingsTitle = this.TITLE_CHANGE_PASSWORD;
   }
 
-  submitUpdatedUser(): void {}
+  submitUpdatedUser(): void {
+    this.user.fullName = this.infoForm.value['userFullNameFormControl'];
+    this.user.primaryColor = this.infoForm.value['primaryColor'];
+    this.user.secondaryColor = this.infoForm.value['secondaryColor'];
+
+    let snackMessage = '';
+    let config = new MatSnackBarConfig();
+    config.duration = 2000;
+
+    this.userService
+      .updateUser(this.user.id, this.user)
+      .then(() => {
+        snackMessage = this.MSG_UPDATE_SUCCESS;
+        config.panelClass = ['snack-success'];
+      })
+      .catch(() => {
+        snackMessage = this.MSG_UPDATE_FAIL;
+        config.panelClass = ['snack-fail'];
+      })
+      .finally(() =>
+        this.snackBar.open(snackMessage, 'Close', config)
+      ); //TODO: handle errors propperly
+  }
 
   submitChangedPassword(): void {
     this.buttonClicked = true;
+
+    let snackMessage = '';
+    let config = new MatSnackBarConfig();
+
+    if (this.passwordForm.valid) {
+      this.userService
+        .changePassword(this.user.id, {
+          password: this.passwordForm.value['oldPassword'],
+          newPassword: this.passwordForm.value['newPassword'],
+          newPasswordRepeat: this.passwordForm.value['newPasswordCheck'],
+        })
+        .then(() => {
+          snackMessage = this.MSG_PASSWORD_CHANGE_SUCCESS;
+          config.panelClass = ['snack-success'];
+          sessionStorage.setItem(
+            StorageConstants.userPassword,
+            this.passwordForm.value['newPassword']
+          );
+        })
+        .catch(() => {
+          snackMessage = this.MSG_PASSWORD_CHANGE_FAIL;
+          config.panelClass = ['snack-fail'];
+        })
+        .finally(() => this.snackBar.open(snackMessage, 'Close', config)); //TODO: handle errors propperly
+    }
   }
 }
