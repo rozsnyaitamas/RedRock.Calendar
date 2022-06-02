@@ -46,6 +46,21 @@ export function isEventPostDTO(arg: any): arg is models.EventPostDTO {
   );
   }
 
+export function isUserChangePasswordDTO(arg: any): arg is models.UserChangePasswordDTO {
+  return (
+  arg != null &&
+  typeof arg === 'object' &&
+    // newPassword?: string
+    ( typeof arg.newPassword === 'undefined' || typeof arg.newPassword === 'string' ) &&
+    // newPasswordRepeat?: string
+    ( typeof arg.newPasswordRepeat === 'undefined' || typeof arg.newPasswordRepeat === 'string' ) &&
+    // password?: string
+    ( typeof arg.password === 'undefined' || typeof arg.password === 'string' ) &&
+
+  true
+  );
+  }
+
 export function isUserDTO(arg: any): arg is models.UserDTO {
   return (
   arg != null &&
@@ -73,6 +88,23 @@ export function isUserLoginDTO(arg: any): arg is models.UserLoginDTO {
     ( typeof arg.password === 'string' ) &&
     // userName: string
     ( typeof arg.userName === 'string' ) &&
+
+  true
+  );
+  }
+
+export function isUserUpdateDTO(arg: any): arg is models.UserUpdateDTO {
+  return (
+  arg != null &&
+  typeof arg === 'object' &&
+    // fullName?: string
+    ( typeof arg.fullName === 'undefined' || typeof arg.fullName === 'string' ) &&
+    // id: string
+    ( typeof arg.id === 'string' ) &&
+    // primaryColor?: string
+    ( typeof arg.primaryColor === 'undefined' || typeof arg.primaryColor === 'string' ) &&
+    // secondaryColor?: string
+    ( typeof arg.secondaryColor === 'undefined' || typeof arg.secondaryColor === 'string' ) &&
 
   true
   );
