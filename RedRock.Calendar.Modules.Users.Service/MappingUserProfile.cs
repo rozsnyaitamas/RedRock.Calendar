@@ -11,6 +11,9 @@ namespace RedRock.Calendar.Modules.Users.Service
             CreateMap<User, UserDTO>();
             CreateMap<User, UserUpdateDTO>();
             CreateMap<UserDTO, User>();
+            CreateMap<UserUpdateDTO,User>()
+                .ForMember(dest => dest.Password, opt => opt.Ignore())
+                .ForMember(dest => dest.UserName, opt => opt.Ignore());
         }
     }
 }

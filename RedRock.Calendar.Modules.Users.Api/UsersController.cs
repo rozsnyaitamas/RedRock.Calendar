@@ -40,6 +40,30 @@ namespace RedRock.Calendar.Modules.Users.Api
             return Ok(result);
         }
 
+        [HttpPut("{id}/changePassword")]
+        public async Task<ActionResult<UserDTO>> ChangePassword(Guid id, UserChangePasswordDTO passwords)
+        {
+            var result = await userService.ChangePassword(id, passwords);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserDTO>> Update(Guid id, UserUpdateDTO userDTO)
+        {
+            var result = await userService.Update(id, userDTO);
+
+            if(result == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+        
+
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login([FromBody] UserLoginDTO userParam)

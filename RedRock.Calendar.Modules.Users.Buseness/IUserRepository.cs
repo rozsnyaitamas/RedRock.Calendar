@@ -9,5 +9,8 @@ namespace RedRock.Calendar.Modules.Users.Buseness
         public Task<IEnumerable<User>> GetUsersAsync();
         public Task<User> GetUserByIdAsync(Guid id);
         public Task<User> GetUserByUsernameAsync(string username);
+        public Task<User> UpdateUserAsync(Guid id, User user);
+
+        public Task<User> ChangePasswordAsync(Guid id, string password);
     }
 }

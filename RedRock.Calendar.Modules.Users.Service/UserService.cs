@@ -36,11 +36,32 @@ namespace RedRock.Calendar.Modules.Users.Service
         public async Task<UserDTO> Login(string username, string password)
         {
             var result = await userRepository.GetUserByUsernameAsync(username);
-            if (result == null || !SHA256.Check(result.Password,password))
+            if (result == null || !SHA256.Check(result.Password, password))
             {
                 return null;
             }
             return _mapper.Map<UserDTO>(result);
+        }
+
+        public async Task<UserDTO> Update(Guid id, UserUpdateDTO userDTO)
+        {
+            var user = _mapper.Map<User>(userDTO);
+            var result = await userRepository.UpdateUserAsync(id, user);
+            return result == null ? null : _mapper.Map<UserDTO>(result);
+        }
+
+        public async Task<UserDTO> ChangePassword(Guid id, UserChangePasswordDTO password)
+        {
+            var check = await userRepository.GetUserByIdAsync(id);
+            if (check == null || !SHA256.Check(check.Password, password.Password) || !password.NewPassword.Equals(password.NewPasswordRepeat))
+            {
+                return null;
+            }
+            else
+            {
+                var result = await userRepository.ChangePasswordAsync(id, SHA256.Hash(password.NewPassword));
+                return result == null ? null : _mapper.Map<UserDTO>(result);
+            }
         }
     }
 }
