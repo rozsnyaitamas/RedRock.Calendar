@@ -33,7 +33,7 @@ import {
   styleUrls: ['./user-settings.component.scss'],
 })
 export class UserSettingsComponent implements OnInit {
-  public buttonClicked: boolean = false;
+  // public buttonClicked: boolean = false;
 
   public infoFormClass: string = ShowInfoForm;
   public passwordFormClass: string = HidePasswordForm;
@@ -48,15 +48,15 @@ export class UserSettingsComponent implements OnInit {
   //   secondaryColor: new FormControl(),
   // });
 
-  passwordForm: FormGroup = new FormGroup({
-    oldPassword: new FormControl('', [Validators.required]),
-    newPassword: new FormControl('', [Validators.required]),
-    newPasswordCheck: new FormControl('', [Validators.required]),
-  });
+  // passwordForm: FormGroup = new FormGroup({
+  //   oldPassword: new FormControl('', [Validators.required]),
+  //   newPassword: new FormControl('', [Validators.required]),
+  //   newPasswordCheck: new FormControl('', [Validators.required]),
+  // });
 
   constructor(
-    private readonly userService: UserService,
-    private snackBar: MatSnackBar
+    // private readonly userService: UserService,
+    // private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -71,9 +71,9 @@ export class UserSettingsComponent implements OnInit {
     //     this.infoForm.controls[SecondaryColor].setValue(user.color.secondary);
     //   });
     // }
-    this.passwordForm.controls[NewPasswordCheck].addValidators(
-      ValidatorHelper.isTheSame(this.passwordForm.controls[NewPassword])
-    );
+    // this.passwordForm.controls[NewPasswordCheck].addValidators(
+    //   ValidatorHelper.isTheSame(this.passwordForm.controls[NewPassword])
+    // );
   }
 
   editUserForm(): void {
@@ -110,34 +110,34 @@ export class UserSettingsComponent implements OnInit {
   //     .finally(() => this.snackBar.open(snackMessage, SnackActionClose, config)); //TODO: handle errors propperly
   // }
 
-  submitChangedPassword(): void {
-    this.buttonClicked = true;
+  // submitChangedPassword(): void {
+  //   this.buttonClicked = true;
 
-    let snackMessage = '';
-    let config = new MatSnackBarConfig();
+  //   let snackMessage = '';
+  //   let config = new MatSnackBarConfig();
 
-    let userId = sessionStorage.getItem(StorageConstants.userId);
+  //   let userId = sessionStorage.getItem(StorageConstants.userId);
 
-    if (this.passwordForm.valid && userId) {
-      this.userService
-        .changePassword(userId, {
-          password: this.passwordForm.value[OldPassword],
-          newPassword: this.passwordForm.value[NewPassword],
-          newPasswordRepeat: this.passwordForm.value[NewPasswordCheck],
-        })
-        .then(() => {
-          snackMessage = MsgPasswordChangeSuccess;
-          config.panelClass = [CssClassSnackSuccess];
-          sessionStorage.setItem(
-            StorageConstants.userPassword,
-            this.passwordForm.value[NewPassword]
-          );
-        })
-        .catch(() => {
-          snackMessage = MsgPasswordChangeFail;
-          config.panelClass = [CssClassSnackFail];
-        })
-        .finally(() => this.snackBar.open(snackMessage, SnackActionClose, config)); //TODO: handle errors propperly
-    }
-  }
+  //   if (this.passwordForm.valid && userId) {
+  //     this.userService
+  //       .changePassword(userId, {
+  //         password: this.passwordForm.value[OldPassword],
+  //         newPassword: this.passwordForm.value[NewPassword],
+  //         newPasswordRepeat: this.passwordForm.value[NewPasswordCheck],
+  //       })
+  //       .then(() => {
+  //         snackMessage = MsgPasswordChangeSuccess;
+  //         config.panelClass = [CssClassSnackSuccess];
+  //         sessionStorage.setItem(
+  //           StorageConstants.userPassword,
+  //           this.passwordForm.value[NewPassword]
+  //         );
+  //       })
+  //       .catch(() => {
+  //         snackMessage = MsgPasswordChangeFail;
+  //         config.panelClass = [CssClassSnackFail];
+  //       })
+  //       .finally(() => this.snackBar.open(snackMessage, SnackActionClose, config)); //TODO: handle errors propperly
+  //   }
+  // }
 }

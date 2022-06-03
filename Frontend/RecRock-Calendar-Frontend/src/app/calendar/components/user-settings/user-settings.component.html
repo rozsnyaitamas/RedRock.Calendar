@@ -61,7 +61,8 @@
         </div>
 
         <div [ngClass]="passwordFormClass">
-          <form [formGroup]="passwordForm" (ngSubmit)="submitChangedPassword()">
+          <app-password-change-form></app-password-change-form>
+          <!-- <form [formGroup]="passwordForm" (ngSubmit)="submitChangedPassword()">
             <label>Old Password</label> <label class="required">*</label
             ><label>:</label><br />
             <input
@@ -102,7 +103,7 @@
               Bro. <br />
               Fill out the required(<label class="required">*</label>) fields ;)
             </mat-error>
-          </form>
+          </form> -->
         </div>
       </div>
     </div>
