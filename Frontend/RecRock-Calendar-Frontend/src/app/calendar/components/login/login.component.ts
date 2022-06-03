@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { CalendarRoutes } from '@redrock/calendar/calendar-routes';
 import { UserService } from '@redrock/services/user.service';
 import { StorageHelper } from '@redrock/shared/helpers/storage.helper';
-import { StorageConstants } from '@redrock/storage.constans';
 // import { ValidatorHelper } from '@redrock/shared/helpers/validator.helper';
 
 @Component({
@@ -14,15 +13,13 @@ import { StorageConstants } from '@redrock/storage.constans';
 })
 export class LoginComponent implements OnInit {
   rememberMe: boolean = false;
-  loginPasswordRegex: RegExp =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/i;
 
   loginForm: FormGroup = new FormGroup({
     usernameFormControl: new FormControl('', [Validators.required]),
     passwordFormControl: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
-      // ValidatorHelper.containsCharactersValidator(this.loginPasswordRegex)
+      // ValidatorHelper.containsCharactersValidator(LoginPasswordRegex)
     ]),
   });
 

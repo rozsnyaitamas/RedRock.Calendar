@@ -1,5 +1,8 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
+export const LoginPasswordRegex: RegExp =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/i;
+
 export class ValidatorHelper {
   public static containsCharactersValidator(characterRe: RegExp): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
