@@ -16,6 +16,15 @@ import {
   MsgUpdateFail,
   MsgPasswordChangeSuccess,
   MsgPasswordChangeFail,
+  CssClassSnackSuccess,
+  CssClassSnackFail,
+  SnackActionClose,
+  UserFullNameFormControl,
+  PrimaryColor,
+  SecondaryColor,
+  NewPassword,
+  NewPasswordCheck,
+  OldPassword
 } from '@redrock/calendar/components/user-settings/user-settings.constants';
 
 @Component({
@@ -31,7 +40,7 @@ export class UserSettingsComponent implements OnInit {
 
   public userSettingsTitle: string = TitleUserInfo;
 
-  public user!: UserUpdateDTO; //TODO: change to generated UserUpdateDTO
+  public user!: UserUpdateDTO;
 
   infoForm: FormGroup = new FormGroup({
     userFullNameFormControl: new FormControl(''),
@@ -55,15 +64,15 @@ export class UserSettingsComponent implements OnInit {
     if (userId != null) {
       this.userService.getById(userId).then((user) => {
         this.user = user;
-        this.infoForm.controls['userFullNameFormControl'].setValue(
+        this.infoForm.controls[UserFullNameFormControl].setValue(
           user.fullName
         );
-        this.infoForm.controls['primaryColor'].setValue(user.color.primary);
-        this.infoForm.controls['secondaryColor'].setValue(user.color.secondary);
+        this.infoForm.controls[PrimaryColor].setValue(user.color.primary);
+        this.infoForm.controls[SecondaryColor].setValue(user.color.secondary);
       });
     }
-    this.passwordForm.controls['newPasswordCheck'].addValidators(
-      ValidatorHelper.isTheSame(this.passwordForm.controls['newPassword'])
+    this.passwordForm.controls[NewPasswordCheck].addValidators(
+      ValidatorHelper.isTheSame(this.passwordForm.controls[NewPassword])
     );
   }
 
@@ -80,9 +89,9 @@ export class UserSettingsComponent implements OnInit {
   }
 
   submitUpdatedUser(): void {
-    this.user.fullName = this.infoForm.value['userFullNameFormControl'];
-    this.user.primaryColor = this.infoForm.value['primaryColor'];
-    this.user.secondaryColor = this.infoForm.value['secondaryColor'];
+    this.user.fullName = this.infoForm.value[UserFullNameFormControl];
+    this.user.primaryColor = this.infoForm.value[PrimaryColor];
+    this.user.secondaryColor = this.infoForm.value[SecondaryColor];
 
     let snackMessage = '';
     let config = new MatSnackBarConfig();
@@ -92,13 +101,13 @@ export class UserSettingsComponent implements OnInit {
       .updateUser(this.user.id, this.user)
       .then(() => {
         snackMessage = MsgUpdateSuccess;
-        config.panelClass = ['snack-success'];
+        config.panelClass = [CssClassSnackSuccess];
       })
       .catch(() => {
         snackMessage = MsgUpdateFail;
-        config.panelClass = ['snack-fail'];
+        config.panelClass = [CssClassSnackFail];
       })
-      .finally(() => this.snackBar.open(snackMessage, 'Close', config)); //TODO: handle errors propperly
+      .finally(() => this.snackBar.open(snackMessage, SnackActionClose, config)); //TODO: handle errors propperly
   }
 
   submitChangedPassword(): void {
@@ -110,23 +119,23 @@ export class UserSettingsComponent implements OnInit {
     if (this.passwordForm.valid) {
       this.userService
         .changePassword(this.user.id, {
-          password: this.passwordForm.value['oldPassword'],
-          newPassword: this.passwordForm.value['newPassword'],
-          newPasswordRepeat: this.passwordForm.value['newPasswordCheck'],
+          password: this.passwordForm.value[OldPassword],
+          newPassword: this.passwordForm.value[NewPassword],
+          newPasswordRepeat: this.passwordForm.value[NewPasswordCheck],
         })
         .then(() => {
           snackMessage = MsgPasswordChangeSuccess;
-          config.panelClass = ['snack-success'];
+          config.panelClass = [CssClassSnackSuccess];
           sessionStorage.setItem(
             StorageConstants.userPassword,
-            this.passwordForm.value['newPassword']
+            this.passwordForm.value[NewPassword]
           );
         })
         .catch(() => {
           snackMessage = MsgPasswordChangeFail;
-          config.panelClass = ['snack-fail'];
+          config.panelClass = [CssClassSnackFail];
         })
-        .finally(() => this.snackBar.open(snackMessage, 'Close', config)); //TODO: handle errors propperly
+        .finally(() => this.snackBar.open(snackMessage, SnackActionClose, config)); //TODO: handle errors propperly
     }
   }
 }
