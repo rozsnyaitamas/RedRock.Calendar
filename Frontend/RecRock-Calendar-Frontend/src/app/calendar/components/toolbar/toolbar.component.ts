@@ -1,6 +1,9 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import { CalendarRoutes } from '@redrock/calendar/calendar-routes';
+import { StorageHelper } from '@redrock/shared/helpers/storage.helper';
 import { StorageConstants } from '@redrock/storage.constans';
+import { HideLogin, HideLogout, ShowLogin, ShowLogout } from './toolbar.constants';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,39 +12,41 @@ import { StorageConstants } from '@redrock/storage.constans';
 })
 export class ToolbarComponent implements OnInit {
 
-  private readonly SHOW_LOGIN: string = "show-login";
-  private readonly HIDE_LOGIN: string = "hide-login";
-  private readonly SHOW_LOGOUT: string = "show-logout";
-  private readonly HIDE_LOGOUT: string = "hide-logout";
 
-  public loginClass: string = this.SHOW_LOGIN;
-  public logoutClass: string = this.HIDE_LOGOUT;
+
+  public loginClass: string = ShowLogin;
+  public logoutClass: string = HideLogout;
+
+  public username!: string|null;
   constructor(private router: Router) {}
 
 
   ngOnInit(): void {
-    if(sessionStorage.getItem(StorageConstants.userId)){
-      this.loginClass = this.HIDE_LOGIN;
-      this.logoutClass = this.SHOW_LOGOUT;
+    this.username = sessionStorage.getItem(StorageConstants.userFullName);
+    if(this.username){
+      this.loginClass = HideLogin;
+      this.logoutClass = ShowLogout;
     } else {
-      this.loginClass = this.SHOW_LOGIN;
-      this.logoutClass = this.HIDE_LOGOUT;
+      this.loginClass = ShowLogin;
+      this.logoutClass = HideLogout;
     }
   }
 
   navigateHomepage(): void {
-    this.router.navigate(['/calendar']);
+    this.router.navigate([CalendarRoutes.calendar]);
   }
 
   navigateLoginpage(): void {
-    this.router.navigate(['/calendar/login']);
+    this.router.navigate([CalendarRoutes.login]);
+  }
+
+  openUserSettings():void {
+    this.router.navigate([CalendarRoutes.userSettings]);
   }
 
   logOut(): void {
-    sessionStorage.removeItem(StorageConstants.userId);
-    sessionStorage.removeItem(StorageConstants.userFullName);
-    localStorage.removeItem(StorageConstants.userId);
-    localStorage.removeItem(StorageConstants.userFullName);
-    this.router.navigate(['/calendar/login']);
+    StorageHelper.removeUser(sessionStorage);
+    StorageHelper.removeUser(localStorage);
+    this.router.navigate([CalendarRoutes.login]);
   }
 }

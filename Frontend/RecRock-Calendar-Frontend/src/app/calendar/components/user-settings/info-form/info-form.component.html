@@ -1,0 +1,27 @@
+<form [formGroup]="infoForm" (ngSubmit)="submitUpdatedUser()">
+  <label>Full name:</label><br />
+  <input
+    matInput
+    formControlName="userFullNameFormControl"
+    class="main-input"
+    type="text"
+  /><br />
+  <label>Primary color:</label><br />
+  <input
+    matInput
+    formControlName="primaryColor"
+    class="main-input"
+    type="color"
+  /><br />
+  <label>Secondary color:</label><br />
+  <input
+    matInput
+    formControlName="secondaryColor"
+    class="main-input"
+    type="color"
+  /><br />
+
+  <div class="main-form-button">
+    <button mat-button type="submit">Update</button>
+  </div>
+</form>

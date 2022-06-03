@@ -232,6 +232,96 @@
             }
           }
         }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Users_Update",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "guid",
+            "x-nullable": false
+          },
+          {
+            "name": "userDTO",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserUpdateDTO"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserDTO"
+            }
+          }
+        }
+      }
+    },
+    "/api/Users/{id}/changePassword": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "Users_ChangePassword",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "guid",
+            "x-nullable": false
+          },
+          {
+            "name": "passwords",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserChangePasswordDTO"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserDTO"
+            }
+          }
+        }
       }
     },
     "/api/Users/login": {
@@ -353,6 +443,41 @@
         "secondaryColor": {
           "type": "string",
           "minLength": 1
+        }
+      }
+    },
+    "UserChangePasswordDTO": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        },
+        "newPasswordRepeat": {
+          "type": "string"
+        }
+      }
+    },
+    "UserUpdateDTO": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "primaryColor": {
+          "type": "string"
+        },
+        "secondaryColor": {
+          "type": "string"
         }
       }
     },

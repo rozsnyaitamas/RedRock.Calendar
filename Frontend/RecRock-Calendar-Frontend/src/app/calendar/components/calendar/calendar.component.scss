@@ -1,11 +1,11 @@
 @import "../../../theming/theming";
 
 .container{
-  padding-top: $displayUnit;
+  padding-top: $displayUnitSmall;
 }
 
 h3 {
-  margin: 0 0 $displayUnit * 2;
+  margin: 0 0 $displayUnitSmall * 2;
 }
 
 .calendar {

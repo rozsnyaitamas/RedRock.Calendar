@@ -1,0 +1,42 @@
+<app-toolbar></app-toolbar>
+<div class="container">
+  <div class="user-settings-card">
+    <div class="sidepanel">
+      <div class="sidepanel-top">
+        <div class="sidepanel-title">
+          <p><mat-icon>person</mat-icon> User settings</p>
+          <hr class="hr-line" />
+        </div>
+      </div>
+      <div class="sidepanel-bot">
+        <div>
+          <button mat-button class="sidepanel-buttons" (click)="editUserForm()">
+            Edit user info
+          </button>
+        </div>
+        <div>
+          <button
+            mat-button
+            class="sidepanel-buttons"
+            (click)="changePassword()"
+          >
+            Change Password
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="mainDiv">
+      <h2 class="main-title">{{ userSettingsTitle }}</h2>
+      <hr class="hr-line" />
+      <div class="main-form">
+        <div [ngClass]="infoFormClass">
+          <app-info-form></app-info-form>
+        </div>
+
+        <div [ngClass]="passwordFormClass">
+          <app-password-change-form></app-password-change-form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

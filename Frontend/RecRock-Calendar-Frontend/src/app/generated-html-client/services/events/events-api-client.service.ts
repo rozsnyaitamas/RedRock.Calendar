@@ -137,6 +137,7 @@ export class EventsAPIClient implements EventsAPIClientInterface {
       ...requestHttpOptions,
       responseType: 'blob',
     };
+
     return this.sendRequest<File>('DELETE', path, options);
   }
 

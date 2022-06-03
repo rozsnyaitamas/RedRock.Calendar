@@ -7,7 +7,8 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { StorageConstants } from '@redrock/storage.constans';
+import { StorageHelper } from '@shared/helpers/storage.helper';
+import { CalendarRoutes } from '@redrock/calendar/calendar-routes';
 
 @Injectable({
   providedIn: 'root',
@@ -23,17 +24,26 @@ export class LoginGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!sessionStorage.getItem(StorageConstants.userId)) {
-      let userId = localStorage.getItem(StorageConstants.userId);
+    if (!StorageHelper.getUserId(sessionStorage)) {
+      let userId = StorageHelper.getUserId(localStorage);
+
       if (userId) {
-        let fullName = localStorage.getItem(StorageConstants.userFullName);
-        sessionStorage.setItem(StorageConstants.userId, userId);
-        if (fullName) {
-          sessionStorage.setItem(StorageConstants.userFullName, fullName);
+        let fullName = StorageHelper.getUserFullName(localStorage);
+        StorageHelper.setUserId(sessionStorage, userId);
+        let userName = StorageHelper.getUserName(localStorage);
+        let userPassword = StorageHelper.getUserPassword(localStorage);
+        if (fullName && userName && userPassword) {
+          StorageHelper.setUser(
+            sessionStorage,
+            userId,
+            userName,
+            fullName,
+            userPassword
+          );
         }
         return true;
       }
-      this.router.navigate(['/calendar/login']);
+      this.router.navigate([CalendarRoutes.login]);
       return false;
     }
     return true;

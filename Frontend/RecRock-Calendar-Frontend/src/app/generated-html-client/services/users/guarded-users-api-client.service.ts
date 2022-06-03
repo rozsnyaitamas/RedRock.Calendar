@@ -39,6 +39,28 @@ export class GuardedUsersAPIClient extends UsersAPIClient {
       .pipe(tap((res: any) => guards.isUserDTO(res) || console.error(`TypeGuard for response 'UserDTO' caught inconsistency.`, res)));
   }
 
+  override update(
+    args: {
+      id: string,
+      userDTO: models.UserUpdateDTO,
+    },
+    requestHttpOptions?: HttpOptions
+  ): Observable<models.UserDTO> {
+    return super.update(args, requestHttpOptions)
+      .pipe(tap((res: any) => guards.isUserDTO(res) || console.error(`TypeGuard for response 'UserDTO' caught inconsistency.`, res)));
+  }
+
+  override changePassword(
+    args: {
+      id: string,
+      passwords: models.UserChangePasswordDTO,
+    },
+    requestHttpOptions?: HttpOptions
+  ): Observable<models.UserDTO> {
+    return super.changePassword(args, requestHttpOptions)
+      .pipe(tap((res: any) => guards.isUserDTO(res) || console.error(`TypeGuard for response 'UserDTO' caught inconsistency.`, res)));
+  }
+
   override login(
     args: {
       userParam: models.UserLoginDTO,

@@ -78,6 +78,44 @@ export class UsersAPIClient implements UsersAPIClientInterface {
   /**
    * Response generated for [ 200 ] HTTP response code.
    */
+  update(
+    args: {
+      id: string,
+      userDTO: models.UserUpdateDTO,
+    },
+    requestHttpOptions?: HttpOptions
+  ): Observable<models.UserDTO> {
+    const path = `/api/Users/${args.id}`;
+    const options: APIHttpOptions = {
+      ...this.options,
+      ...requestHttpOptions,
+    };
+
+    return this.sendRequest<models.UserDTO>('PUT', path, options, JSON.stringify(args.userDTO));
+  }
+
+  /**
+   * Response generated for [ 200 ] HTTP response code.
+   */
+  changePassword(
+    args: {
+      id: string,
+      passwords: models.UserChangePasswordDTO,
+    },
+    requestHttpOptions?: HttpOptions
+  ): Observable<models.UserDTO> {
+    const path = `/api/Users/${args.id}/changePassword`;
+    const options: APIHttpOptions = {
+      ...this.options,
+      ...requestHttpOptions,
+    };
+
+    return this.sendRequest<models.UserDTO>('PUT', path, options, JSON.stringify(args.passwords));
+  }
+
+  /**
+   * Response generated for [ 200 ] HTTP response code.
+   */
   login(
     args: {
       userParam: models.UserLoginDTO,

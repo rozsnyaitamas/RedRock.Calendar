@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RedRock.Calendar.Modules.Users.Contract;
 using RedRock.Calendar.Modules.Users.Service;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Users.Api
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -38,6 +40,47 @@ namespace RedRock.Calendar.Modules.Users.Api
             return Ok(result);
         }
 
+        [HttpPut("{id}/changePassword")]
+        public async Task<ActionResult<UserDTO>> ChangePassword(Guid id, UserChangePasswordDTO passwords)
+        {
+            UserChangePasswordDTOValidator validator = new UserChangePasswordDTOValidator();
+
+            ValidationResult validationResult = validator.Validate(passwords);
+            if (validationResult.IsValid)
+            {
+
+                var result = await userService.ChangePassword(id, passwords);
+                if (result == null)
+                {
+                    return BadRequest();
+                }
+                return NoContent();
+            }
+            else
+            {
+                var errors = new List<string>();
+                foreach (ValidationFailure failer in validationResult.Errors)
+                {
+                    errors.Add(failer.ErrorMessage);
+                }
+                return Unauthorized(errors);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserDTO>> Update(Guid id, UserUpdateDTO userDTO)
+        {
+            var result = await userService.Update(id, userDTO);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login([FromBody] UserLoginDTO userParam)
         {
@@ -46,7 +89,6 @@ namespace RedRock.Calendar.Modules.Users.Api
             ValidationResult validationResult = validator.Validate(userParam);
 
             if (validationResult.IsValid)
-
             {
                 var result = await userService.Login(userParam.UserName, userParam.Password);
                 if (result == null)
@@ -55,9 +97,7 @@ namespace RedRock.Calendar.Modules.Users.Api
                 }
                 return Ok(result);
             }
-
             else
-
             {
                 var errors = new List<string>();
                 foreach (ValidationFailure failer in validationResult.Errors)
@@ -65,9 +105,8 @@ namespace RedRock.Calendar.Modules.Users.Api
                     errors.Add(failer.ErrorMessage);
                 }
                 return Unauthorized(errors);
-
             }
-           
+
         }
     }
 }
