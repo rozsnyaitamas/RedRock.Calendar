@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import { CalendarRoutes } from '@redrock/calendar/calendar-routes';
 import { StorageHelper } from '@redrock/shared/helpers/storage.helper';
 import { StorageConstants } from '@redrock/storage.constans';
 
@@ -34,20 +35,20 @@ export class ToolbarComponent implements OnInit {
   }
 
   navigateHomepage(): void {
-    this.router.navigate(['/calendar']);
+    this.router.navigate([CalendarRoutes.calendar]);
   }
 
   navigateLoginpage(): void {
-    this.router.navigate(['/calendar/login']);
+    this.router.navigate([CalendarRoutes.login]);
   }
 
   openUserSettings():void {
-    this.router.navigate(['/calendar/usersettings']);
+    this.router.navigate([CalendarRoutes.userSettings]);
   }
 
   logOut(): void {
     StorageHelper.removeUser(sessionStorage);
     StorageHelper.removeUser(localStorage);
-    this.router.navigate(['/calendar/login']);
+    this.router.navigate([CalendarRoutes.login]);
   }
 }

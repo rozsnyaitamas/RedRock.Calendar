@@ -8,9 +8,10 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from '@redrock/interceptors/loading.interceptor';
 import { BasicAuthInterceptor } from '@redrock/interceptors/basic-auth.interceptor';
-import { UsersAPIClientModule } from './generated-html-client/services/users';
+import { UsersAPIClientModule } from '@redrock/generated-html-client/services/users';
 import { environment } from 'environments/environment';
-import { EventsAPIClientModule } from './generated-html-client/services/events';
+import { EventsAPIClientModule } from '@redrock/generated-html-client/services/events';
+import { CalendarRoutesParts } from '@redrock/calendar/calendar-routes';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,11 +39,11 @@ import { EventsAPIClientModule } from './generated-html-client/services/events';
     BrowserAnimationsModule,
     RouterModule.forRoot([
       {
-        path: 'calendar',
+        path: CalendarRoutesParts.calendar,
         loadChildren: () =>
           import('./calendar/calendar.module').then((m) => m.CalendarModule),
       },
-      { path: '**', redirectTo: 'calendar' },
+      { path: '**', redirectTo: CalendarRoutesParts.calendar },
     ]),
     AppRoutingModule,
   ],

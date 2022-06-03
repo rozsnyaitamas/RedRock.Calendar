@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CalendarRoutes } from '@redrock/calendar/calendar-routes';
 import { UserService } from '@redrock/services/user.service';
 import { StorageHelper } from '@redrock/shared/helpers/storage.helper';
 import { StorageConstants } from '@redrock/storage.constans';
@@ -54,7 +55,7 @@ export class LoginComponent implements OnInit {
             user.fullName,
             userPassword
           );
-          this.router.navigate(['/calendar']);
+          this.router.navigate([CalendarRoutes.calendar]);
         }
       });
     }

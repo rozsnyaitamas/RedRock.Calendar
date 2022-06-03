@@ -7,8 +7,8 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { StorageConstants } from '@redrock/storage.constans';
-import { StorageHelper } from './shared/helpers/storage.helper';
+import { StorageHelper } from '@shared/helpers/storage.helper';
+import { CalendarRoutes } from '@redrock/calendar/calendar-routes';
 
 @Injectable({
   providedIn: 'root',
@@ -40,13 +40,10 @@ export class LoginGuardGuard implements CanActivate {
             fullName,
             userPassword
           );
-          // sessionStorage.setItem(StorageConstants.userFullName, fullName);
-          // sessionStorage.setItem(StorageConstants.userName, userName);
-          // sessionStorage.setItem(StorageConstants.userPassword, userPassword);
         }
         return true;
       }
-      this.router.navigate(['/calendar/login']);
+      this.router.navigate([CalendarRoutes.login]);
       return false;
     }
     return true;
