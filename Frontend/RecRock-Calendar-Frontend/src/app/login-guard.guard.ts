@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { StorageConstants } from '@redrock/storage.constans';
+import { StorageHelper } from './shared/helpers/storage.helper';
 
 @Injectable({
   providedIn: 'root',
@@ -23,17 +24,25 @@ export class LoginGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!sessionStorage.getItem(StorageConstants.userId)) {
-      let userId = localStorage.getItem(StorageConstants.userId);
+    if (!StorageHelper.getUserId(sessionStorage)) {
+      let userId = StorageHelper.getUserId(localStorage);
+
       if (userId) {
-        let fullName = localStorage.getItem(StorageConstants.userFullName);
-        sessionStorage.setItem(StorageConstants.userId, userId);
-        let userName = localStorage.getItem(StorageConstants.userName);
-        let userPassword = localStorage.getItem(StorageConstants.userPassword);
+        let fullName = StorageHelper.getUserFullName(localStorage);
+        StorageHelper.setUserId(sessionStorage, userId);
+        let userName = StorageHelper.getUserName(localStorage);
+        let userPassword = StorageHelper.getUserPassword(localStorage);
         if (fullName && userName && userPassword) {
-          sessionStorage.setItem(StorageConstants.userFullName, fullName);
-          sessionStorage.setItem(StorageConstants.userName, userName);
-          sessionStorage.setItem(StorageConstants.userPassword, userPassword);
+          StorageHelper.setUser(
+            sessionStorage,
+            userId,
+            userName,
+            fullName,
+            userPassword
+          );
+          // sessionStorage.setItem(StorageConstants.userFullName, fullName);
+          // sessionStorage.setItem(StorageConstants.userName, userName);
+          // sessionStorage.setItem(StorageConstants.userPassword, userPassword);
         }
         return true;
       }

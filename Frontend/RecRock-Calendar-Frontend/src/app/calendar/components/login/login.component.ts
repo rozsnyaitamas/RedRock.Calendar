@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '@redrock/services/user.service';
+import { StorageHelper } from '@redrock/shared/helpers/storage.helper';
 import { StorageConstants } from '@redrock/storage.constans';
 // import { ValidatorHelper } from '@redrock/shared/helpers/validator.helper';
 
@@ -38,15 +39,21 @@ export class LoginComponent implements OnInit {
       this.userService.login(userName, userPassword).then((user) => {
         if (user) {
           if (this.rememberMe) {
-            localStorage.setItem(StorageConstants.userId, user.id);
-            localStorage.setItem(StorageConstants.userFullName, user.fullName);
-            localStorage.setItem(StorageConstants.userName, userName);
-            localStorage.setItem(StorageConstants.userPassword, userPassword);
+            StorageHelper.setUser(
+              localStorage,
+              user.id,
+              userName,
+              user.fullName,
+              userPassword
+            );
           }
-          sessionStorage.setItem(StorageConstants.userId, user.id);
-          sessionStorage.setItem(StorageConstants.userFullName, user.fullName);
-          sessionStorage.setItem(StorageConstants.userName, userName);
-          sessionStorage.setItem(StorageConstants.userPassword, userPassword);
+          StorageHelper.setUser(
+            sessionStorage,
+            user.id,
+            userName,
+            user.fullName,
+            userPassword
+          );
           this.router.navigate(['/calendar']);
         }
       });
