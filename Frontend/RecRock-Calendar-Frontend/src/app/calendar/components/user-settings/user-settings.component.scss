@@ -1,6 +1,8 @@
+@import "../../../theming/theming";
+
 .container{
   padding-top: 5%;
-  max-width: 700px;
+  max-width: $displayUnitLarge*7;
 }
 
 .hr-line{
@@ -11,14 +13,14 @@
   background-color: var(--color-gray);
   display: grid;
   color: var(--color-white);
-  border-radius: 25px;
+  border-radius: $displayUnitMedium;
 }
 
 .sidepanel{
-  margin-top: 5px;
+  margin-top: $displayUnitSmall;
   grid-column-start: 2;
   grid-column-end: 7;
-  height: 700px;
+  height: $displayUnitLarge*7;
 }
 
 .sidepanel-top{
