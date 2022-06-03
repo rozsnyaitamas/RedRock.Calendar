@@ -5,6 +5,18 @@ import { UserUpdateDTO } from '@redrock/generated-html-client/models';
 import { UserService } from '@redrock/services/user.service';
 import { ValidatorHelper } from '@redrock/shared/helpers/validator.helper';
 import { StorageConstants } from '@redrock/storage.constans';
+import {
+  ShowInfoForm,
+  HidePasswordForm,
+  TitleUserInfo,
+  HideInfoForm,
+  ShowPasswordForm,
+  TitleChangePassword,
+  MsgUpdateSuccess,
+  MsgUpdateFail,
+  MsgPasswordChangeSuccess,
+  MsgPasswordChangeFail,
+} from '@redrock/calendar/components/user-settings/user-settings.constants';
 
 @Component({
   selector: 'app-user-settings',
@@ -12,26 +24,12 @@ import { StorageConstants } from '@redrock/storage.constans';
   styleUrls: ['./user-settings.component.scss'],
 })
 export class UserSettingsComponent implements OnInit {
-  private readonly SHOW_INFO_FORM: string = 'show-infoForm';
-  private readonly HIDE_INFO_FORM: string = 'hide-infoForm';
-  private readonly SHOW_PASSOWD_FORM: string = 'show-passwordForm';
-  private readonly HIDE_PASSWORD_FORM: string = 'hide-passwordForm';
-  private readonly TITLE_USER_INFO: string = 'User info';
-  private readonly TITLE_CHANGE_PASSWORD: string = 'Password';
-
   public buttonClicked: boolean = false;
 
-  public infoFormClass: string = this.SHOW_INFO_FORM;
-  public passwordFormClass: string = this.HIDE_PASSWORD_FORM;
+  public infoFormClass: string = ShowInfoForm;
+  public passwordFormClass: string = HidePasswordForm;
 
-  public userSettingsTitle: string = this.TITLE_USER_INFO;
-
-  private readonly MSG_UPDATE_SUCCESS: string = 'User updated successfully';
-  private readonly MSG_UPDATE_FAIL: string = 'User update ERROR';
-  private readonly MSG_PASSWORD_CHANGE_SUCCESS: string =
-    'Password changed successfully';
-  private readonly MSG_PASSWORD_CHANGE_FAIL: string =
-    "Password change ERROR!\nMake sure the 'Old Password' is correct!";
+  public userSettingsTitle: string = TitleUserInfo;
 
   public user!: UserUpdateDTO; //TODO: change to generated UserUpdateDTO
 
@@ -70,15 +68,15 @@ export class UserSettingsComponent implements OnInit {
   }
 
   editUserForm(): void {
-    this.infoFormClass = this.SHOW_INFO_FORM;
-    this.passwordFormClass = this.HIDE_PASSWORD_FORM;
-    this.userSettingsTitle = this.TITLE_USER_INFO;
+    this.infoFormClass = ShowInfoForm;
+    this.passwordFormClass = HidePasswordForm;
+    this.userSettingsTitle = TitleUserInfo;
   }
 
   changePassword(): void {
-    this.infoFormClass = this.HIDE_INFO_FORM;
-    this.passwordFormClass = this.SHOW_PASSOWD_FORM;
-    this.userSettingsTitle = this.TITLE_CHANGE_PASSWORD;
+    this.infoFormClass = HideInfoForm;
+    this.passwordFormClass = ShowPasswordForm;
+    this.userSettingsTitle = TitleChangePassword;
   }
 
   submitUpdatedUser(): void {
@@ -93,16 +91,14 @@ export class UserSettingsComponent implements OnInit {
     this.userService
       .updateUser(this.user.id, this.user)
       .then(() => {
-        snackMessage = this.MSG_UPDATE_SUCCESS;
+        snackMessage = MsgUpdateSuccess;
         config.panelClass = ['snack-success'];
       })
       .catch(() => {
-        snackMessage = this.MSG_UPDATE_FAIL;
+        snackMessage = MsgUpdateFail;
         config.panelClass = ['snack-fail'];
       })
-      .finally(() =>
-        this.snackBar.open(snackMessage, 'Close', config)
-      ); //TODO: handle errors propperly
+      .finally(() => this.snackBar.open(snackMessage, 'Close', config)); //TODO: handle errors propperly
   }
 
   submitChangedPassword(): void {
@@ -119,7 +115,7 @@ export class UserSettingsComponent implements OnInit {
           newPasswordRepeat: this.passwordForm.value['newPasswordCheck'],
         })
         .then(() => {
-          snackMessage = this.MSG_PASSWORD_CHANGE_SUCCESS;
+          snackMessage = MsgPasswordChangeSuccess;
           config.panelClass = ['snack-success'];
           sessionStorage.setItem(
             StorageConstants.userPassword,
@@ -127,7 +123,7 @@ export class UserSettingsComponent implements OnInit {
           );
         })
         .catch(() => {
-          snackMessage = this.MSG_PASSWORD_CHANGE_FAIL;
+          snackMessage = MsgPasswordChangeFail;
           config.panelClass = ['snack-fail'];
         })
         .finally(() => this.snackBar.open(snackMessage, 'Close', config)); //TODO: handle errors propperly
