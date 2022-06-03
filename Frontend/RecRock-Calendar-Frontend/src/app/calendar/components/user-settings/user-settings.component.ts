@@ -40,13 +40,13 @@ export class UserSettingsComponent implements OnInit {
 
   public userSettingsTitle: string = TitleUserInfo;
 
-  public user!: UserUpdateDTO;
+  // public user!: UserUpdateDTO;
 
-  infoForm: FormGroup = new FormGroup({
-    userFullNameFormControl: new FormControl(''),
-    primaryColor: new FormControl(),
-    secondaryColor: new FormControl(),
-  });
+  // infoForm: FormGroup = new FormGroup({
+  //   userFullNameFormControl: new FormControl(''),
+  //   primaryColor: new FormControl(),
+  //   secondaryColor: new FormControl(),
+  // });
 
   passwordForm: FormGroup = new FormGroup({
     oldPassword: new FormControl('', [Validators.required]),
@@ -60,17 +60,17 @@ export class UserSettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let userId = sessionStorage.getItem(StorageConstants.userId);
-    if (userId != null) {
-      this.userService.getById(userId).then((user) => {
-        this.user = user;
-        this.infoForm.controls[UserFullNameFormControl].setValue(
-          user.fullName
-        );
-        this.infoForm.controls[PrimaryColor].setValue(user.color.primary);
-        this.infoForm.controls[SecondaryColor].setValue(user.color.secondary);
-      });
-    }
+    // let userId = sessionStorage.getItem(StorageConstants.userId);
+    // if (userId != null) {
+    //   this.userService.getById(userId).then((user) => {
+    //     this.user = user;
+    //     this.infoForm.controls[UserFullNameFormControl].setValue(
+    //       user.fullName
+    //     );
+    //     this.infoForm.controls[PrimaryColor].setValue(user.color.primary);
+    //     this.infoForm.controls[SecondaryColor].setValue(user.color.secondary);
+    //   });
+    // }
     this.passwordForm.controls[NewPasswordCheck].addValidators(
       ValidatorHelper.isTheSame(this.passwordForm.controls[NewPassword])
     );
@@ -88,27 +88,27 @@ export class UserSettingsComponent implements OnInit {
     this.userSettingsTitle = TitleChangePassword;
   }
 
-  submitUpdatedUser(): void {
-    this.user.fullName = this.infoForm.value[UserFullNameFormControl];
-    this.user.primaryColor = this.infoForm.value[PrimaryColor];
-    this.user.secondaryColor = this.infoForm.value[SecondaryColor];
+  // submitUpdatedUser(): void {
+  //   this.user.fullName = this.infoForm.value[UserFullNameFormControl];
+  //   this.user.primaryColor = this.infoForm.value[PrimaryColor];
+  //   this.user.secondaryColor = this.infoForm.value[SecondaryColor];
 
-    let snackMessage = '';
-    let config = new MatSnackBarConfig();
-    config.duration = 2000;
+  //   let snackMessage = '';
+  //   let config = new MatSnackBarConfig();
+  //   config.duration = 2000;
 
-    this.userService
-      .updateUser(this.user.id, this.user)
-      .then(() => {
-        snackMessage = MsgUpdateSuccess;
-        config.panelClass = [CssClassSnackSuccess];
-      })
-      .catch(() => {
-        snackMessage = MsgUpdateFail;
-        config.panelClass = [CssClassSnackFail];
-      })
-      .finally(() => this.snackBar.open(snackMessage, SnackActionClose, config)); //TODO: handle errors propperly
-  }
+  //   this.userService
+  //     .updateUser(this.user.id, this.user)
+  //     .then(() => {
+  //       snackMessage = MsgUpdateSuccess;
+  //       config.panelClass = [CssClassSnackSuccess];
+  //     })
+  //     .catch(() => {
+  //       snackMessage = MsgUpdateFail;
+  //       config.panelClass = [CssClassSnackFail];
+  //     })
+  //     .finally(() => this.snackBar.open(snackMessage, SnackActionClose, config)); //TODO: handle errors propperly
+  // }
 
   submitChangedPassword(): void {
     this.buttonClicked = true;
@@ -116,9 +116,11 @@ export class UserSettingsComponent implements OnInit {
     let snackMessage = '';
     let config = new MatSnackBarConfig();
 
-    if (this.passwordForm.valid) {
+    let userId = sessionStorage.getItem(StorageConstants.userId);
+
+    if (this.passwordForm.valid && userId) {
       this.userService
-        .changePassword(this.user.id, {
+        .changePassword(userId, {
           password: this.passwordForm.value[OldPassword],
           newPassword: this.passwordForm.value[NewPassword],
           newPasswordRepeat: this.passwordForm.value[NewPasswordCheck],

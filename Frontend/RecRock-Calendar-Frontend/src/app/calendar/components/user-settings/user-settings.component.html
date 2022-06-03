@@ -30,7 +30,8 @@
       <hr class="hr-line" />
       <div class="main-form">
         <div [ngClass]="infoFormClass">
-          <form [formGroup]="infoForm" (ngSubmit)="submitUpdatedUser()">
+          <app-info-form></app-info-form>
+          <!-- <form [formGroup]="infoForm" (ngSubmit)="submitUpdatedUser()">
             <label>Full name:</label><br />
             <input
               matInput
@@ -56,7 +57,7 @@
             <div class="main-form-button">
               <button mat-button type="submit">Update</button>
             </div>
-          </form>
+          </form> -->
         </div>
 
         <div [ngClass]="passwordFormClass">
