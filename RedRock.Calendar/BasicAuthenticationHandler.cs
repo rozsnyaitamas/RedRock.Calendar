@@ -18,11 +18,11 @@ namespace RedRock.Calendar
     {
         private readonly IUserService userService;
 
-        public BasicAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, 
+        public BasicAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
-            ISystemClock clock, 
-            IUserService userService) 
+            ISystemClock clock,
+            IUserService userService)
             : base(options, logger, encoder, clock)
         {
             this.userService = userService;
@@ -53,7 +53,9 @@ namespace RedRock.Calendar
             }
 
             if (user == null)
+            {
                 return AuthenticateResult.Fail("Invalid Username or Password");
+            }
             var claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
