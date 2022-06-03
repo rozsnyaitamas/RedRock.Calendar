@@ -31,79 +31,10 @@
       <div class="main-form">
         <div [ngClass]="infoFormClass">
           <app-info-form></app-info-form>
-          <!-- <form [formGroup]="infoForm" (ngSubmit)="submitUpdatedUser()">
-            <label>Full name:</label><br />
-            <input
-              matInput
-              formControlName="userFullNameFormControl"
-              class="main-input"
-              type="text"
-            /><br />
-            <label>Primary color:</label><br />
-            <input
-              matInput
-              formControlName="primaryColor"
-              class="main-input"
-              type="color"
-            /><br />
-            <label>Secondary color:</label><br />
-            <input
-              matInput
-              formControlName="secondaryColor"
-              class="main-input"
-              type="color"
-            /><br />
-
-            <div class="main-form-button">
-              <button mat-button type="submit">Update</button>
-            </div>
-          </form> -->
         </div>
 
         <div [ngClass]="passwordFormClass">
           <app-password-change-form></app-password-change-form>
-          <!-- <form [formGroup]="passwordForm" (ngSubmit)="submitChangedPassword()">
-            <label>Old Password</label> <label class="required">*</label
-            ><label>:</label><br />
-            <input
-              matInput
-              formControlName="oldPassword"
-              class="main-input"
-              type="password"
-            /><br /><br />
-            <label>New Password</label> <label class="required">*</label
-            ><label>:</label><br />
-            <input
-              matInput
-              formControlName="newPassword"
-              class="main-input"
-              type="password"
-            /><br />
-            <label>Repeat new Password</label> <label class="required">*</label
-            ><label>:</label><br />
-            <input
-              matInput
-              formControlName="newPasswordCheck"
-              class="main-input"
-              type="password"
-            /><br />
-            <mat-error
-              *ngIf="passwordForm.get('newPasswordCheck')?.errors?.['notEqual']"
-            >
-              Missmatched passwords
-            </mat-error>
-            <div class="main-form-button">
-              <button mat-button type="submit">Change Password</button>
-            </div>
-            <mat-error
-              *ngIf="(passwordForm.get('oldPassword')?.errors?.['required'] ||
-              passwordForm.get('newPassword')?.errors?.['required'] ||
-              passwordForm.get('newPasswordCheck')?.errors?.['required']) && buttonClicked"
-            >
-              Bro. <br />
-              Fill out the required(<label class="required">*</label>) fields ;)
-            </mat-error>
-          </form> -->
         </div>
       </div>
     </div>
