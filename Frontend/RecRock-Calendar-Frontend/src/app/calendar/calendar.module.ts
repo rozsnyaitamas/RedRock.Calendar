@@ -21,6 +21,8 @@ import { LoginGuardGuard } from '@redrock/login-guard.guard';
 import { LoadingSpinnerComponent } from '@redrock/shared/helpers/loading/loading-spinner/loading-spinner.component';
 import { UserSettingsComponent } from '@redrock/calendar/components/user-settings/user-settings.component';
 import { CalendarRoutesParts } from '@redrock/calendar/calendar-routes';
+import { InfoFormComponent } from './components/user-settings/info-form/info-form.component';
+import { PasswordChangeFormComponent } from './components/user-settings/password-change-form/password-change-form.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { CalendarRoutesParts } from '@redrock/calendar/calendar-routes';
     LoginComponent,
     LoadingSpinnerComponent,
     UserSettingsComponent,
+    InfoFormComponent,
+    PasswordChangeFormComponent,
   ],
   imports: [
     CommonModule,
