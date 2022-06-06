@@ -178,6 +178,51 @@
         }
       }
     },
+    "/api/Finance": {
+      "get": {
+        "tags": [
+          "Finance"
+        ],
+        "operationId": "Finance_GetMonthlyFee",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "userReference",
+            "in": "query",
+            "format": "guid",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "startDate",
+            "in": "query",
+            "format": "date-time",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "endDate",
+            "in": "query",
+            "format": "date-time",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FinanceDTO"
+            }
+          }
+        }
+      }
+    },
     "/api/Users": {
       "get": {
         "tags": [
@@ -410,6 +455,28 @@
         "userReference": {
           "type": "string",
           "format": "guid"
+        }
+      }
+    },
+    "FinanceDTO": {
+      "type": "object",
+      "required": [
+        "userReference",
+        "sum",
+        "month"
+      ],
+      "properties": {
+        "userReference": {
+          "type": "string",
+          "format": "guid"
+        },
+        "sum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "month": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },

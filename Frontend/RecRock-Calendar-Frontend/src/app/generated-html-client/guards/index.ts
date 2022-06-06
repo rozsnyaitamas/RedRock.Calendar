@@ -46,6 +46,21 @@ export function isEventPostDTO(arg: any): arg is models.EventPostDTO {
   );
   }
 
+export function isFinanceDTO(arg: any): arg is models.FinanceDTO {
+  return (
+  arg != null &&
+  typeof arg === 'object' &&
+    // month: number
+    ( typeof arg.month === 'number' ) &&
+    // sum: number
+    ( typeof arg.sum === 'number' ) &&
+    // userReference: string
+    ( typeof arg.userReference === 'string' ) &&
+
+  true
+  );
+  }
+
 export function isUserChangePasswordDTO(arg: any): arg is models.UserChangePasswordDTO {
   return (
   arg != null &&
