@@ -185,13 +185,20 @@ export class CalendarComponent implements OnInit {
 
   public previousMonth(): void {
     this.viewDate = ChangeMonthHelper.previousMonth(this.viewDate);
-    this.events = [];
-    this.fetchEvents();
-    this.refreshCalendar.next();
+    this.refreshEvents();
   }
 
   public nextMonth(): void {
     this.viewDate = ChangeMonthHelper.nextMonth(this.viewDate);
+    this.refreshEvents();
+  }
+
+  public goToday(): void {
+    this.viewDate = new Date();
+    this.refreshEvents();
+  }
+
+  private refreshEvents(): void {
     this.events = [];
     this.fetchEvents();
     this.refreshCalendar.next();

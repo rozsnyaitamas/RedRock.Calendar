@@ -1,12 +1,41 @@
 <mat-card>
   <mat-card-title>
-    <button mat-mini-fab color="primary" (click)="previousMonth()" aria-label="previous month">
-      <mat-icon>keyboard_arrow_left</mat-icon>
-    </button>
-    {{ viewDate | date: DateFormat }}
-    <button mat-mini-fab color="primary" (click)="nextMonth()" aria-label="next month">
-      <mat-icon>keyboard_arrow_right</mat-icon>
-    </button>
+    <div class="calendar-title">
+      <div class="calendar-title-today">
+        <button
+          mat-mini-fab
+          color="primary"
+          (click)="goToday()"
+          aria-label="go to today"
+          class="today-button"
+        >
+          ToDay
+        </button>
+      </div>
+      <div class="calendar-title-left-arrow">
+        <button
+          mat-mini-fab
+          color="primary"
+          (click)="previousMonth()"
+          aria-label="previous month"
+        >
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+      </div>
+      <div class="calendar-title-text">
+        {{ viewDate | date: DateFormat }}
+      </div>
+      <div class="calendar-title-right-arrow">
+        <button
+          mat-mini-fab
+          color="primary"
+          (click)="nextMonth()"
+          aria-label="next month"
+        >
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </div>
+    </div>
   </mat-card-title>
   <mat-card-content class="container">
     <div [ngSwitch]="CalendarView.Month" class="calendar">
