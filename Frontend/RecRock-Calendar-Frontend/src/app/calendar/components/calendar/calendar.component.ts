@@ -13,6 +13,8 @@ import { UserService } from '@redrock/services/user.service';
 import { EventService } from '@redrock/services/event.service';
 import { EventDTO, EventPostDTO } from '@redrock/generated-html-client/models';
 import { StorageConstants } from '@redrock/storage.constans';
+import { ChangeMonthHelper } from './change-month.helper';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-calendar',
@@ -26,6 +28,7 @@ export class CalendarComponent implements OnInit {
 
   public viewDate: Date = new Date();
   public events: Event[] = [];
+  refreshCalendar: Subject<void> = new Subject();
   public usersInfo: { [key: string]: User } = {};
 
   private currentUserId!: string;
@@ -44,12 +47,16 @@ export class CalendarComponent implements OnInit {
         this.currentUserId = user.id;
       });
     }
+    this.fetchEvents();
+  }
+
+  private fetchEvents(): void {
     this.eventService
-      .getByInterval(
-        DateTimeHelper.firstDayOfThisMonth(this.viewDate),
-        lastDayOfMonth(this.viewDate)
-      )
-      .then((eventDTOs) => this.populateEventsList(eventDTOs));
+    .getByInterval(
+      DateTimeHelper.firstDayOfThisMonth(this.viewDate),
+      lastDayOfMonth(this.viewDate)
+    )
+    .then((eventDTOs) => this.populateEventsList(eventDTOs));
   }
 
   private populateEventsList(eventDTOs: EventDTO[]): void {
@@ -175,4 +182,19 @@ export class CalendarComponent implements OnInit {
       );
     }
   }
+
+  public previousMonth(): void {
+    this.viewDate = ChangeMonthHelper.previousMonth(this.viewDate);
+    this.events = [];
+    this.fetchEvents();
+    this.refreshCalendar.next();
+  }
+
+  public nextMonth(): void {
+    this.viewDate = ChangeMonthHelper.nextMonth(this.viewDate);
+    this.events = [];
+    this.fetchEvents();
+    this.refreshCalendar.next();
+  }
+
 }
