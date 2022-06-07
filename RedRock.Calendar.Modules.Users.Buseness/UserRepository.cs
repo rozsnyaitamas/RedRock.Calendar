@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RedRock.Calendar.Modules.Users.Contract;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -48,6 +49,16 @@ namespace RedRock.Calendar.Modules.Users.Buseness
                 await context.SaveChangesAsync();
             }
             return userOld;
+        }
+
+        public async Task<UserRole> GetRole(Guid id)
+        {
+            var user = await context.Users.FindAsync(id);
+            if (user != null)
+            {
+                return user.Role;
+            }
+            return UserRole.StandardUser; //TODO resolve in case of error....
         }
     }
 }

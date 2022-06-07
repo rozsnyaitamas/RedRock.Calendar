@@ -1,12 +1,11 @@
 ﻿using RedRock.Calendar.Modules.Events.Contract;
-using System;
+using RedRock.Calendar.Modules.Finance.Business.PaymentStrategy;
 using System.Collections.Generic;
-using System.Text;
 
 namespace RedRock.Calendar.Modules.Finance.Business
 {
     public interface IFinanceBusinessLogic
     {
-        public int CalculateMonthlyFee(IEnumerable<EventDTO> events);
+        public int CalculateMonthlyFee(IEnumerable<EventDTO> events, IPaymentStrategy paymentStrategy);
     }
 }

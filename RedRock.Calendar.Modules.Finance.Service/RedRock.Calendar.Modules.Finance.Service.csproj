@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\RedRock.Calendar.Modules.Finance.Business\RedRock.Calendar.Modules.Finance.Business.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Finance.Contract\RedRock.Calendar.Modules.Finance.Contract.csproj" />
+    <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Contract\RedRock.Calendar.Modules.Users.Contract.csproj" />
   </ItemGroup>
 
 </Project>

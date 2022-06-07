@@ -11,5 +11,6 @@ namespace RedRock.Calendar.Modules.Users.Contract
         public Task<UserDTO> Login(string username, string password);
         public Task<UserDTO> Update(Guid id, UserUpdateDTO userDTO);
         public Task<UserDTO> ChangePassword(Guid id, UserChangePasswordDTO password);
+        public Task<UserRole> GetUserRole(Guid id);
     }
 }
