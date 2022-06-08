@@ -53,5 +53,11 @@ namespace RedRock.Calendar.Modules.Events.Service
                 throw e;
             }
         }
+
+        public async Task<IEnumerable<EventDTO>> GetIntervalWithUserRefAsync(Guid userReference, DateTime start, DateTime end)
+        {
+            var result = await eventRepository.GetIntervalWithUserRefAsync(userReference, start, end);
+            return result == null ? null : mapper.Map<EventDTO[]>(result);
+        }
     }
 }

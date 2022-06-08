@@ -63,5 +63,10 @@ namespace RedRock.Calendar.Modules.Users.Service
                 return result == null ? null : _mapper.Map<UserDTO>(result);
             }
         }
+
+        public async Task<UserRole> GetUserRole(Guid id)
+        {
+            return await userRepository.GetRole(id);
+        }
     }
 }

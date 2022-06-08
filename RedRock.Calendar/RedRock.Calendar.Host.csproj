@@ -31,6 +31,10 @@
     <ProjectReference Include="..\RedRock.Calendar.Modules.Events.Business\RedRock.Calendar.Modules.Events.Business.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Events.Contract\RedRock.Calendar.Modules.Events.Contract.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Events.Service\RedRock.Calendar.Modules.Events.Service.csproj" />
+    <ProjectReference Include="..\RedRock.Calendar.Modules.Finance.Api\RedRock.Calendar.Modules.Finance.Api.csproj" />
+    <ProjectReference Include="..\RedRock.Calendar.Modules.Finance.Business\RedRock.Calendar.Modules.Finance.Business.csproj" />
+    <ProjectReference Include="..\RedRock.Calendar.Modules.Finance.Contract\RedRock.Calendar.Modules.Finance.Contract.csproj" />
+    <ProjectReference Include="..\RedRock.Calendar.Modules.Finance.Service\RedRock.Calendar.Modules.Finance.Service.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Api\RedRock.Calendar.Modules.Users.Api.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Buseness\RedRock.Calendar.Modules.Users.Buseness.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Contract\RedRock.Calendar.Modules.Users.Contract.csproj" />

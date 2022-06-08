@@ -24,6 +24,7 @@ export class UserService {
           primary: userDTO.primaryColor,
           secondary: userDTO.secondaryColor,
         },
+        role: userDTO.role
       };
     });
   }

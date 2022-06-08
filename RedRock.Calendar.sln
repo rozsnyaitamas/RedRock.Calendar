@@ -64,6 +64,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HashingHelpers", "HashingHe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwaggerJSONFileGenerator", "SwaggerJSONFileGenerator\SwaggerJSONFileGenerator.csproj", "{FF86FFE1-430A-4989-83AF-97DD47048A57}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Finance", "Finance", "{AFBB678B-B923-4E18-B862-947C8014DC0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedRock.Calendar.Modules.Finance.Api", "RedRock.Calendar.Modules.Finance.Api\RedRock.Calendar.Modules.Finance.Api.csproj", "{B919037D-948F-4C42-A80F-7AA37A305030}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedRock.Calendar.Modules.Finance.Business", "RedRock.Calendar.Modules.Finance.Business\RedRock.Calendar.Modules.Finance.Business.csproj", "{C7C100FA-4EB2-4D14-BF2A-5F816C636094}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedRock.Calendar.Modules.Finance.Contract", "RedRock.Calendar.Modules.Finance.Contract\RedRock.Calendar.Modules.Finance.Contract.csproj", "{2E8F24A0-ACC4-45EA-9F69-74AA1A299232}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedRock.Calendar.Modules.Finance.Service", "RedRock.Calendar.Modules.Finance.Service\RedRock.Calendar.Modules.Finance.Service.csproj", "{BF6A3C91-B691-4A2E-9FCC-8ED77B632725}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +124,22 @@ Global
 		{FF86FFE1-430A-4989-83AF-97DD47048A57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF86FFE1-430A-4989-83AF-97DD47048A57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF86FFE1-430A-4989-83AF-97DD47048A57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B919037D-948F-4C42-A80F-7AA37A305030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B919037D-948F-4C42-A80F-7AA37A305030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B919037D-948F-4C42-A80F-7AA37A305030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B919037D-948F-4C42-A80F-7AA37A305030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7C100FA-4EB2-4D14-BF2A-5F816C636094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7C100FA-4EB2-4D14-BF2A-5F816C636094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7C100FA-4EB2-4D14-BF2A-5F816C636094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7C100FA-4EB2-4D14-BF2A-5F816C636094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E8F24A0-ACC4-45EA-9F69-74AA1A299232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E8F24A0-ACC4-45EA-9F69-74AA1A299232}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E8F24A0-ACC4-45EA-9F69-74AA1A299232}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E8F24A0-ACC4-45EA-9F69-74AA1A299232}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF6A3C91-B691-4A2E-9FCC-8ED77B632725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF6A3C91-B691-4A2E-9FCC-8ED77B632725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF6A3C91-B691-4A2E-9FCC-8ED77B632725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF6A3C91-B691-4A2E-9FCC-8ED77B632725}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +156,10 @@ Global
 		{D93C6567-5C2C-4AA5-A62A-8998D6DCDEC0} = {4BBC914D-AE76-472C-835E-01EA5A74756F}
 		{CD77B4F4-A40A-4BE3-ACEF-969690A0D6A5} = {1628FCAD-5C12-4247-92B4-4864FC6E5F9C}
 		{FF86FFE1-430A-4989-83AF-97DD47048A57} = {5E6A1C6C-F5B6-45B2-AD50-8073F2267D1C}
+		{B919037D-948F-4C42-A80F-7AA37A305030} = {AFBB678B-B923-4E18-B862-947C8014DC0C}
+		{C7C100FA-4EB2-4D14-BF2A-5F816C636094} = {AFBB678B-B923-4E18-B862-947C8014DC0C}
+		{2E8F24A0-ACC4-45EA-9F69-74AA1A299232} = {AFBB678B-B923-4E18-B862-947C8014DC0C}
+		{BF6A3C91-B691-4A2E-9FCC-8ED77B632725} = {AFBB678B-B923-4E18-B862-947C8014DC0C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83FBE658-8763-437D-9528-26B35498FE2E}
