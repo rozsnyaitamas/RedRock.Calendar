@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RedRock.Calendar.Modules.Events.Contract\RedRock.Calendar.Modules.Events.Contract.csproj" />
+    <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Contract\RedRock.Calendar.Modules.Users.Contract.csproj" />
   </ItemGroup>
 
 </Project>

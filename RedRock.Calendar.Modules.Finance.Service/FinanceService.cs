@@ -27,41 +27,17 @@ namespace RedRock.Calendar.Modules.Finance.Service
             if (events != null)
             {
                 var userRole = await userService.GetUserRole(userReference);
-                IPaymentStrategy paymentStrategy;
-                switch (userRole)
-                {
-                    case UserRole.PropertyOwner:
-                        {
-                            paymentStrategy = new PropertyOwnerPaymentStrategy();
-                            break;
-                        }
-                    case UserRole.StandardUser:
-                        {
-                            paymentStrategy = new StandardUserPaymentStrategy();
-                            break;
-                        }
-                    case UserRole.SupporterUser:
-                        {
-                            paymentStrategy = new SupporterUserPaymentStrategy();
-                            break;
-                        }
-                    default:
-                        {
-                            paymentStrategy = new StandardUserPaymentStrategy(); //TODO implement in case of default!!
-                            break;
-                        }
-                }
-                var result = financeLogic.CalculateMonthlyFee(events, paymentStrategy);
-                var financeDTO = new FinanceDTO
-                {
-                    UserReference = userReference,
-                    Sum = result,
-                    Month = start.Month
-                };
-                return financeDTO;
+                var result = financeLogic.CalculateMonthlyFee(events, PaymentStrategyFactory.GetPaymentStrategy(userRole));
+                                
+                return FinanceDTOBuilder(userReference, result, start.Month);
 
             }
             return null;
+        }
+
+        private FinanceDTO FinanceDTOBuilder(Guid userReference, int sum, int month)
+        {
+            return new FinanceDTO { UserReference = userReference, Sum = sum, Month = month };
         }
     }
 }
