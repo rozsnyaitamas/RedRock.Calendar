@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RedRock.Calendar.Modules.Users.Contract;
 
 namespace RedRock.Calendar.Modules.Users.Service
 {

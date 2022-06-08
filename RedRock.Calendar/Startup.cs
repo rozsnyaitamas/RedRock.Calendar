@@ -10,6 +10,8 @@ using RedRock.Calendar.Modules.Users.Service;
 using RedRock.Calendar.Modules.Events.Business;
 using RedRock.Calendar.Modules.Events.Service;
 using Microsoft.AspNetCore.Authentication;
+using RedRock.Calendar.Modules.Finance.Business;
+using RedRock.Calendar.Modules.Finance.Service;
 
 namespace RedRock.Calendar
 {
@@ -51,9 +53,11 @@ namespace RedRock.Calendar
 
             services.AddUserBusinesModule();
             services.AddEventBusinesModule();
+            services.AddFinanceBusinesModule();
 
             services.AddUserServiceModule();
             services.AddEventServiceModule();
+            services.AddFinanceServiceModule();
 
 
             services.AddSwaggerDocument(configure => configure.Title = "RedRock Calendar Api");

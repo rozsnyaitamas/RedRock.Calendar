@@ -178,6 +178,51 @@
         }
       }
     },
+    "/api/Finance": {
+      "get": {
+        "tags": [
+          "Finance"
+        ],
+        "operationId": "Finance_GetMonthlyFee",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "userReference",
+            "in": "query",
+            "format": "guid",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "startDate",
+            "in": "query",
+            "format": "date-time",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "endDate",
+            "in": "query",
+            "format": "date-time",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FinanceDTO"
+            }
+          }
+        }
+      }
+    },
     "/api/Users": {
       "get": {
         "tags": [
@@ -413,6 +458,28 @@
         }
       }
     },
+    "FinanceDTO": {
+      "type": "object",
+      "required": [
+        "userReference",
+        "sum",
+        "month"
+      ],
+      "properties": {
+        "userReference": {
+          "type": "string",
+          "format": "guid"
+        },
+        "sum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "month": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "UserDTO": {
       "type": "object",
       "required": [
@@ -420,7 +487,8 @@
         "fullName",
         "userName",
         "primaryColor",
-        "secondaryColor"
+        "secondaryColor",
+        "role"
       ],
       "properties": {
         "id": {
@@ -443,8 +511,25 @@
         "secondaryColor": {
           "type": "string",
           "minLength": 1
+        },
+        "role": {
+          "$ref": "#/definitions/UserRole"
         }
       }
+    },
+    "UserRole": {
+      "type": "integer",
+      "description": "",
+      "x-enumNames": [
+        "StandardUser",
+        "PropertyOwner",
+        "SupporterUser"
+      ],
+      "enum": [
+        0,
+        1,
+        2
+      ]
     },
     "UserChangePasswordDTO": {
       "type": "object",
@@ -463,7 +548,8 @@
     "UserUpdateDTO": {
       "type": "object",
       "required": [
-        "id"
+        "id",
+        "role"
       ],
       "properties": {
         "id": {
@@ -478,6 +564,9 @@
         },
         "secondaryColor": {
           "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/UserRole"
         }
       }
     },

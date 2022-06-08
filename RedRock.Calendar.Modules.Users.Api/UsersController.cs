@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RedRock.Calendar.Modules.Users.Contract;
-using RedRock.Calendar.Modules.Users.Service;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

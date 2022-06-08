@@ -44,10 +44,18 @@ namespace RedRock.Calendar.Modules.Events.Business
             {
                 context.Events.Remove(result);
                 context.SaveChanges();
-            } else
+            }
+            else
             {
                 throw new KeyNotFoundException();
             }
+        }
+
+        public async Task<IEnumerable<Event>> GetIntervalWithUserRefAsync(Guid userReference, DateTime start, DateTime end)
+        {
+            return await context.Events
+                .Where(e => (e.StartDate.CompareTo(start) >= 0) && (e.StartDate.CompareTo(end) <= 0) && (e.UserReference.Equals(userReference)))
+                .ToListAsync<Event>();
         }
     }
 }

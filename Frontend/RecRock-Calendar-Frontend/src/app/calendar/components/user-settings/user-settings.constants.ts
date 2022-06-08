@@ -22,6 +22,7 @@ export const SnackActionClose: string = 'Close';
 export const UserFullNameFormControl: string = 'userFullNameFormControl';
 export const PrimaryColor: string = 'primaryColor';
 export const SecondaryColor: string = 'secondaryColor';
+export const RoleFormControl: string = 'roleFormControl';
 
 //------Password form control names-----
 export const OldPassword: string = 'oldPassword';
