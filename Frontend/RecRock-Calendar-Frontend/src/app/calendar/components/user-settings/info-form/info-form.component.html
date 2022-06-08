@@ -20,6 +20,23 @@
     class="main-input"
     type="color"
   /><br />
+  <div *ngIf="isNotPropertyOwner">
+    <label>User role:</label>
+    <br />
+    <mat-form-field appearance="fill" class="main-input">
+      <mat-select formControlName="roleFormControl">
+        <mat-option
+          matInput
+          class="main-input"
+          *ngFor="let role of userRoles"
+          [value]="role.value"
+        >
+          {{ role.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <br />
 
   <div class="main-form-button">
     <button mat-button type="submit">Update</button>

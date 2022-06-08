@@ -2,6 +2,6 @@
 
 export enum UserRole {
   StandardUser = 0,
-  PropertyOwner = 1,
-  SupporterUser = 2,
+  SupporterUser = 1,
+  PropertyOwner = 2,
 }
