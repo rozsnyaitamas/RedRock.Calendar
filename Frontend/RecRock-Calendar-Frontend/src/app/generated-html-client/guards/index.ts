@@ -86,6 +86,8 @@ export function isUserDTO(arg: any): arg is models.UserDTO {
     ( typeof arg.id === 'string' ) &&
     // primaryColor: string
     ( typeof arg.primaryColor === 'string' ) &&
+    // role: UserRole
+    ( isUserRole(arg.role) ) &&
     // secondaryColor: string
     ( typeof arg.secondaryColor === 'string' ) &&
     // userName: string
@@ -108,6 +110,14 @@ export function isUserLoginDTO(arg: any): arg is models.UserLoginDTO {
   );
   }
 
+export function isUserRole(arg: any): arg is models.UserRole {
+  return false
+   || arg === models.UserRole.StandardUser
+   || arg === models.UserRole.PropertyOwner
+   || arg === models.UserRole.SupporterUser
+  ;
+  }
+
 export function isUserUpdateDTO(arg: any): arg is models.UserUpdateDTO {
   return (
   arg != null &&
@@ -118,6 +128,8 @@ export function isUserUpdateDTO(arg: any): arg is models.UserUpdateDTO {
     ( typeof arg.id === 'string' ) &&
     // primaryColor?: string
     ( typeof arg.primaryColor === 'undefined' || typeof arg.primaryColor === 'string' ) &&
+    // role: UserRole
+    ( isUserRole(arg.role) ) &&
     // secondaryColor?: string
     ( typeof arg.secondaryColor === 'undefined' || typeof arg.secondaryColor === 'string' ) &&
 

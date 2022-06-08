@@ -46,6 +46,7 @@ namespace RedRock.Calendar.Modules.Users.Buseness
                 userOld.FullName = user.FullName;
                 userOld.PrimaryColor = user.PrimaryColor;
                 userOld.SecondaryColor = user.SecondaryColor;
+                userOld.Role = user.Role;
                 await context.SaveChangesAsync();
             }
             return userOld;

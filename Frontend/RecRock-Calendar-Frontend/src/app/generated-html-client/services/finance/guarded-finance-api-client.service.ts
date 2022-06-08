@@ -22,7 +22,7 @@ export class GuardedFinanceAPIClient extends FinanceAPIClient {
     super(httpClient, domain, options);
   }
 
-  getMonthlyFee(
+  override getMonthlyFee(
     args: {
       userReference?: string,
       startDate?: string,

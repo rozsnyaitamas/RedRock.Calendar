@@ -8,5 +8,6 @@ namespace RedRock.Calendar.Modules.Users.Contract
         public string FullName { get; set; }
         public string PrimaryColor { get; set; }
         public string SecondaryColor { get; set; }
+        public UserRole Role { get; set; }
     }
 }

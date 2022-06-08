@@ -14,5 +14,6 @@ namespace RedRock.Calendar.Modules.Users.Buseness
 
         public Task<User> ChangePasswordAsync(Guid id, string password);
         public Task<UserRole> GetRole(Guid id);
+        //public Task<User> SetRole(Guid id, UserRole role);
     }
 }

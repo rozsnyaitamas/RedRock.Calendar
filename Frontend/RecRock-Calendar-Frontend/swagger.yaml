@@ -487,7 +487,8 @@
         "fullName",
         "userName",
         "primaryColor",
-        "secondaryColor"
+        "secondaryColor",
+        "role"
       ],
       "properties": {
         "id": {
@@ -510,8 +511,25 @@
         "secondaryColor": {
           "type": "string",
           "minLength": 1
+        },
+        "role": {
+          "$ref": "#/definitions/UserRole"
         }
       }
+    },
+    "UserRole": {
+      "type": "integer",
+      "description": "",
+      "x-enumNames": [
+        "StandardUser",
+        "PropertyOwner",
+        "SupporterUser"
+      ],
+      "enum": [
+        0,
+        1,
+        2
+      ]
     },
     "UserChangePasswordDTO": {
       "type": "object",
@@ -530,7 +548,8 @@
     "UserUpdateDTO": {
       "type": "object",
       "required": [
-        "id"
+        "id",
+        "role"
       ],
       "properties": {
         "id": {
@@ -545,6 +564,9 @@
         },
         "secondaryColor": {
           "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/UserRole"
         }
       }
     },
