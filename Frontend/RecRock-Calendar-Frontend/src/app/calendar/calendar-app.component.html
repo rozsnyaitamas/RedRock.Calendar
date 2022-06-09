@@ -1,6 +1,6 @@
 
 <app-toolbar></app-toolbar>
 <div class="container">
-  <app-calendar class="item1"></app-calendar>
-  <app-side-panel class="item2"></app-side-panel>
+  <app-calendar class="calendar" (newViewDateEvent)="updateViewDate($event)"></app-calendar>
+  <app-side-panel class="side-panel" [viewDate]="viewDate"></app-side-panel>
 </div>

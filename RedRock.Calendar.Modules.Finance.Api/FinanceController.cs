@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RedRock.Calendar.Modules.Finance.Contract;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Finance.Api
@@ -20,10 +21,10 @@ namespace RedRock.Calendar.Modules.Finance.Api
         }
 
         [HttpGet]
-        public async Task<ActionResult<FinanceDTO>> GetMonthlyFee(Guid userReference, DateTime startDate, DateTime endDate)
+        public async Task<ActionResult<IEnumerable<FinanceDTO>>> GetMonthlyFee(Guid userReference, DateTime startDate, DateTime endDate)
         {
             var result = await financeService.GetMonthlyFee(userReference, startDate, endDate);
-            return (result == null) ? NotFound() : Ok(JsonConvert.SerializeObject(result));
+            return (result == null) ? NotFound() : Ok(result);
         }
 
     }

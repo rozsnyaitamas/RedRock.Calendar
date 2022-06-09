@@ -1,7 +1,7 @@
 import { CalendarView } from 'angular-calendar';
 import { isSameMonth, lastDayOfMonth } from 'date-fns';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DateFormatMonthYear } from '@shared/constants';
 import { EditDayPopupComponent } from '@redrock/calendar/components/edit-day-popup/edit-day-popup.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -32,6 +32,8 @@ export class CalendarComponent implements OnInit {
   public usersInfo: { [key: string]: User } = {};
 
   private currentUserId!: string;
+
+  @Output() newViewDateEvent = new EventEmitter<Date>(); //Used to emit the new vewDate to the parrent component
 
   constructor(
     public readonly dialog: MatDialog,
@@ -185,16 +187,19 @@ export class CalendarComponent implements OnInit {
 
   public previousMonth(): void {
     this.viewDate = ChangeMonthHelper.previousMonth(this.viewDate);
+    this.newViewDateEvent.emit(this.viewDate);
     this.refreshEvents();
   }
 
   public nextMonth(): void {
     this.viewDate = ChangeMonthHelper.nextMonth(this.viewDate);
+    this.newViewDateEvent.emit(this.viewDate);
     this.refreshEvents();
   }
 
   public goToday(): void {
     this.viewDate = new Date();
+    this.newViewDateEvent.emit(this.viewDate);
     this.refreshEvents();
   }
 

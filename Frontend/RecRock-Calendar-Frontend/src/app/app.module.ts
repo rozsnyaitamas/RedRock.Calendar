@@ -12,6 +12,7 @@ import { UsersAPIClientModule } from '@redrock/generated-html-client/services/us
 import { environment } from 'environments/environment';
 import { EventsAPIClientModule } from '@redrock/generated-html-client/services/events';
 import { CalendarRoutesParts } from '@redrock/calendar/calendar-routes';
+import { FinanceAPIClientModule } from '@redrock/generated-html-client/services/finance';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,15 @@ import { CalendarRoutesParts } from '@redrock/calendar/calendar-routes';
       },
     }),
     EventsAPIClientModule.forRoot({
+      domain: environment.serverUrl,
+      httpOptions: {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      },
+    }),
+    FinanceAPIClientModule.forRoot({
       domain: environment.serverUrl,
       httpOptions: {
         headers: {

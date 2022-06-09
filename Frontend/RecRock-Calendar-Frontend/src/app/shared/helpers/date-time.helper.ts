@@ -1,3 +1,5 @@
+import { lastDayOfMonth } from "date-fns";
+
 export class DateTimeHelper {
   public static formatTime(time: Date): string {
     return time.getHours() + ':' + time.getMinutes();
@@ -18,5 +20,9 @@ export class DateTimeHelper {
 
   public static firstDayOfThisMonth(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), 1);
+  }
+
+  public static lastDayOfThisMonth(date: Date): Date {
+    return lastDayOfMonth(date);
   }
 }

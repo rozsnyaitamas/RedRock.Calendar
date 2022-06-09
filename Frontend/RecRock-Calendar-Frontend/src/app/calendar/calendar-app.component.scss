@@ -3,7 +3,7 @@
   padding-top: 4%;
 }
 
-.item1 {
+.calendar {
   grid-column-start: 2;
   grid-column-end: 19;
   grid-row-start: 2;
@@ -11,8 +11,8 @@
   background-color: rgba(0, 255, 200, 0.411);
 }
 
-.item2 {
-  visibility: hidden; //TODO don't forget about this!
+.side-panel {
+  visibility: show; //TODO don't forget about this!
   grid-column-start: 20;
   grid-column-end: 25;
   grid-row-start: 2;
