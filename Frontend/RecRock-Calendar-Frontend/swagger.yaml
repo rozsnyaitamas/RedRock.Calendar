@@ -217,7 +217,10 @@
             "x-nullable": false,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/FinanceDTO"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FinanceDTO"
+              }
             }
           }
         }
@@ -522,8 +525,8 @@
       "description": "",
       "x-enumNames": [
         "StandardUser",
-        "PropertyOwner",
-        "SupporterUser"
+        "SupporterUser",
+        "PropertyOwner"
       ],
       "enum": [
         0,
@@ -566,7 +569,13 @@
           "type": "string"
         },
         "role": {
-          "$ref": "#/definitions/UserRole"
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "allOf": [
+            {
+              "$ref": "#/definitions/UserRole"
+            }
+          ]
         }
       }
     },

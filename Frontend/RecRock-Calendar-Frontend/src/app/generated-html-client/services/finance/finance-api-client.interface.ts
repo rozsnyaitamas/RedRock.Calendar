@@ -16,6 +16,6 @@ export interface FinanceAPIClientInterface {
       endDate?: string,
     },
     requestHttpOptions?: HttpOptions
-  ): Observable<models.FinanceDTO>;
+  ): Observable<models.FinanceDTO[]>;
 
 }

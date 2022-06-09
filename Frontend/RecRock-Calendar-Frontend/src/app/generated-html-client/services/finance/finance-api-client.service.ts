@@ -52,7 +52,7 @@ export class FinanceAPIClient implements FinanceAPIClientInterface {
       endDate?: string,
     },
     requestHttpOptions?: HttpOptions
-  ): Observable<models.FinanceDTO> {
+  ): Observable<models.FinanceDTO[]> {
     const path = `/api/Finance`;
     const options: APIHttpOptions = {
       ...this.options,
@@ -68,7 +68,7 @@ export class FinanceAPIClient implements FinanceAPIClientInterface {
     if ('endDate' in args) {
       options.params = options.params.set('endDate', String(args.endDate));
     }
-    return this.sendRequest<models.FinanceDTO>('GET', path, options);
+    return this.sendRequest<models.FinanceDTO[]>('GET', path, options);
   }
 
   private sendRequest<T>(method: string, path: string, options: HttpOptions, body?: any): Observable<T> {

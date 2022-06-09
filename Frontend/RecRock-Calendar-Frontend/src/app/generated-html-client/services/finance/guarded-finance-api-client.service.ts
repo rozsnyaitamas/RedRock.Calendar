@@ -29,7 +29,7 @@ export class GuardedFinanceAPIClient extends FinanceAPIClient {
       endDate?: string,
     },
     requestHttpOptions?: HttpOptions
-  ): Observable<models.FinanceDTO> {
+  ): Observable<models.FinanceDTO[]> {
     return super.getMonthlyFee(args, requestHttpOptions)
       .pipe(tap((res: any) => guards.isFinanceDTO(res) || console.error(`TypeGuard for response 'FinanceDTO' caught inconsistency.`, res)));
   }
