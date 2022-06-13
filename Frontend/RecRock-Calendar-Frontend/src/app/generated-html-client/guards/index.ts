@@ -50,8 +50,12 @@ export function isFinanceDTO(arg: any): arg is models.FinanceDTO {
   return (
   arg != null &&
   typeof arg === 'object' &&
+    // eventsNumber: number
+    ( typeof arg.eventsNumber === 'number' ) &&
     // month: number
     ( typeof arg.month === 'number' ) &&
+    // price: number
+    ( typeof arg.price === 'number' ) &&
     // sum: number
     ( typeof arg.sum === 'number' ) &&
     // userReference: string

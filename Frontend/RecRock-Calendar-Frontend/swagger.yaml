@@ -466,7 +466,9 @@
       "required": [
         "userReference",
         "sum",
-        "month"
+        "month",
+        "eventsNumber",
+        "price"
       ],
       "properties": {
         "userReference": {
@@ -478,6 +480,14 @@
           "format": "int32"
         },
         "month": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "eventsNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "price": {
           "type": "integer",
           "format": "int32"
         }
