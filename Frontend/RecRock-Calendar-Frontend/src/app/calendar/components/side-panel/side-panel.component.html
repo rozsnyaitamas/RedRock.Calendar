@@ -1,8 +1,16 @@
 <div class="main-container">
-  <button (click)="getFee()">Get monthly fee</button>
+  <button mat-button color="primary" class="get-fee-button" (click)="getFee()">
+    Get monthly fee
+  </button>
   <div class="fees-container">
-    <div *ngFor="let financeDTO of financeDTOs">
-      <app-fee-template [financeDTO] = "financeDTO"></app-fee-template>
+    <div class="fees" *ngFor="let financeDTO of financeDTOs">
+      <app-fee-template [financeDTO]="financeDTO"></app-fee-template>
+    </div>
+    <div *ngIf="financeDTOs.length !== 0" class="fees-footer">
+      <div class="overall-sum">
+        <p>Overall sum {{ overallSum }}RON</p>
+      </div>
+      <button mat-raised-button color="accent" class="export-pdf-button">Export to PDF!</button>
     </div>
   </div>
 </div>

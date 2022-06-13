@@ -12,6 +12,7 @@ export class SidePanelComponent implements OnInit {
 
   @Input() viewDate: Date = new Date();
   financeDTOs: FinanceDTO[] = [];
+  overallSum: number = 0;
 
   constructor(private readonly financeService: FinanceService) { }
 
@@ -19,12 +20,14 @@ export class SidePanelComponent implements OnInit {
   }
 
   getFee(): void {
-    console.log("works");
     var userId = StorageHelper.getUserId(sessionStorage);
     if(userId){
       this.financeService.getMonthlyFee(userId, this.viewDate).then(
         (financeDTOs) => {
           this.financeDTOs = financeDTOs;
+          financeDTOs.forEach(financeDTO => {
+            this.overallSum += financeDTO.sum;
+          });
         }
       );
     }

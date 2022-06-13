@@ -23,7 +23,6 @@ export class FinanceService {
         endDate: endDate,
       })
     ).then((financeDTO) => {
-      console.log(financeDTO); //TODO clear this
       return financeDTO;
     });
   }

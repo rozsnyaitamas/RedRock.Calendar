@@ -1,6 +1,10 @@
-<p>fee-template works!</p>
-<hr/>
+<hr />
+<p>{{ usersFullName }}</p>
+<hr class="middle"/>
 <p>
-  {{financeDTO.sum}}
+  Month: {{ feeMonth }} | {{ financeDTO.eventsNumber }}x{{
+    financeDTO.price
+  }}RON
 </p>
-<hr/>
+<p class="total">Total {{ financeDTO.sum }}RON</p>
+<hr />

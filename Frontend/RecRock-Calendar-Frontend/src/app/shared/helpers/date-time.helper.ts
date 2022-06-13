@@ -25,4 +25,13 @@ export class DateTimeHelper {
   public static lastDayOfThisMonth(date: Date): Date {
     return lastDayOfMonth(date);
   }
+
+  public static toMonthName(monthNumber: number) {
+    const date = new Date();
+    date.setMonth(monthNumber - 1);
+
+    return date.toLocaleString('en-US', {
+      month: 'long',
+    });
+  }
 }
