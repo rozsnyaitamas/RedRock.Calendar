@@ -1,3 +1,8 @@
 <div class="main-container">
   <button (click)="getFee()">Get monthly fee</button>
+  <div class="fees-container">
+    <div *ngFor="let financeDTO of financeDTOs">
+      <app-fee-template [financeDTO] = "financeDTO"></app-fee-template>
+    </div>
+  </div>
 </div>

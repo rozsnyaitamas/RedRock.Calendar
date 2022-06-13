@@ -23,6 +23,7 @@ import { UserSettingsComponent } from '@redrock/calendar/components/user-setting
 import { CalendarRoutesParts } from '@redrock/calendar/calendar-routes';
 import { InfoFormComponent } from './components/user-settings/info-form/info-form.component';
 import { PasswordChangeFormComponent } from './components/user-settings/password-change-form/password-change-form.component';
+import { FeeTemplateComponent } from './components/fee-template/fee-template.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { PasswordChangeFormComponent } from './components/user-settings/password
     UserSettingsComponent,
     InfoFormComponent,
     PasswordChangeFormComponent,
+    FeeTemplateComponent,
   ],
   imports: [
     CommonModule,

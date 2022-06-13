@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FinanceDTO } from '@redrock/generated-html-client/models';
 import { FinanceService } from '@redrock/services/finance.service';
 import { StorageHelper } from '@redrock/shared/helpers/storage.helper';
 
@@ -10,6 +11,7 @@ import { StorageHelper } from '@redrock/shared/helpers/storage.helper';
 export class SidePanelComponent implements OnInit {
 
   @Input() viewDate: Date = new Date();
+  financeDTOs: FinanceDTO[] = [];
 
   constructor(private readonly financeService: FinanceService) { }
 
@@ -20,7 +22,11 @@ export class SidePanelComponent implements OnInit {
     console.log("works");
     var userId = StorageHelper.getUserId(sessionStorage);
     if(userId){
-      this.financeService.getMonthlyFee(userId, this.viewDate);
+      this.financeService.getMonthlyFee(userId, this.viewDate).then(
+        (financeDTOs) => {
+          this.financeDTOs = financeDTOs;
+        }
+      );
     }
   }
 
