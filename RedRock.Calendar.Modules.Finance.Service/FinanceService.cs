@@ -5,6 +5,7 @@ using RedRock.Calendar.Modules.Finance.Contract;
 using RedRock.Calendar.Modules.Users.Contract;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Finance.Service
@@ -54,14 +55,14 @@ namespace RedRock.Calendar.Modules.Finance.Service
             {
                 var result = financeLogic.CalculateMonthlyFee(events, PaymentStrategyFactory.GetPaymentStrategy(userRole));
 
-                return FinanceDTOBuilder(userReference, result, start.Month);
+                return FinanceDTOBuilder(userReference, result, start.Month, events.Count());
             }
             return null;
         }
 
-        private FinanceDTO FinanceDTOBuilder(Guid userReference, int sum, int month)
+        private FinanceDTO FinanceDTOBuilder(Guid userReference, int sum, int month, int eventsNumber)
         {
-            return new FinanceDTO { UserReference = userReference, Sum = sum, Month = month };
+            return new FinanceDTO { UserReference = userReference, Sum = sum, Month = month, EventsNumber = eventsNumber, Price = sum/eventsNumber };
         }
     }
 }
