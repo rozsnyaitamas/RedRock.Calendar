@@ -53,16 +53,17 @@ namespace RedRock.Calendar.Modules.Finance.Service
             var events = await eventService.GetIntervalWithUserRefAsync(userReference, start, end);
             if (events != null)
             {
-                var result = financeLogic.CalculateMonthlyFee(events, PaymentStrategyFactory.GetPaymentStrategy(userRole));
+                var paymentStrategy = PaymentStrategyFactory.GetPaymentStrategy(userRole);
+                var result = financeLogic.CalculateMonthlyFee(events, paymentStrategy);
 
-                return FinanceDTOBuilder(userReference, result, start.Month, events.Count());
+                return FinanceDTOBuilder(userReference, result, start.Month, events.Count(), paymentStrategy.GetPrice());
             }
             return null;
         }
 
-        private FinanceDTO FinanceDTOBuilder(Guid userReference, int sum, int month, int eventsNumber)
+        private FinanceDTO FinanceDTOBuilder(Guid userReference, int sum, int month, int eventsNumber, int price)
         {
-            return new FinanceDTO { UserReference = userReference, Sum = sum, Month = month, EventsNumber = eventsNumber, Price = sum/eventsNumber };
+            return new FinanceDTO { UserReference = userReference, Sum = sum, Month = month, EventsNumber = eventsNumber, Price = price };
         }
     }
 }

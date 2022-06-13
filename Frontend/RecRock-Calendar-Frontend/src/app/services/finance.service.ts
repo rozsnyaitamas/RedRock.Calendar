@@ -13,7 +13,7 @@ export class FinanceService {
   public async getMonthlyFee(
     userID: string,
     date: Date,
-  ): Promise<FinanceDTO> {
+  ): Promise<FinanceDTO[]> {
     let startDate = DateTimeHelper.firstDayOfThisMonth(date).toISOString();
     let endDate = DateTimeHelper.lastDayOfThisMonth(date).toISOString();
     return firstValueFrom(
