@@ -12,6 +12,8 @@ using RedRock.Calendar.Modules.Events.Service;
 using Microsoft.AspNetCore.Authentication;
 using RedRock.Calendar.Modules.Finance.Business;
 using RedRock.Calendar.Modules.Finance.Service;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 
 namespace RedRock.Calendar
 {
@@ -29,6 +31,9 @@ namespace RedRock.Calendar
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+
             services.AddControllers();
             var assembly = typeof(UsersController).Assembly;
             services.AddControllers().PartManager.ApplicationParts.Add(new AssemblyPart(assembly));
