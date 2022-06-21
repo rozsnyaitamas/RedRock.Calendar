@@ -71,6 +71,33 @@ export class FinanceAPIClient implements FinanceAPIClientInterface {
     return this.sendRequest<models.FinanceDTO[]>('GET', path, options);
   }
 
+  /**
+   * Response generated for [ 200 ] HTTP response code.
+   */
+  createPDF(
+    args: {
+      id: string,
+      startDate?: string,
+      endDate?: string,
+    },
+    requestHttpOptions?: HttpOptions
+  ): Observable<File> {
+    const path = `/api/Finance/${args.id}/pdf`;
+    const options: APIHttpOptions = {
+      ...this.options,
+      ...requestHttpOptions,
+      responseType: 'blob',
+    };
+
+    if ('startDate' in args) {
+      options.params = options.params.set('startDate', String(args.startDate));
+    }
+    if ('endDate' in args) {
+      options.params = options.params.set('endDate', String(args.endDate));
+    }
+    return this.sendRequest<File>('GET', path, options);
+  }
+
   private sendRequest<T>(method: string, path: string, options: HttpOptions, body?: any): Observable<T> {
     switch (method) {
       case 'DELETE':

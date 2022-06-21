@@ -226,6 +226,47 @@
         }
       }
     },
+    "/api/Finance/{id}/pdf": {
+      "get": {
+        "tags": [
+          "Finance"
+        ],
+        "operationId": "Finance_CreatePDF",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "guid",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "startDate",
+            "in": "query",
+            "format": "date-time",
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "endDate",
+            "in": "query",
+            "format": "date-time",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
     "/api/Users": {
       "get": {
         "tags": [
