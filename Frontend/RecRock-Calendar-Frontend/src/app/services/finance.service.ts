@@ -12,7 +12,7 @@ export class FinanceService {
 
   public async getMonthlyFee(
     userID: string,
-    date: Date,
+    date: Date
   ): Promise<FinanceDTO[]> {
     let startDate = DateTimeHelper.firstDayOfThisMonth(date).toISOString();
     let endDate = DateTimeHelper.lastDayOfThisMonth(date).toISOString();
@@ -24,6 +24,20 @@ export class FinanceService {
       })
     ).then((financeDTO) => {
       return financeDTO;
+    });
+  }
+
+  public async getMonthlyFeePDF(userID: string, date: Date): Promise<File> {
+    let startDate = DateTimeHelper.firstDayOfThisMonth(date).toISOString();
+    let endDate = DateTimeHelper.lastDayOfThisMonth(date).toISOString();
+    return firstValueFrom(
+      this.api.createPDF({
+        id: userID,
+        startDate: startDate,
+        endDate: endDate,
+      })
+    ).then((pdf) => {
+      return pdf;
     });
   }
 }

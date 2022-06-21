@@ -2,6 +2,8 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FinanceDTO } from '@redrock/generated-html-client/models';
 import { FinanceService } from '@redrock/services/finance.service';
 import { StorageHelper } from '@redrock/shared/helpers/storage.helper';
+import { saveAs } from 'file-saver';
+import { DateTimeHelper } from '@redrock/shared/helpers/date-time.helper';
 
 @Component({
   selector: 'app-side-panel',
@@ -32,6 +34,17 @@ export class SidePanelComponent implements OnInit {
     }
   }
 
-  exportPdf() {
+  exportPdf():void {
+    var userId = StorageHelper.getUserId(sessionStorage);
+    var userName = StorageHelper.getUserFullName(sessionStorage);
+
+    var monthName = DateTimeHelper.toMonthName(this.viewDate.getMonth()+1);
+    if (userId) {
+      this.financeService
+        .getMonthlyFeePDF(userId, this.viewDate)
+        .then((file) => {
+          saveAs(file, `${userName}.${monthName}.pdf`);
+        });
+    }
   }
 }
