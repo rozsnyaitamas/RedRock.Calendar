@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DinkToPdf;
+using DinkToPdf.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RedRock.Calendar.Modules.Finance.Contract;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Finance.Api
@@ -13,17 +17,28 @@ namespace RedRock.Calendar.Modules.Finance.Api
     public class FinanceController : ControllerBase
     {
         private readonly IFinanceService financeService;
+        private readonly IConverter converter;
 
-        public FinanceController(IFinanceService financeService)
+        public FinanceController(IFinanceService financeService, IConverter converter)
         {
             this.financeService = financeService;
+            this.converter = converter;
         }
 
+
         [HttpGet]
-        public async Task<ActionResult<FinanceDTO>> GetMonthlyFee(Guid userReference, DateTime startDate, DateTime endDate)
+        public async Task<ActionResult<IEnumerable<FinanceDTO>>> GetMonthlyFee(Guid userReference, DateTime startDate, DateTime endDate)
         {
             var result = await financeService.GetMonthlyFee(userReference, startDate, endDate);
-            return (result == null) ? NotFound() : Ok(JsonConvert.SerializeObject(result));
+            return (result == null) ? NotFound() : Ok(result);
+        }
+
+
+        [HttpGet("{id}/pdf")]
+        public async Task<IActionResult> CreatePDF(Guid id, DateTime startDate, DateTime endDate)
+        {
+            var file = await financeService.GetFeeDocument(id, startDate, endDate);
+            return File(file, "application/pdf");
         }
 
     }

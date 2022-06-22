@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarAppComponent implements OnInit {
 
+  public viewDate: Date = new Date();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  updateViewDate(viewDate: Date) {
+    this.viewDate = viewDate;
   }
 
 }

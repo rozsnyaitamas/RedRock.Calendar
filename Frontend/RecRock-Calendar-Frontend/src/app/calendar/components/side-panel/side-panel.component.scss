@@ -1,0 +1,30 @@
+@import "../../../theming/theming";
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-gray_dark_1);
+}
+
+.fees-container {
+  background-color: var(--color-gray_dark_1);
+}
+
+.fees, .overall-sum {
+  color: var(--color-white)
+}
+
+.get-fee-button {
+  margin-top: $displayUnitSmall;
+  margin-left: 25%;
+  width: 50%;
+  text-align: center;
+}
+
+.overall-sum {
+  text-align: right;
+}
+
+.export-pdf-button {
+  margin: $displayUnitSmall;
+}

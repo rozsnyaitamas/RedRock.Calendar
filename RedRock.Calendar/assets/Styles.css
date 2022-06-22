@@ -1,0 +1,16 @@
+﻿.header {
+    text-align: center;
+    color: green;
+    padding-bottom: 35px;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+}
+
+td.with-border {
+    border: 1px solid gray;
+    padding: 15px;
+    font-size: 22px;
+}

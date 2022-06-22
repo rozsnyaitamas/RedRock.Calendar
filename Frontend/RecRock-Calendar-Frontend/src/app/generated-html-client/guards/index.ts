@@ -50,8 +50,12 @@ export function isFinanceDTO(arg: any): arg is models.FinanceDTO {
   return (
   arg != null &&
   typeof arg === 'object' &&
+    // eventsNumber: number
+    ( typeof arg.eventsNumber === 'number' ) &&
     // month: number
     ( typeof arg.month === 'number' ) &&
+    // price: number
+    ( typeof arg.price === 'number' ) &&
     // sum: number
     ( typeof arg.sum === 'number' ) &&
     // userReference: string
@@ -113,8 +117,8 @@ export function isUserLoginDTO(arg: any): arg is models.UserLoginDTO {
 export function isUserRole(arg: any): arg is models.UserRole {
   return false
    || arg === models.UserRole.StandardUser
-   || arg === models.UserRole.PropertyOwner
    || arg === models.UserRole.SupporterUser
+   || arg === models.UserRole.PropertyOwner
   ;
   }
 
@@ -129,7 +133,7 @@ export function isUserUpdateDTO(arg: any): arg is models.UserUpdateDTO {
     // primaryColor?: string
     ( typeof arg.primaryColor === 'undefined' || typeof arg.primaryColor === 'string' ) &&
     // role: UserRole
-    ( isUserRole(arg.role) ) &&
+    ( ( isUserRole(arg.role) ) ) &&
     // secondaryColor?: string
     ( typeof arg.secondaryColor === 'undefined' || typeof arg.secondaryColor === 'string' ) &&
 
