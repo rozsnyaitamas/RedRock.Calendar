@@ -1,4 +1,5 @@
 ﻿using DinkToPdf;
+using DinkToPdf.Contracts;
 using RedRock.Calendar.Modules.Events.Contract;
 using RedRock.Calendar.Modules.Finance.Business;
 using RedRock.Calendar.Modules.Finance.Business.PaymentStrategy;
@@ -17,12 +18,14 @@ namespace RedRock.Calendar.Modules.Finance.Service
         private readonly IFinanceBusinessLogic financeLogic;
         private readonly IEventService eventService;
         private readonly IUserService userService;
+        private readonly IConverter converter;
 
-        public FinanceService(IFinanceBusinessLogic financeLogic, IEventService eventService, IUserService userService)
+        public FinanceService(IFinanceBusinessLogic financeLogic, IEventService eventService, IUserService userService, IConverter converter)
         {
             this.financeLogic = financeLogic;
             this.eventService = eventService;
             this.userService = userService;
+            this.converter = converter;
         }
 
         public async Task<IEnumerable<FinanceDTO>> GetMonthlyFee(Guid userReference, DateTime start, DateTime end)
@@ -68,7 +71,7 @@ namespace RedRock.Calendar.Modules.Finance.Service
             return new FinanceDTO { UserReference = userReference, Sum = sum, Month = month, EventsNumber = eventsNumber, Price = price };
         }
 
-        public async Task<HtmlToPdfDocument> GetFeeDocument(Guid userId, DateTime start, DateTime end)
+        public async Task<byte[]> GetFeeDocument(Guid userId, DateTime start, DateTime end)
         {
             var finanaceDTOs = await GetMonthlyFee(userId, start, end);
             var users = await userService.GetUsers();
@@ -81,7 +84,7 @@ namespace RedRock.Calendar.Modules.Finance.Service
                 Objects = { GetDocumentObjectSettings(htmlContent) }
             };
 
-            return pdf;
+            return converter.Convert(pdf);
         }
 
         private GlobalSettings GetDocumentGlobalSettigns()

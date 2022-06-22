@@ -37,8 +37,7 @@ namespace RedRock.Calendar.Modules.Finance.Api
         [HttpGet("{id}/pdf")]
         public async Task<IActionResult> CreatePDF(Guid id, DateTime startDate, DateTime endDate)
         {
-            var pdf = await financeService.GetFeeDocument(id, startDate, endDate);
-            var file = converter.Convert(pdf);
+            var file = await financeService.GetFeeDocument(id, startDate, endDate);
             return File(file, "application/pdf");
         }
 
