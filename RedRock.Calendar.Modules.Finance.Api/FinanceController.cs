@@ -1,12 +1,8 @@
-﻿using DinkToPdf;
-using DinkToPdf.Contracts;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using RedRock.Calendar.Modules.Finance.Contract;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace RedRock.Calendar.Modules.Finance.Api
@@ -17,12 +13,10 @@ namespace RedRock.Calendar.Modules.Finance.Api
     public class FinanceController : ControllerBase
     {
         private readonly IFinanceService financeService;
-        private readonly IConverter converter;
 
-        public FinanceController(IFinanceService financeService, IConverter converter)
+        public FinanceController(IFinanceService financeService)
         {
             this.financeService = financeService;
-            this.converter = converter;
         }
 
 
