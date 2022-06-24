@@ -20,6 +20,8 @@ namespace RedRock.Calendar.Modules.Users.Api
             this.userService = userService;
         }
 
+
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDTO>>> Get()
         {
