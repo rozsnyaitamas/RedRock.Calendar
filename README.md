@@ -9,9 +9,7 @@ In the root folder open a CMD and run the following comands:
 1. npm run build
 2. npm run generate-swagger-file
 
-Then, in the Frontend\RecRock-Calendar-Frontend folder run:
-
-2.5. cd Frontend\RecRock-Calendar-Frontend
+Copy the generated 'swagger.yaml' file from 'GeneratedSwaggerFile' folder, to the root of the RedRock.Calendar.FrontEnd project. Open comandline there, then: 
 
 3. npm run generate-api-client
 

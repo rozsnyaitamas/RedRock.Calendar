@@ -13,7 +13,7 @@
     "start:server-app": "cross-env ASPNETCORE_URLS=http://*:5000 ASPNETCORE_ENVIRONMENT=Development dotnet watch --project .\\RedRock.Calendar\\RedRock.Calendar.Host.csproj run --no-launch-profile",
     "generate-swagger-file": "start-server-and-test generate-swagger-file:server-app:serve http-get://localhost:5000/swagger/v1/swagger.json generate-swagger-file:run-project",
     "generate-swagger-file:server-app:serve": "cross-env ASPNETCORE_URLS=http://*:5000 ASPNETCORE_ENVIRONMENT=Development dotnet run --project .\\RedRock.Calendar\\RedRock.Calendar.Host.csproj --no-launch-profile",
-    "generate-swagger-file:run-project": "dotnet run --project .\\SwaggerJSONFileGenerator\\SwaggerJSONFileGenerator.csproj http://localhost:5000/swagger/v1/swagger.json .\\Frontend\\RecRock-Calendar-Frontend\\swagger.yaml"
+    "generate-swagger-file:run-project": "dotnet run --project .\\SwaggerJSONFileGenerator\\SwaggerJSONFileGenerator.csproj http://localhost:5000/swagger/v1/swagger.json .\\GeneratedSwaggerFile\\swagger.yaml"
   },
   "repository": {
     "type": "git",
