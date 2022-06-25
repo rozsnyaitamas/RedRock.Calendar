@@ -73,10 +73,6 @@ namespace RedRock.Calendar.Modules.Users.Api
         {
             var result = await userService.Update(id, userDTO);
 
-            if (result == null)
-            {
-                return NotFound();
-            }
             return NoContent();
         }
 

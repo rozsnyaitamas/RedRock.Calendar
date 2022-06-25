@@ -24,7 +24,7 @@ namespace RedRock.Calendar.Modules.Finance.Api
         public async Task<ActionResult<IEnumerable<FinanceDTO>>> GetMonthlyFee(Guid userReference, DateTime startDate, DateTime endDate)
         {
             var result = await financeService.GetMonthlyFee(userReference, startDate, endDate);
-            return (result == null) ? NotFound() : Ok(result);
+            return Ok(result);
         }
 
 

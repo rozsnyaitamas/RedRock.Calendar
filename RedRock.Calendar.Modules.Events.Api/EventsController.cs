@@ -23,7 +23,7 @@ namespace RedRock.Calendar.Modules.Events.Api
         public async Task<ActionResult<EventDTO>> Get(Guid userReference, DateTime date)
         {
             var result = await eventService.GetEvent(userReference, date);
-            return (result == null) ? NotFound() : Ok(result);
+            return Ok(result);
         }
 
         [HttpPost]
@@ -44,7 +44,7 @@ namespace RedRock.Calendar.Modules.Events.Api
         public async Task<ActionResult<IEnumerable<EventDTO>>> GetInterval(DateTime startDate, DateTime endDate)
         {
             var result = await this.eventService.GetIntervalAsync(startDate, endDate);
-            return (result == null) ? NotFound() : Ok(result);
+            return Ok(result);
         }
 
         [HttpDelete("{eventId}")]
@@ -57,7 +57,7 @@ namespace RedRock.Calendar.Modules.Events.Api
             }
             catch (KeyNotFoundException e)
             {
-                return NotFound(e.Message);
+                return Ok(e.Message);
             }
         }
     }
