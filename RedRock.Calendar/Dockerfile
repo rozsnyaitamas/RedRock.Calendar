@@ -21,6 +21,9 @@ COPY ["RedRock.Calendar.Modules.Users.Buseness/RedRock.Calendar.Modules.Users.Bu
 COPY ["HashingHelpers/HashingHelpers.csproj", "HashingHelpers/"]
 COPY ["RedRock.Calendar.Modules.Users.Api/RedRock.Calendar.Modules.Users.Api.csproj", "RedRock.Calendar.Modules.Users.Api/"]
 COPY ["RedRock.Calendar.Modules.Events.Api/RedRock.Calendar.Modules.Events.Api.csproj", "RedRock.Calendar.Modules.Events.Api/"]
+COPY ["RedRock.Calendar.ExternalFiles/libwkhtmltox.dll", "RedRock.Calendar.ExternalFiles/"]
+COPY ["RedRock.Calendar.ExternalFiles/libwkhtmltox.dylib", "RedRock.Calendar.ExternalFiles/"]
+COPY ["RedRock.Calendar.ExternalFiles/libwkhtmltox.so", "RedRock.Calendar.ExternalFiles/"]
 RUN dotnet restore "RedRock.Calendar/RedRock.Calendar.Host.csproj"
 COPY . .
 WORKDIR "/src/RedRock.Calendar"
