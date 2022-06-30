@@ -16,7 +16,6 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="DinkToPdf" Version="1.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -44,23 +43,6 @@
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Contract\RedRock.Calendar.Modules.Users.Contract.csproj" />
     <ProjectReference Include="..\RedRock.Calendar.Modules.Users.Service\RedRock.Calendar.Modules.Users.Service.csproj" />
   </ItemGroup>
-
-  <!--<Target Name="NSwag" AfterTargets="Build">
-    <Exec Command="$(NSwagExe_Core31) run nswag.json /variables:Configuration=$(Configuration)" />
-  </Target>-->
-
-  <Target Name="CopyDLLs" AfterTargets="Build">
-    <Message Text="Executing CopyDLLs task" Importance="High" />
-
-    <Copy
-      SourceFiles="..\RedRock.Calendar.ExternalFiles\libwkhtmltox.dll;..\RedRock.Calendar.ExternalFiles\libwkhtmltox.dylib;..\RedRock.Calendar.ExternalFiles\libwkhtmltox.so"
-      DestinationFolder=".\bin\release\netcoreapp3.1" />
-    <Copy
-      SourceFiles="..\RedRock.Calendar.ExternalFiles\libwkhtmltox.dll;..\RedRock.Calendar.ExternalFiles\libwkhtmltox.dylib;..\RedRock.Calendar.ExternalFiles\libwkhtmltox.so"
-      DestinationFolder=".\bin\Debug\netcoreapp3.1" />
-
-    <Message Text="Copied build files" Importance="High" />
-  </Target>
 
 
 </Project>

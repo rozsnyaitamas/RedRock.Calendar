@@ -1,15 +1,17 @@
-﻿using DinkToPdf;
-using DinkToPdf.Contracts;
-using RedRock.Calendar.Modules.Events.Contract;
+﻿using RedRock.Calendar.Modules.Events.Contract;
 using RedRock.Calendar.Modules.Finance.Business;
 using RedRock.Calendar.Modules.Finance.Business.PaymentStrategy;
 using RedRock.Calendar.Modules.Finance.Contract;
 using RedRock.Calendar.Modules.Users.Contract;
+using Syncfusion.Drawing;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RedRock.Calendar.Modules.Finance.Service
 {
@@ -18,14 +20,13 @@ namespace RedRock.Calendar.Modules.Finance.Service
         private readonly IFinanceBusinessLogic financeLogic;
         private readonly IEventService eventService;
         private readonly IUserService userService;
-        private readonly IConverter converter;
 
-        public FinanceService(IFinanceBusinessLogic financeLogic, IEventService eventService, IUserService userService, IConverter converter)
+        public FinanceService(IFinanceBusinessLogic financeLogic, IEventService eventService, IUserService userService
+            )
         {
             this.financeLogic = financeLogic;
             this.eventService = eventService;
             this.userService = userService;
-            this.converter = converter;
         }
 
         public async Task<IEnumerable<FinanceDTO>> GetMonthlyFee(Guid userReference, DateTime start, DateTime end)
@@ -71,44 +72,47 @@ namespace RedRock.Calendar.Modules.Finance.Service
             return new FinanceDTO { UserReference = userReference, Sum = sum, Month = month, EventsNumber = eventsNumber, Price = price };
         }
 
-        public async Task<byte[]> GetFeeDocument(Guid userId, DateTime start, DateTime end)
+        public async Task<FileStreamResult> GetFeeDocument(Guid userId, DateTime start, DateTime end)
         {
             var finanaceDTOs = await GetMonthlyFee(userId, start, end);
             var users = await userService.GetUsers();
 
-            var htmlContent = FeeTemplateGenerator.GetHTMLString(finanaceDTOs, users);
+            var htmlContent = FeeTemplateGenerator.GetFeeString(finanaceDTOs, users);
 
-            var pdf = new HtmlToPdfDocument()
+            var ms = PdfMemoryStreamGenerator(htmlContent);
+
+            FileStreamResult fileStreamResult = new FileStreamResult(ms, "application/pdf")
             {
-                GlobalSettings = GetDocumentGlobalSettigns(),
-                Objects = { GetDocumentObjectSettings(htmlContent) }
+                FileDownloadName = "Sample.pdf"
             };
-
-            return converter.Convert(pdf);
+            return fileStreamResult;
         }
 
-        private GlobalSettings GetDocumentGlobalSettigns()
+        private MemoryStream PdfMemoryStreamGenerator(string content)
         {
-            return new GlobalSettings
-            {
-                ColorMode = ColorMode.Color,
-                Orientation = Orientation.Portrait,
-                PaperSize = PaperKind.A4,
-                Margins = new MarginSettings { Top = 10 },
-                DocumentTitle = "PDF Report"
-            };
-        }
+            //Create a new PDF document
+            PdfDocument document = new PdfDocument();
 
-        private ObjectSettings GetDocumentObjectSettings(string content)
-        {
-            return new ObjectSettings
-            {
-                PagesCount = true,
-                HtmlContent = content,
-                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
-                HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
-                FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
-            };
+            //Add a page to the document
+            PdfPage page = document.Pages.Add();
+
+            //Create PDF graphics for the page
+            PdfGraphics graphics = page.Graphics;
+
+            //Set the standard font
+            PdfFont font = new PdfStandardFont(PdfFontFamily.Helvetica, 20);
+
+            //Draw the text
+            graphics.DrawString(content, font, PdfBrushes.Black, new PointF(0, 0));
+
+            //Saving the PDF to the MemoryStream
+            MemoryStream stream = new MemoryStream();
+            document.Save(stream);
+            //If the position is not set to '0' then the PDF will be empty.
+            stream.Position = 0;
+            //Close the document.
+            document.Close(true);
+            return stream;
         }
     }
 }

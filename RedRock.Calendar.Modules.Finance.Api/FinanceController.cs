@@ -29,11 +29,12 @@ namespace RedRock.Calendar.Modules.Finance.Api
 
 
         [HttpGet("{id}/pdf")]
-        public async Task<IActionResult> CreatePDF(Guid id, DateTime startDate, DateTime endDate)
+        public async Task<FileStreamResult> CreatePDF(Guid id, DateTime startDate, DateTime endDate)
         {
             var file = await financeService.GetFeeDocument(id, startDate, endDate);
-            return File(file, "application/pdf");
+            return new FileStreamResult(file.FileStream, "application/pdf");
         }
+        
 
     }
 }
